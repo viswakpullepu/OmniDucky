@@ -18,6 +18,7 @@ BLE_MODIFIERS = {
     "SHIFT":      "KEY_LEFT_SHIFT",
     "ALT":        "KEY_LEFT_ALT",
     "GUI":        "KEY_LEFT_GUI",
+    "WIN":        "KEY_LEFT_GUI",
     "WINDOWS":    "KEY_LEFT_GUI",
     "COMMAND":    "KEY_LEFT_GUI",
     "SUPER":      "KEY_LEFT_GUI",
