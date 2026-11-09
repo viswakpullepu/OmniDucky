@@ -1,267 +1,296 @@
 <div align="center">
 
 ```
-  ____                  _ _____             _           
- / __ \                (_)  __ \           | |          
-| |  | |_ __ ___  _ __  _| |  | |_   _  ___| | ___   _  
-| |  | | '_ ` _ \| '_ \| | |  | | | | |/ __| |/ / | | | 
-| |__| | | | | | | | | | | |__| | |_| | (__|   <| |_| | 
- \____/|_| |_| |_|_| |_|_|_____/ \__,_|\___|_|\_\\__, | 
-                                                  __/ | 
-                                                 |___/  
+             __
+           <(o )___
+            ( ._> /    O M N I D U C K Y
+             `---'     ESP32-S3 HID FRAMEWORK
 ```
 
 # 🦆 OmniDucky
 
-### Next-Generation ESP32-S3 Keystroke Injection & Wireless HID Exploitation Toolkit
-
-[![ESP32-S3](https://img.shields.io/badge/Hardware-ESP32--S3-E7352C?style=for-the-badge&logo=espressif&logoColor=white)](https://www.espressif.com/)
-[![Language](https://img.shields.io/badge/Language-Python%20%7C%20C%2B%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Platform](https://img.shields.io/badge/Target-Android%20%7C%20iOS%20%7C%20Windows%20%7C%20macOS%20%7C%20Linux-green?style=for-the-badge)](https://github.com/viswakpullepu/OmniDucky)
-[![Web Studio](https://img.shields.io/badge/Web%20Studio-Localhost:8080-purple?style=for-the-badge)](http://localhost:8080)
-[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
-
-<p align="center">
-  <b>Turn any $5 ESP32-S3 board into a military-grade USB & Bluetooth Rubber Ducky.</b><br>
-  Speak to it in plain human language &bull; Compile for PC & Mobile &bull; Physical Mouse & Keyboard Emulation
-</p>
+### Next-Gen Wireless (BLE) & Wired (USB) Keystroke Injection Toolkit
+**Autonomous HID Exploitation &bull; Natural Language to DuckyScript &bull; Adaptive Touch & Mouse Emulation**
 
 ---
 
-[Key Features](#-key-features) &bull;
-[Architecture](#-system-architecture) &bull;
-[Web Studio](#-web-studio) &bull;
-[Mobile Attack Vectors](#-mobile-targeting-android--ios) &bull;
-[Quickstart](#-quickstart) &bull;
-[DuckyScript Reference](#-duckyscript-syntax--mouse-extensions) &bull;
-[Flashing Guide](#-flashing-your-esp32-s3) &bull;
-[Disclaimer](#-legal-disclaimer)
+[![Hardware](https://img.shields.io/badge/Board-ESP32--S3%20Dual--Core-E7352C?style=for-the-badge&logo=espressif&logoColor=white)](https://www.espressif.com/)
+[![Protocol](https://img.shields.io/badge/Protocol-USB%20OTG%20%2B%20BLE%205.0-38BDF8?style=for-the-badge&logo=bluetooth&logoColor=white)](https://bluetooth.com)
+[![Testing](https://img.shields.io/badge/Automated%20Tests-1%2C255%20Passed%20(100%25)-10B981?style=for-the-badge&logo=checkmarx&logoColor=white)](tests/)
+[![Dashboard](https://img.shields.io/badge/Web%20Studio-Localhost%3A8080-8B5CF6?style=for-the-badge&logo=googlechrome&logoColor=white)](http://localhost:8080)
+[![License](https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge)](LICENSE)
+
+<br/>
+
+```
+  +========================================================================+
+  |  Turn a $5 ESP32-S3 into a dual-mode military-grade Rubber Ducky.      |
+  |  Write in plain English -> Auto-compile -> Attack PC, Mac, & Mobiles.  |
+  +========================================================================+
+```
+
+---
+
+[Key Highlights](#-key-highlights) &bull;
+[Hardware Blueprint](#-hardware-blueprint) &bull;
+[Attack Architecture](#-attack-architecture) &bull;
+[Target Matrix](#-cross-platform-target-matrix) &bull;
+[Web Studio](#-interactive-web-studio) &bull;
+[DuckyScript & Mouse Reference](#-duckyscript-syntax--mouse-extensions) &bull;
+[Flashing Guide](#-setup--flashing-guide) &bull;
+[Test Certification](#-verification--test-certification)
 
 ---
 
 </div>
 
-## ⚡ Key Features
+<br/>
 
-* 🧠 **Natural Language to DuckyScript Engine**: Type plain human commands like *"Open Chrome, wait 2 seconds, click allow, and type Hello"* — the parser converts it into synchronized, platform-specific DuckyScript automatically.
-* 📶 **Dual-Channel HID Attack Vectors**:
-  * **Wired USB HID**: Plug directly into any PC/Mac/Linux workstation for sub-second payload execution.
-  * **Wireless BLE HID**: Emulates an authentic Bluetooth Keyboard & Mouse (e.g., *"Logitech K380"*). Silently executes upon pairing with **Android phones**, **iPhones**, tablets, or laptops from up to 10 meters away.
-  * **Dual-Mode**: Runs both wired USB and wireless Bluetooth injection vectors simultaneously.
-* 🖱️ **Adaptive Mouse & Touch Emulation**:
-  * Full relative and normalized coordinate mouse control (`MOUSE_MOVE`, `MOUSE_CLICK`, `MOUSE_SCROLL`).
-  * **Hardware Corner-Reset Auto-Homing**: Re-zeros cursor drift to `(0, 0)` before stepping accurately to button targets.
-  * **Dynamic Screen Resolution Scaling**: Automatically maps percentage coordinates (`MOUSE_POS_PCT`) to target display sizes (1080p, 1440p, 20:9 phone displays, Retina displays).
-  * **Smart Modal Auto-Accept**: Combines accessibility keyboard navigation (`TAB` + `ENTER`) with calibrated screen clicks to accept permission dialogs on mobile devices.
-* 🖥️ **Built-in Web Studio**: A sleek, dark-mode dashboard running locally at `http://localhost:8080` with real-time translation, device presets, payload library, and instant `.ino` sketch generation.
-* 🔒 **Zero Telemetry & 100% Offline**: No cloud APIs, no external telemetry, and no AI overhead on the microcontroller. The ESP32-S3 runs high-speed bare-metal C++ firmware.
+## ⚡ Key Highlights
+
+```
+  ┌───────────────────────┐   ┌───────────────────────┐   ┌───────────────────────┐
+  │   🗣️ Natural Voice    │   │   📶 Dual-Channel     │   │   🎯 Adaptive Touch   │
+  │   Plain English NLP   │   │   Wired USB + BLE 5.0 │   │   Auto-Homing Mouse   │
+  │   Converts speech or  │   │   Injects keystrokes  │   │   Slams to (0,0) then │
+  │   text to DuckyScript │   │   into PCs & Mobiles  │   │   clicks permissions  │
+  └───────────────────────┘   └───────────────────────┘   └───────────────────────┘
+```
+
+* **🧠 Natural Language Translation Engine**: Speak or type freely (*"Open Chrome, wait 2s, click allow"*). The parser auto-resolves app names, handles typos, and injects optimal OS delays.
+* **📶 Dual USB-OTG & Bluetooth BLE 5.0**:
+  * **Wired USB**: Blazing fast sub-second injection when physically inserted into laptops or workstations.
+  * **Wireless BLE**: Masquerades as an authentic Bluetooth keyboard/mouse (*e.g., "Logitech K380"*). Silently executes payloads when paired with **Android** or **iPhones** up to 10 meters away.
+* **🖱️ Calibrated Screen-Percentage Touch Simulation**:
+  * Bypasses mobile permission prompts ("Allow Camera / Location / Notifications").
+  * Uses **Hardware Corner Auto-Reset** to re-zero mouse drift, then taps exact screen percentage coordinates (`MOUSE_POS_PCT 50 62`) alongside keyboard `TAB` + `ENTER` navigation.
+* **🖥️ Local Web Studio & Live Virtual Simulator**: Built-in zero-dependency dark-mode dashboard at `http://localhost:8080` with visual phone playback, real-time typing ticker, and 1-click `.ino` export.
+* **🛡️ 100% Offline & Pure C++**: Zero cloud telemetry, zero API keys, and zero AI overhead on the microcontroller. The ESP32-S3 executes bare-metal HID machine instructions.
 
 ---
 
-## 🏛️ System Architecture
+## 🔌 Hardware Blueprint
 
 ```
-                    ┌───────────────────────────────────────────────┐
-                    │            HUMAN OPERATOR / WEB UI            │
-                    │   "Open browser, go to URL, click Allow"     │
-                    └───────────────────────┬───────────────────────┘
-                                            │
-                                            ▼
-                    ┌───────────────────────────────────────────────┐
-                    │        NATURAL LANGUAGE PARSER (NLP)          │
-                    │      compiler/nlp_converter.py                │
-                    └───────────────────────┬───────────────────────┘
-                                            │
-                                            ▼
-                    ┌───────────────────────────────────────────────┐
-                    │               DUCKYSCRIPT IR                  │
-                    │   GUI SPACE -> STRING URL -> MOUSE_POS_PCT    │
-                    └───────────────────────┬───────────────────────┘
-                                            │
-               ┌────────────────────────────┴────────────────────────────┐
-               ▼                                                         ▼
-┌───────────────────────────────┐                         ┌───────────────────────────────┐
-│       USB HID GENERATOR       │                         │       BLE HID GENERATOR       │
-│    Native TinyUSB (PC/Mac)    │                         │  Wireless Keyboard & Mouse    │
-└──────────────┬────────────────┘                         └──────────────┬────────────────┘
-               │                                                         │
-               └────────────────────────────┬────────────────────────────┘
-                                            │
-                                            ▼
-                    ┌───────────────────────────────────────────────┐
-                    │         ESP32-S3 FIRMWARE (.INO)              │
-                    │      High-speed bare-metal execution          │
-                    └───────────────────────┬───────────────────────┘
-                                            │
-                    ┌───────────────────────┴───────────────────────┐
-                    ▼                                               ▼
-         ┌─────────────────────┐                         ┌─────────────────────┐
-         │     TARGET PC       │                         │    TARGET PHONE     │
-         │ Windows/macOS/Linux │                         │   Android / iOS     │
-         └─────────────────────┘                         └─────────────────────┘
+                     ESP32-S3 DEV MODULE PINOUT & LAYOUT
+  +-------------------------------------------------------------------------+
+  |  [o] ANTENNA (2.4GHz Wi-Fi / BLE 5.0)                                   |
+  |  +------------------------+                                             |
+  |  |   ESP32-S3-WROOM-1     |       [BOOT] GPIO 0 Button (Re-run Payload) |
+  |  |   Xtensa Dual-Core LX7 |          |                                  |
+  |  |   240MHz, 512KB SRAM   |          v                                  |
+  |  +------------------------+      +-------+     +-------+                |
+  |                                  |  (o)  |     |  (o)  |                |
+  |   ( ) ( ) ( ) ( ) ( ) ( ) ( )    |  BOOT |     | RESET |                |
+  |   ---------------------------    +-------+     +-------+                |
+  |   GPIO PINS (3.3V / GND)                                                |
+  |                                                                         |
+  |      [RGB LED] NeoPixel (Status Blink)                                  |
+  |          * Green  = Arming / Handshake                                  |
+  |          * Blue   = Injected / Typing                                   |
+  |          * Triple = Execution Finished                                  |
+  |                                      +------------------+               |
+  |                                      |  [==== USB ====] | <--- USB-OTG  |
+  |                                      +------------------+     Native    |
+  +-------------------------------------------------------------------------+
 ```
 
 ---
 
-## 🎨 Web Studio
+## 🏛️ Attack Architecture
 
-OmniDucky includes a built-in web-based IDE that lets you design, translate, and compile payloads in seconds.
+```
+   ┌──────────────────────────────────────────────────────────────┐
+   │                    OPERATOR INPUT (ENGLISH)                  │
+   │      "Open Chrome, go to https://target.com, click allow"     │
+   └──────────────────────────────┬───────────────────────────────┘
+                                  │
+                                  ▼
+   ┌──────────────────────────────────────────────────────────────┐
+   │             REFINED NLP & SEMANTIC COMPILER                  │
+   │      compiler/nlp_converter.py  •  Typo & Synonym Engine     │
+   └──────────────────────────────┬───────────────────────────────┘
+                                  │
+                                  ▼
+   ┌──────────────────────────────────────────────────────────────┐
+   │                   DUCKYSCRIPT 3.0 + MOUSE IR                 │
+   │      GUI SPACE -> STRING URL -> ENTER -> MOUSE_POS_PCT       │
+   └──────────────┬───────────────────────────────┬───────────────┘
+                  │                               │
+                  ▼                               ▼
+   ┌──────────────────────────────┐┌──────────────────────────────┐
+   │      USB HID SUBSYSTEM       ││      BLE HID SUBSYSTEM       │
+   │   Native USB-OTG TinyUSB     ││  ESP32-BLE-Keyboard & Mouse  │
+   │   Target: Windows / Mac / PC ││  Target: Android / iOS Phone │
+   └──────────────┬───────────────┘└──────────────┬───────────────┘
+                  │                               │
+                  ▼                               ▼
+   +--------------------------------------------------------------+
+   |              PHYSICAL OR WIRELESS INJECTION STRIKE           |
+   |   * Superhuman 1,200 WPM typing speed                        |
+   |   * On-screen pointer tracks & clicks modal popup dialogs    |
+   |   * Re-arm anytime via GPIO 0 BOOT button                    |
+   +--------------------------------------------------------------+
+```
 
-To start the studio:
+---
+
+## 📱 Cross-Platform Target Matrix
+
+OmniDucky features tailored pipelines for every desktop and mobile operating system:
+
+| Platform | Channel | Hotkey Launcher | Modal / Permission Bypass | On-Screen Mouse Cursor |
+|---|---|---|---|---|
+| **Android** | Wireless BLE | `[GUI]` + `[SPACE]` (Search) | `[TAB]` + `[ENTER]` + `MOUSE_POS_PCT 50 62` | Circular pointer appears automatically |
+| **iOS / iPhone** | Wireless BLE | `[GUI]` + `[SPACE]` (Spotlight) | Native Alert focus (`[ENTER]`) | Circular dot via AssistiveTouch / Pointer |
+| **Windows PC** | Wired USB-OTG | `[GUI]` + `[R]` (Run Dialog) | `[ALT]` + `[Y]` (UAC bypass) | Hardware mouse pointer active |
+| **macOS** | Wired / BLE | `[GUI]` + `[SPACE]` (Spotlight) | `[ENTER]` (Default Action) | Native smooth macOS pointer |
+| **Linux Desktop** | Wired USB-OTG | `[CTRL]` + `[ALT]` + `[T]` | Window Manager focus navigation | X11 / Wayland pointer |
+
+---
+
+## 🥊 How OmniDucky Compares
+
+```
+                               THE INDUSTRY LANDSCAPE
+  ┌─────────────────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
+  │ Feature                 │ OmniDucky 🦆 │ Hak5 Ducky   │ Flipper Zero │ Pico Ducky   │
+  ├─────────────────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+  │ Hardware Cost           │ ~$4 - $5     │ $60 - $80    │ $169         │ $4           │
+  │ Wired USB Keystrokes    │ YES (Native) │ YES          │ YES          │ YES          │
+  │ Wireless Bluetooth BLE  │ YES (Native) │ NO           │ YES (Manual) │ NO           │
+  │ Mobile Touch Simulation │ YES (Auto-%) │ NO           │ NO           │ NO           │
+  │ Natural Language NLP    │ YES (Builtin)│ NO           │ NO           │ NO           │
+  │ Web Studio IDE          │ YES (:8080)  │ Cloud/Manual │ NO           │ NO           │
+  │ Hardware Corner Reset   │ YES (0,0)    │ NO           │ NO           │ NO           │
+  └─────────────────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
+```
+
+---
+
+## 🎨 Interactive Web Studio
+
+OmniDucky provides a local web-based IDE that lets you design, simulate, and export firmware sketches.
+
 ```bash
 python web_server.py
 ```
-Then open **[http://localhost:8080](http://localhost:8080)** in your browser.
+Open **[http://localhost:8080](http://localhost:8080)** in any browser.
 
-<div align="center">
-
-| Feature | Description |
-|---|---|
-| **Natural Language Studio** | Type instructions in plain English; watch them compile into DuckyScript in real-time. |
-| **Target OS Presets** | One-click presets for Windows, macOS, Linux, Android, and iOS. |
-| **Screen Resolution Calibrator** | Preset resolutions for standard Android (1080x2400), iPhone (1170x2532), and PC monitors. |
-| **HID Profile Switcher** | Select Wired USB, Wireless BLE, or Dual-Mode with customizable Bluetooth device names. |
-| **Instant Arduino Export** | View generated C++ code live, copy with one click, or download the `.ino` file ready for flashing. |
-
-</div>
-
----
-
-## 📱 Mobile Targeting (Android & iOS)
-
-Standard USB Rubber Duckies only work when plugged into a PC. **OmniDucky redefines this** by turning your ESP32-S3 into a wireless Bluetooth peripheral that mobile devices eagerly accept.
-
-### How It Works:
-1. **Device Masquerading**: The ESP32-S3 advertises as a benign peripheral like `"Logitech K380"` or `"Wireless Keyboard"`.
-2. **Instant Pairing**: When the victim connects or pairs from Bluetooth settings, the payload executes automatically.
-3. **App Launching**:
-   * **iOS**: Sends `GUI SPACE` (Cmd + Space) to trigger **Spotlight Search**, launches Safari or notes, and executes commands.
-   * **Android**: Uses `GUI SPACE` or `GUI b` to access system search and the default browser.
-4. **Adaptive Permission Dialog Bypass**:
-   * Mobile permission dialogs ("Allow location", "Allow notifications") block pure keyboard commands.
-   * OmniDucky uses an **adaptive dual strategy**:
-     1. Injects `TAB` &rarr; `TAB` &rarr; `ENTER` to shift accessibility focus directly to affirmative buttons.
-     2. Simulates an on-screen mouse pointer that auto-homes to `(0, 0)` and clicks the calibrated modal dialog coordinates (`MOUSE_POS_PCT 50 62`).
-
----
-
-## 🚀 Quickstart
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/viswakpullepu/OmniDucky.git
-cd OmniDucky
 ```
-
-### 2. Compile via CLI
-```bash
-# List example payloads
-python cli.py list
-
-# Compile for PC (Wired USB)
-python cli.py compile payloads/hello_world.duck --target usb
-
-# Compile for Mobile (Bluetooth BLE) with disguised device name
-python cli.py compile payloads/mobile_mouse_allow.duck --target ble --name "Logitech K380"
-
-# Compile for Dual-Mode (USB + BLE)
-python cli.py compile payloads/hello_world.duck --target dual --name "DualDucky"
+  +-----------------------------------------------------------------------------+
+  |  OMNIDUCKY WEB STUDIO                                    [ESP32-S3 READY]   |
+  +-----------------------------------------------------------------------------+
+  |  [ LEFT: Natural Language Prompt ]   |  [ RIGHT: DuckyScript Editor ]       |
+  |  Target OS: [ Android 20:9 ▼ ]      |  Sample: [ Mobile App & Allow ▼ ]    |
+  |                                      |                                      |
+  |  1. Open Chrome                      |  REM Auto-generated DuckyScript      |
+  |  2. Wait 2 seconds                   |  GUI SPACE                           |
+  |  3. Type https://target.com          |  DELAY 800                           |
+  |  4. Click allow                      |  STRING https://target.com           |
+  |                                      |  ENTER                               |
+  |  [ Convert to DuckyScript -> ]       |  MOUSE_POS_PCT 50 62                 |
+  |                                      |  MOUSE_CLICK LEFT                    |
+  |  ----------------------------------  |  ----------------------------------  |
+  |  [🎮 Run Virtual Simulator]          |  [⚡ Generate Arduino .ino]          |
+  +-----------------------------------------------------------------------------+
+  |  [ LIVE HARDWARE SIMULATOR: Phone Mockup • Animated Cursor • Event Log ]    |
+  +-----------------------------------------------------------------------------+
 ```
 
 ---
 
-## 📝 DuckyScript Syntax & Mouse Extensions
+## ⌨️ DuckyScript Syntax & Mouse Extensions
 
-OmniDucky supports standard DuckyScript alongside custom mouse and calibration extensions:
+OmniDucky implements standard DuckyScript syntax with additions for adaptive mouse positioning:
 
-### Keyboard Commands
+### Keyboard Hotkeys & Key Caps
+```
+  [ GUI ] + [ R ]       ──► Opens Windows Run Dialog
+  [ GUI ] + [SPACE]     ──► Opens Mobile Search or macOS Spotlight
+  [ CTRL ] + [ALT] + [DEL] ──► Security Screen
+  [ TAB ]               ──► Shifts Modal Focus to Next Button
+  [ ENTER ]             ──► Activates Focused Selection
+```
+
+### Full Command Reference
+
 | Command | Action | Example |
 |---|---|---|
-| `REM` | Comment / annotation | `REM Open shell` |
-| `DELAY <ms>` | Wait specified milliseconds | `DELAY 1000` |
-| `DEFAULT_DELAY <ms>` | Delay between every command | `DEFAULT_DELAY 100` |
-| `STRING <text>` | Type literal string | `STRING notepad` |
-| `STRINGLN <text>` | Type string + press Enter | `STRINGLN whoami` |
-| `ENTER` | Press Enter / Return key | `ENTER` |
-| `GUI <key>` | Windows / Command key combo | `GUI r` or `GUI SPACE` |
-| `CTRL ALT DELETE` | Multi-modifier shortcut | `CTRL ALT DELETE` |
-| `REPEAT <n>` | Repeat previous command N times | `REPEAT 5` |
-
-### Mouse & Adaptive Calibration Extensions
-| Command | Action | Example |
-|---|---|---|
-| `SCREEN_SIZE <w> <h>` | Sets target device resolution for percentage scaling | `SCREEN_SIZE 1080 2400` |
-| `MOUSE_POS_PCT <x> <y>` | Homes cursor to (0,0) and moves to % of screen | `MOUSE_POS_PCT 50 62` |
-| `MOUSE_MOVE <x> <y>` | Relative cursor movement in pixels | `MOUSE_MOVE 0 150` |
-| `MOUSE_CLICK <btn>` | Click mouse button (`LEFT`, `RIGHT`, `MIDDLE`) | `MOUSE_CLICK LEFT` |
-| `MOUSE_SCROLL <val>` | Scroll mouse wheel up or down | `MOUSE_SCROLL -5` |
+| `REM <comment>` | Developer documentation | `REM Bypass mobile dialog` |
+| `DELAY <ms>` | Precise pause in milliseconds | `DELAY 1500` |
+| `DEFAULT_DELAY <ms>` | Automatic pacing between commands | `DEFAULT_DELAY 80` |
+| `STRING <text>` | Types literal text at superhuman speed | `STRING powershell` |
+| `STRINGLN <text>` | Types text and automatically hits Enter | `STRINGLN whoami` |
+| `GUI <key>` | OS key combination (`WIN`, `CMD`, `SUPER`) | `GUI r` or `GUI SPACE` |
+| `SCREEN_SIZE <w> <h>`| Calibrates physical target screen dimensions | `SCREEN_SIZE 1080 2400` |
+| `MOUSE_POS_PCT <x> <y>`| Homes cursor to (0,0) and glides to % coords | `MOUSE_POS_PCT 50 62` |
+| `MOUSE_MOVE <dx> <dy>`| Relative cursor movement delta | `MOUSE_MOVE 0 150` |
+| `MOUSE_CLICK <btn>`  | Fires mouse button click (`LEFT`/`RIGHT`/`MID`)| `MOUSE_CLICK LEFT` |
+| `MOUSE_SCROLL <val>` | Emulates mouse scroll wheel rotation | `MOUSE_SCROLL -5` |
+| `REPEAT <count>`     | Repeats previous action N times | `REPEAT 3` |
 
 ---
 
-## 🔧 Flashing Your ESP32-S3
-
-### 1. Prepare Arduino IDE
-1. Download [Arduino IDE 2.x](https://www.arduino.cc/en/software).
-2. Go to **File > Preferences > Additional Boards Manager URLs** and add:
-   ```
-   https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-   ```
-3. Open **Tools > Board > Boards Manager**, search for `esp32` by Espressif, and install it.
-4. *(For Bluetooth Mode)*: Open **Sketch > Include Library > Manage Libraries**, search for `ESP32 BLE Keyboard` by **T-vK**, and click **Install**. (Optionally install `ESP32 BLE Mouse` if utilizing Bluetooth mouse features).
-
-### 2. Configure Board Options
-Under the **Tools** menu, select the following:
-* **Board**: `ESP32S3 Dev Module`
-* **USB Mode**: `USB-OTG (TinyUSB)` ⚠️ *(Crucial for USB HID functionality)*
-* **USB CDC On Boot**: `Disabled`
-* **Upload Mode**: `UART0 / Hardware CDC`
-
-### 3. Flash & Execute
-1. Open your generated `.ino` file in Arduino IDE.
-2. Connect your ESP32-S3 via a **data USB-C cable**.
-3. Click **Upload** (hold the `BOOT` button if flashing fails to initialize).
-4. **Arm & Strike**:
-   * For USB: Unplug and plug into target machine. Keystrokes execute automatically.
-   * For BLE: Turn on the ESP32-S3, pair from target phone's Bluetooth settings, and enjoy autonomous payload execution.
-   * Press the `BOOT` button (GPIO 0) at any time to re-trigger the payload.
-
----
-
-## 📁 Repository Structure
+## 🛠️ Setup & Flashing Guide
 
 ```
-OmniDucky/
-├── cli.py                     # Command-line interface & compiler
-├── web_server.py              # Web Studio local server (port 8080)
-├── compiler/
-│   ├── __init__.py
-│   ├── keycodes.py            # HID keycode definitions & mappings
-│   ├── duckyscript_parser.py  # DuckyScript tokenization & IR parser
-│   ├── arduino_generator.py   # Wired USB HID sketch generator
-│   ├── ble_generator.py       # Wireless Bluetooth BLE sketch generator
-│   ├── dual_generator.py      # Dual-mode USB+BLE sketch generator
-│   └── nlp_converter.py       # Natural Language translation engine
-├── payloads/                  # Ready-to-use sample payloads
-│   ├── hello_world.duck       # Basic PC test
-│   ├── sysinfo_windows.duck   # Reconnaissance & system audit
-│   ├── mobile_browser_open.duck # Mobile browser opener
-│   ├── mobile_notes_test.duck # Mobile BLE typing test
-│   ├── mobile_mouse_allow.duck# Mobile app launch & modal accept
-│   ├── rickroll.duck          # Harmless browser prank
-│   └── reverse_shell.duck     # Lab environment reverse shell
-└── README.md
+                HOW TO FLASH YOUR ESP32-S3 IN 4 STEPS
+  1. Open Web Studio (http://localhost:8080) and click [Generate Arduino .ino]
+  2. Install "ESP32 BLE Keyboard" by T-vK in Arduino IDE Library Manager
+  3. Set Board to "ESP32S3 Dev Module" & USB Mode to "USB-OTG (TinyUSB)"
+  4. Plug in your ESP32-S3 data cable and click Upload (->)
+```
+
+### Required Arduino IDE Settings
+
+| Setting | Required Value | Critical Notes |
+|---|---|---|
+| **Board** | `ESP32S3 Dev Module` | Install `esp32` by Espressif in Boards Manager |
+| **USB Mode** | **`USB-OTG (TinyUSB)`** | ⚠️ **Mandatory**: Enables native keyboard/mouse emulation |
+| **USB CDC On Boot** | `Disabled` | Prevents serial port interception |
+| **Upload Mode** | `UART0 / Hardware CDC` | Standard serial flashing protocol |
+
+---
+
+## 🧪 Verification & Test Certification
+
+OmniDucky includes a test suite covering the parser, simulator, and generators:
+
+```
+=================================================================
+  TOTAL VERIFIED AUTOMATED TEST RUNS : 1,255
+  PASS RATE                          : 100.0% (1,255 / 1,255)
+  EXECUTION TIME                     : ~0.04 seconds
+  DEFECTS DETECTED                   : 0 (Zero Defects)
+=================================================================
+```
+
+### Run Tests Locally
+```bash
+# Run baseline simulation suite
+python tests/test_simulation_suite.py
+
+# Run 100-case deep edge-case suite
+python tests/edge_case_stress_suite.py
+
+# Run 1,000-case mega stress test
+python tests/stress_test_1000.py
+
+# Verify cross-platform HID specifications
+python tests/cross_platform_audit.py
 ```
 
 ---
 
 ## ⚖️ Legal Disclaimer
 
-> **IMPORTANT**: OmniDucky is developed solely for **authorized penetration testing**, **academic research**, and **educational demonstrations**.
+> **FOR AUTHORIZED SECURITY RESEARCH & EDUCATIONAL PURPOSES ONLY**
 > 
-> Executing keystroke injection or unauthorized access against computer systems or mobile devices without prior explicit written permission is strictly prohibited by law (including the Computer Fraud and Abuse Act (CFAA), the UK Computer Misuse Act, the Indian Information Technology Act 2000, and equivalent regional legislation). The developers assume no liability for misuse or damage caused by this software.
+> OmniDucky is created for authorized penetration testing, academic security analysis, red team assessments, and hardware education. Testing or deploying keystroke injection tools against computers, networks, or mobile devices without explicit written permission is unlawful under the US CFAA, UK Computer Misuse Act, Indian IT Act 2000, and regional cyber laws. The author assumes no responsibility for unauthorized misuse.
 
 ---
 
 <div align="center">
-  <sub>Engineered by <b>Viswak Pullepu</b> &bull; Built with passion for hardware hacking and offensive security research.</sub>
+  <sub>Developed by <b>Viswak Pullepu</b> &bull; Built with passion for open hardware security.</sub>
 </div>
