@@ -23,6 +23,7 @@ from compiler.arduino_generator import ArduinoGenerator
 from compiler.ble_generator import BleGenerator
 from compiler.dual_generator import DualModeGenerator
 from compiler.nlp_converter import NaturalLanguageToDucky
+from compiler.simulator import VirtualSimulator
 
 PORT = 8080
 BASE_DIR = Path(__file__).parent
@@ -415,9 +416,75 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             <label for="ble-name">BLE Name:</label>
             <input type="text" id="ble-name" value="Wireless Keyboard" style="width: 160px;">
           </div>
+          <button class="btn secondary" onclick="runSimulation()">
+            <span>🎮 Run Virtual Simulator</span>
+          </button>
           <button class="btn" style="margin-left: auto;" onclick="compileToArduino()">
             <span>Generate Arduino .ino</span>
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIRTUAL SIMULATOR CARD -->
+    <div class="card" style="margin-top: 24px;" id="sim-card">
+      <div class="card-header">
+        <div class="card-title">
+          <span>🎮 Live Virtual Device Simulator</span>
+          <span class="pill green" id="sim-badge">Ready</span>
+        </div>
+        <div class="controls-row">
+          <span id="sim-timer" class="pill purple">0.0s / 0.0s</span>
+          <button class="btn secondary" onclick="runSimulation()">Re-run Simulation</button>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start;">
+        <!-- Virtual Phone Display Mockup -->
+        <div style="width: 260px; height: 500px; background: #000; border-radius: 36px; border: 4px solid #334155; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin: 0 auto;">
+          <!-- Speaker Notch -->
+          <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 70px; height: 18px; background: #0f172a; border-radius: 12px; z-index: 20;"></div>
+          
+          <!-- Screen Wallpaper -->
+          <div style="position: absolute; inset: 0; background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #030712 100%); display: flex; flex-direction: column; justify-content: space-between; padding: 36px 16px 20px 16px; font-family: sans-serif;">
+            <!-- Top Status -->
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; font-weight: 600;">
+              <span>9:41</span>
+              <span>📶 5G 🔋 80%</span>
+            </div>
+
+            <!-- Virtual Typing Box -->
+            <div id="sim-typing-box" style="background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px; font-family: 'Fira Code', monospace; font-size: 11px; color: #38bdf8; min-height: 50px; word-break: break-all; backdrop-filter: blur(8px);">
+              <span style="color: #64748b;">// Virtual typing...</span>
+            </div>
+
+            <!-- Virtual Permission Modal Dialog -->
+            <div id="sim-modal-dialog" style="background: #1e293b; border: 1px solid #38bdf8; border-radius: 16px; padding: 14px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.8); transition: all 0.3s ease; opacity: 0; transform: scale(0.9);">
+              <div style="font-size: 12px; font-weight: 700; color: #f8fafc; margin-bottom: 4px;">Allow Permissions?</div>
+              <div style="font-size: 10px; color: #94a3b8; margin-bottom: 12px;">Chrome wants to access your device.</div>
+              <div style="display: flex; gap: 8px;">
+                <button style="flex: 1; padding: 6px; font-size: 11px; background: #334155; border: none; color: #94a3b8; border-radius: 6px;">Deny</button>
+                <button id="sim-allow-btn" style="flex: 1; padding: 6px; font-size: 11px; background: #0284c7; border: none; color: #fff; border-radius: 6px; font-weight: 700; transition: all 0.2s;">Allow</button>
+              </div>
+            </div>
+
+            <!-- Bottom Home Indicator -->
+            <div style="width: 90px; height: 4px; background: #475569; border-radius: 2px; margin: 0 auto;"></div>
+          </div>
+
+          <!-- Animated Mouse Cursor Pointer -->
+          <div id="sim-cursor" style="position: absolute; width: 14px; height: 14px; border-radius: 50%; background: #38bdf8; border: 2px solid #fff; box-shadow: 0 0 14px #38bdf8; transform: translate(-50%, -50%); transition: top 0.25s ease-out, left 0.25s ease-out, transform 0.1s; top: 10px; left: 10px; z-index: 30; pointer-events: none;"></div>
+        </div>
+
+        <!-- Simulation Event Stream Log -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label style="font-weight: 600;">Simulation Execution Log:</label>
+            <span id="sim-step-count" style="font-size: 12px; color: var(--text-muted);">0 / 0 steps</span>
+          </div>
+          <div id="sim-log" style="background: var(--code-bg); border: 1px solid var(--border); border-radius: 12px; height: 440px; overflow-y: auto; padding: 14px; font-family: 'Fira Code', monospace; font-size: 12px; line-height: 1.6; display: flex; flex-direction: column; gap: 6px;">
+            <div style="color: #64748b;">Click "Run Virtual Simulator" to start hardware emulation test...</div>
+          </div>
         </div>
       </div>
     </div>
@@ -547,6 +614,116 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       }
     }
 
+    let simInterval = null;
+
+    async function runSimulation() {
+      const script = document.getElementById('ducky-output').value.trim();
+      const screenRes = document.getElementById('screen-res').value;
+      if (!script) {
+        alert('DuckyScript is empty. Please convert or write a payload first.');
+        return;
+      }
+      showStatus('Initializing virtual hardware simulation...');
+      document.getElementById('sim-card').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('sim-badge').textContent = 'Running...';
+      document.getElementById('sim-badge').className = 'pill purple';
+
+      try {
+        const res = await fetch('/api/simulate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ script, screen_res: screenRes })
+        });
+        const data = await res.json();
+        if (!data.success) {
+          alert('Simulation failed: ' + data.error);
+          return;
+        }
+
+        const logContainer = document.getElementById('sim-log');
+        logContainer.innerHTML = '';
+        const cursor = document.getElementById('sim-cursor');
+        const typingBox = document.getElementById('sim-typing-box');
+        const modal = document.getElementById('sim-modal-dialog');
+        const allowBtn = document.getElementById('sim-allow-btn');
+        const timerElem = document.getElementById('sim-timer');
+        const stepCountElem = document.getElementById('sim-step-count');
+
+        cursor.style.left = '10px';
+        cursor.style.top = '10px';
+        typingBox.innerHTML = '<span style="color: #64748b;">// Virtual typing...</span>';
+        modal.style.opacity = '0';
+        modal.style.transform = 'scale(0.9)';
+        allowBtn.style.background = '#0284c7';
+        allowBtn.textContent = 'Allow';
+
+        let currentIdx = 0;
+        const timeline = data.timeline;
+        const totalDuration = data.total_duration_sec;
+
+        function playNextStep() {
+          if (currentIdx >= timeline.length) {
+            document.getElementById('sim-badge').textContent = 'Completed';
+            document.getElementById('sim-badge').className = 'pill green';
+            showStatus(`Simulation complete! All ${timeline.length} actions verified.`);
+            return;
+          }
+
+          const step = timeline[currentIdx];
+          timerElem.textContent = `${step.time_formatted} / ${totalDuration}s`;
+          stepCountElem.textContent = `${currentIdx + 1} / ${timeline.length} steps`;
+
+          // Log entry
+          const row = document.createElement('div');
+          const color = step.channel === 'KEYBOARD' ? '#38bdf8' : (step.channel === 'MOUSE' ? '#a855f7' : (step.channel === 'DELAY' ? '#e2e8f0' : '#10b981'));
+          row.innerHTML = `<span style="color: #64748b;">[${step.time_formatted}]</span> <span style="color: ${color}; font-weight: 600;">[${step.channel}]</span> ${step.description}`;
+          logContainer.appendChild(row);
+          logContainer.scrollTop = logContainer.scrollHeight;
+
+          // Visual reactions
+          if (step.text) {
+            typingBox.textContent = '> ' + step.text;
+          }
+
+          if (step.pct_x !== undefined && step.pct_y !== undefined) {
+            cursor.style.left = `${step.pct_x}%`;
+            cursor.style.top = `${step.pct_y}%`;
+          } else if (step.x !== undefined && step.y !== undefined) {
+            const px = Math.min(95, Math.max(5, (step.x / data.screen_size.width) * 100));
+            const py = Math.min(95, Math.max(5, (step.y / data.screen_size.height) * 100));
+            cursor.style.left = `${px}%`;
+            cursor.style.top = `${py}%`;
+          }
+
+          if (step.description.toLowerCase().includes('allow') || step.description.toLowerCase().includes('modal')) {
+            modal.style.opacity = '1';
+            modal.style.transform = 'scale(1)';
+          }
+
+          if (step.button) {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1.6)';
+            setTimeout(() => { cursor.style.transform = 'translate(-50%, -50%) scale(1.0)'; }, 150);
+            if (modal.style.opacity === '1') {
+              allowBtn.style.background = '#10b981';
+              allowBtn.textContent = '✓ Clicked!';
+              setTimeout(() => {
+                modal.style.opacity = '0';
+                modal.style.transform = 'scale(0.9)';
+              }, 700);
+            }
+          }
+
+          currentIdx++;
+          const nextDelay = Math.max(140, Math.min(500, step.duration_ms / 2));
+          setTimeout(playNextStep, nextDelay);
+        }
+
+        playNextStep();
+      } catch (err) {
+        alert('Simulation error: ' + err);
+      }
+    }
+
     function downloadIno() {
       const code = document.getElementById('arduino-code').value;
       if (!code) {
@@ -630,6 +807,25 @@ class DuckyRequestHandler(http.server.BaseHTTPRequestHandler):
             target_os = data.get("target_os", "windows")
             converter = NaturalLanguageToDucky()
             result = converter.convert(prompt, target_os=target_os)
+            self._send_json(result)
+            return
+
+        if path == "/api/simulate":
+            script = data.get("script", "")
+            screen_res = data.get("screen_res", "1080 2400").split()
+            screen_w = int(screen_res[0]) if len(screen_res) > 0 else 1080
+            screen_h = int(screen_res[1]) if len(screen_res) > 1 else 2400
+
+            parser = DuckyScriptParser()
+            try:
+                commands = parser.parse(script)
+            except SyntaxError as e:
+                self._send_json({"success": False, "error": str(e)}, status=400)
+                return
+
+            sim = VirtualSimulator(screen_w=screen_w, screen_h=screen_h)
+            result = sim.simulate(commands, default_delay=parser.default_delay)
+            result["success"] = True
             self._send_json(result)
             return
 
