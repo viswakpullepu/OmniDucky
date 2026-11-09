@@ -1,13 +1,15 @@
 <div align="center">
 
 ```
-             __
-           <(o )___
-            ( ._> /    O M N I D U C K Y
-             `---'     ESP32-S3 HID FRAMEWORK
+ ██████╗ ███╗   ███╗███╗   ██╗██╗    ██████╗ ██╗   ██╗ ██████╗██╗  ██╗██╗   ██╗
+██╔═══██╗████╗ ████║████╗  ██║██║    ██╔══██╗██║   ██║██╔════╝██║ ██╔╝╚██╗ ██╔╝
+██║   ██║██╔████╔██║██╔██╗ ██║██║    ██║  ██║██║   ██║██║     █████═╝  ╚████╔╝ 
+██║   ██║██║╚██╔╝██║██║╚██╗██║██║    ██║  ██║██║   ██║██║     ██╔═██╗   ╚██╔╝  
+╚██████╔╝██║ ╚═╝ ██║██║ ╚████║██║    ██████╔╝╚██████╔╝╚██████╗██║  ██╗   ██║   
+ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝    ╚═════╝  ╚═════╝  ╚═════╝╚═╝  ╚═╝   ╚═╝   
 ```
 
-# 🦆 OmniDucky
+# OmniDucky
 
 ### Next-Gen Wireless (BLE) & Wired (USB) Keystroke Injection Toolkit
 **Autonomous HID Exploitation &bull; Natural Language to DuckyScript &bull; Adaptive Touch & Mouse Emulation**
