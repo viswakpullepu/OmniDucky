@@ -1,0 +1,10 @@
+REM Mobile Notes Test - Harmless text typing test for mobile
+REM Open your Notes app on Android/iOS, then pair or press BOOT button
+
+DELAY 1500
+STRING Hello from ESP32-S3 Bluetooth Ducky!
+ENTER
+STRING Paired successfully with mobile device.
+ENTER
+STRING Keystrokes injected over BLE HID.
+ENTER

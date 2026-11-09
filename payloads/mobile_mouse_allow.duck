@@ -1,0 +1,25 @@
+REM Mobile Mouse & Permission Interaction
+REM Demonstrates moving cursor and tapping on screen buttons (like Allow / OK)
+
+DELAY 2000
+
+REM Open Chrome via Mobile Search
+GUI SPACE
+DELAY 800
+STRING Chrome
+ENTER
+DELAY 1500
+
+REM Move cursor towards center-lower area where permission dialogs pop up
+MOUSE_MOVE 0 150
+DELAY 300
+
+REM Attempt Tab navigation to focus 'Allow' or 'OK' button
+TAB
+DELAY 200
+TAB
+DELAY 200
+ENTER
+
+REM Fallback: click with mouse cursor directly
+MOUSE_CLICK LEFT

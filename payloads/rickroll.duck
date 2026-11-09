@@ -1,0 +1,8 @@
+REM Rick Roll - Fun harmless prank payload
+REM Opens the browser and navigates to a specific YouTube video
+
+DELAY 1000
+GUI r
+DELAY 500
+STRING https://www.youtube.com/watch?v=dQw4w9WgXcQ
+ENTER

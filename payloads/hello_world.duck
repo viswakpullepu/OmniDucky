@@ -1,0 +1,18 @@
+REM Hello World - Basic test payload
+REM Opens Notepad and types a message
+REM Use this to verify your ESP32-S3 ducky is working
+
+DELAY 1000
+GUI r
+DELAY 500
+STRING notepad
+ENTER
+DELAY 800
+STRING ==============================
+ENTER
+STRING   Hello from ESP32-S3 Ducky!
+ENTER
+STRING   Your DIY Rubber Ducky works!
+ENTER
+STRING ==============================
+ENTER

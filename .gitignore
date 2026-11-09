@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+venv/
+ENV/
+
+# Temporary generated test sketches (keep directory structure)
+payloads/*.ino
+firmware/esp32s3_ducky/esp32s3_ducky.ino
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/

