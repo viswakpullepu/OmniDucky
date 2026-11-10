@@ -68,6 +68,34 @@
   * Uses **Hardware Corner Auto-Reset** to re-zero mouse drift, then taps exact screen percentage coordinates (`MOUSE_POS_PCT 50 62`) alongside keyboard `TAB` + `ENTER` navigation.
 * **🖥️ Local Web Studio & Live Virtual Simulator**: Built-in zero-dependency dark-mode dashboard at `http://localhost:8080` with visual phone playback, real-time typing ticker, and 1-click `.ino` export.
 * **🛡️ 100% Offline & Pure C++**: Zero cloud telemetry, zero API keys, and zero AI overhead on the microcontroller. The ESP32-S3 executes bare-metal HID machine instructions.
+* **📡 OmniDucky C2 (Flash Once, Control from Phone)**: Flash the standalone OS once. The ESP32-S3 creates its own Wi-Fi Access Point (`OmniDucky-C2`). Connect from your phone to edit scripts, click presets, fire live attacks, or save payloads to flash without ever needing a computer or IDE again!
+
+---
+
+## 📡 OmniDucky C2: Standalone Wireless Web OS
+
+No computer in the field? No Arduino IDE? No problem.
+
+```
+  ┌──────────────────┐         Wi-Fi AP ("OmniDucky-C2")        ┌────────────────────────┐
+  │  YOUR SMARTPHONE │ ◄──────────────────────────────────────► │    ESP32-S3 HARDWARE   │
+  │  (iPhone/Android)│         http://192.168.4.1               │  (Wired into Target PC)│
+  └─────────┬────────┘                                          └───────────┬────────────┘
+            │                                                               │
+            │ 1. Open Browser to 192.168.4.1                                │
+            │ 2. Type / Choose DuckyScript Payload                          │
+            │ 3. Tap [ 🚀 FIRE PAYLOAD NOW ] ──────────────────────────────►│ 4. Injects keystrokes
+            │ 4. Tap [ 💾 SAVE AUTORUN ] (Saves to NVS Flash)               │    directly into target
+```
+
+### How to Use OmniDucky C2:
+1. Open **[`firmware/omniducky_c2/omniducky_c2.ino`](https://github.com/viswakpullepu/OmniDucky/blob/main/firmware/omniducky_c2/omniducky_c2.ino)** in Arduino IDE.
+2. Flash it to your ESP32-S3 **one single time**.
+3. Now the ESP32-S3 is completely autonomous:
+   * Power it via any USB port, charger, or target PC.
+   * On your phone, connect to Wi-Fi **`OmniDucky-C2`** (Password: `ducky123`).
+   * The captive portal dashboard opens automatically (or go to `http://192.168.4.1`).
+   * Tap any preset, write code, hit **Fire**, or click **Save as Autorun**!
 
 ---
 
