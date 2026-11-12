@@ -83,8 +83,8 @@ class VirtualSimulator:
                              duration_ms=travel_ms, x=target_x, y=target_y, pct_x=px, pct_y=py)
 
             elif cmd.cmd_type == "mouse_move":
-                self.cursor_x += cmd.mouse_x
-                self.cursor_y += cmd.mouse_y
+                self.cursor_x = max(0, min(self.cursor_x + cmd.mouse_x, self.screen_w))
+                self.cursor_y = max(0, min(self.cursor_y + cmd.mouse_y, self.screen_h))
                 self._record("MOUSE", f"Relative mouse move: dx={cmd.mouse_x}, dy={cmd.mouse_y} -> ({self.cursor_x}, {self.cursor_y})",
                              duration_ms=30, x=self.cursor_x, y=self.cursor_y)
 

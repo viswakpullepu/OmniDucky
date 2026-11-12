@@ -57,8 +57,8 @@ USBHIDMouse usbMouse;
 // ---- STATE ----
 bool isInjecting = false;
 bool autorunEnabled = true;
-int calibratedWidth = 1080;
-int calibratedHeight = 2400;
+int calibratedWidth = 1920;
+int calibratedHeight = 1080;
 String currentScript = "";
 
 // Forward declarations
@@ -138,6 +138,41 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
       font-size: 13px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s;
     }
     .toast.show { opacity: 1; }
+
+    /* TAB SYSTEM */
+    .tabs { display: flex; gap: 6px; margin-bottom: 2px; }
+    .tab-btn {
+      flex: 1; padding: 10px 8px; border-radius: 10px 10px 0 0;
+      border: 1px solid var(--border); border-bottom: none;
+      background: rgba(255,255,255,0.03); color: var(--muted);
+      font-size: 13px; font-weight: 700; cursor: pointer; text-align: center;
+    }
+    .tab-btn.active { background: var(--card); color: #fff; border-color: var(--accent); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* NLP STYLES */
+    .nlp-input {
+      width: 100%; min-height: 120px; background: #030712; border: 1px solid var(--border);
+      border-radius: 10px; color: #f3f4f6; font-family: -apple-system, system-ui, sans-serif;
+      font-size: 14px; padding: 12px; line-height: 1.6; resize: vertical; outline: none; margin-top: 8px;
+    }
+    .nlp-input:focus { border-color: #a78bfa; }
+    .nlp-output {
+      width: 100%; height: 160px; background: #030712; border: 1px solid rgba(167,139,250,0.3);
+      border-radius: 10px; color: #38bdf8; font-family: monospace;
+      font-size: 13px; padding: 12px; line-height: 1.5; resize: vertical; outline: none; margin-top: 8px;
+    }
+    .nlp-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 12px; }
+    .btn-convert { background: linear-gradient(135deg, #7c3aed, #a78bfa); color: #fff; margin-top: 10px; width: 100%; }
+    .btn-convert:active { opacity: 0.8; }
+    .btn-use { background: rgba(167,139,250,0.15); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); margin-top: 8px; }
+    .example-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .chip {
+      background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2);
+      color: #a78bfa; padding: 4px 10px; border-radius: 999px; font-size: 11px; cursor: pointer;
+    }
+    .chip:active { background: rgba(167,139,250,0.3); }
   </style>
 </head>
 <body>
@@ -149,36 +184,84 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
       <div id="status" class="status-badge">ONLINE &bull; ARMED</div>
     </header>
 
-    <div class="card">
-      <div class="card-title">Quick Attack Presets</div>
-      <div class="presets">
-        <button class="preset-btn" onclick="loadPreset('notepad')">Notepad (PC)</button>
-        <button class="preset-btn" onclick="loadPreset('rickroll')">Rickroll URL</button>
-        <button class="preset-btn" onclick="loadPreset('sysinfo')">Grab SysInfo</button>
-        <button class="preset-btn" onclick="loadPreset('mobile_allow')">Mobile Click Allow</button>
-        <button class="preset-btn" onclick="loadPreset('jiggler')">Mouse Jiggler</button>
-        <button class="preset-btn" onclick="loadPreset('lock')">Lock Screen</button>
-      </div>
+    <!-- TAB BUTTONS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('ducky')">⌨️ DuckyScript</button>
+      <button class="tab-btn" onclick="switchTab('nlp')">🤖 AI Translator</button>
+    </div>
 
-      <textarea id="script" placeholder="// Enter DuckyScript commands here...
+    <!-- TAB: DUCKYSCRIPT -->
+    <div id="tab-ducky" class="tab-panel active">
+      <div class="card" style="border-radius: 0 14px 14px 14px;">
+        <div class="card-title">Quick Attack Presets</div>
+        <div class="presets">
+          <button class="preset-btn" onclick="loadPreset('notepad')">Notepad</button>
+          <button class="preset-btn" onclick="loadPreset('rickroll')">Rickroll</button>
+          <button class="preset-btn" onclick="loadPreset('sysinfo')">SysInfo</button>
+          <button class="preset-btn" onclick="loadPreset('mobile_allow')">Mobile Allow</button>
+          <button class="preset-btn" onclick="loadPreset('jiggler')">Jiggler</button>
+          <button class="preset-btn" onclick="loadPreset('lock')">Lock Screen</button>
+        </div>
+        <textarea id="script" placeholder="// Enter DuckyScript commands here...
 DELAY 1000
 GUI r
 DELAY 500
 STRING notepad
 ENTER"></textarea>
+        <button class="btn btn-fire" onclick="firePayload()">🚀 FIRE PAYLOAD NOW</button>
+        <div class="btn-row">
+          <button class="btn btn-save" onclick="savePayload()">💾 Save as Autorun</button>
+          <button class="btn btn-clear" onclick="document.getElementById('script').value = ''">Clear</button>
+        </div>
+      </div>
+    </div>
 
-      <button class="btn btn-fire" onclick="firePayload()">🚀 FIRE PAYLOAD NOW</button>
-      <div class="btn-row">
-        <button class="btn btn-save" onclick="savePayload()">💾 Save as Autorun</button>
-        <button class="btn btn-clear" onclick="document.getElementById('script').value = ''">Clear</button>
+    <!-- TAB: NLP AI TRANSLATOR -->
+    <div id="tab-nlp" class="tab-panel">
+      <div class="card" style="border-radius: 0 14px 14px 14px;">
+        <div class="card-title" style="color: #a78bfa;">🤖 Natural Language → DuckyScript</div>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.6;">
+          Type what you want to do in plain English. The translator runs <b>in your browser</b> — no internet needed.
+        </p>
+
+        <div class="nlp-label">Try an example:</div>
+        <div class="example-chips">
+          <span class="chip" onclick="setNlp('open google and search for Vishwak Naidu')">🔍 search Vishwak Naidu (auto-select user)</span>
+          <span class="chip" onclick="setNlp('open google and search for Vishwak Naidu on profile 1')">👤 search on Profile 1</span>
+          <span class="chip" onclick="setNlp('open google and search for Vishwak Naidu on profile 2')">👤 search on Profile 2</span>
+          <span class="chip" onclick="setNlp('open google and search for Vishwak Naidu on profile 3')">👤 search on Profile 3</span>
+          <span class="chip" onclick="setNlp('click profile 2')">🖱️ click center profile</span>
+          <span class="chip" onclick="setNlp('open notepad and type hello world then save it')">📝 open notepad, type hello world, save</span>
+          <span class="chip" onclick="setNlp('open chrome and go to youtube.com')">🌐 open chrome and go to youtube.com</span>
+          <span class="chip" onclick="setNlp('open powershell and run ipconfig')">💻 open powershell and run ipconfig</span>
+          <span class="chip" onclick="setNlp('open file explorer')">📁 open file explorer</span>
+          <span class="chip" onclick="setNlp('lock the screen')">🔒 lock the screen</span>
+          <span class="chip" onclick="setNlp('take a screenshot')">📸 take a screenshot</span>
+          <span class="chip" onclick="setNlp('open task manager')">📊 open task manager</span>
+          <span class="chip" onclick="setNlp('open calculator')">🔢 open calculator</span>
+        </div>
+
+        <div class="nlp-label">Your Command (English):</div>
+        <textarea class="nlp-input" id="nlp-input" placeholder="e.g. open notepad and type Hello World then save it"></textarea>
+
+        <button class="btn btn-convert" onclick="convertNlp()">🤖 Convert to DuckyScript</button>
+
+        <div class="nlp-label">Generated DuckyScript:</div>
+        <textarea class="nlp-output" id="nlp-output" placeholder="// DuckyScript will appear here after conversion..." readonly></textarea>
+
+        <div class="btn-row" style="margin-top: 10px;">
+          <button class="btn btn-use" onclick="useNlpScript()">⬆️ Use This Script</button>
+          <button class="btn btn-fire" onclick="fireNlpDirect()" style="font-size:13px;">🚀 Convert &amp; Fire</button>
+        </div>
       </div>
     </div>
 
     <div class="card" style="font-size: 12px; color: var(--muted); line-height: 1.6;">
       <b>Field Operator Guide:</b><br>
+      &bull; <b>AI Tab</b>: Type English → auto-converts to DuckyScript in your browser offline.<br>
       &bull; <b>Direct Fire</b>: Edits execute live over USB immediately on click.<br>
       &bull; <b>Autorun</b>: Saved script automatically fires when plugged into any target PC.<br>
-      &bull; <b>Hardware Button</b>: Press the board's <b>BOOT (GPIO 0)</b> button anytime to re-trigger.
+      &bull; <b>BOOT Button</b>: Press the board's <b>BOOT (GPIO 0)</b> button to re-trigger.
     </div>
   </div>
 
@@ -264,6 +347,255 @@ ENTER"></textarea>
     }
 
     window.onload = loadSaved;
+
+    // ═══════════════════════════════════════════════
+    //  TAB SWITCHING
+    // ═══════════════════════════════════════════════
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function setNlp(text) {
+      document.getElementById('nlp-input').value = text;
+    }
+
+    function useNlpScript() {
+      const out = document.getElementById('nlp-output').value.trim();
+      if (!out) { alert('Convert something first!'); return; }
+      document.getElementById('script').value = out;
+      switchTab('ducky');
+      document.querySelectorAll('.tab-btn')[0].classList.add('active');
+      document.querySelectorAll('.tab-btn')[1].classList.remove('active');
+      showToast('Script moved to DuckyScript tab!');
+    }
+
+    async function fireNlpDirect() {
+      const out = document.getElementById('nlp-output').value.trim();
+      if (!out) { convertNlp(); setTimeout(() => { const s = document.getElementById('nlp-output').value.trim(); if(s) fireScript(s); }, 100); return; }
+      fireScript(out);
+    }
+
+    async function fireScript(script) {
+      setStatus('INJECTING...', true);
+      showToast('Firing payload over USB...');
+      try {
+        const res = await fetch('/api/run', { method:'POST', headers:{'Content-Type':'text/plain'}, body: script });
+        showToast(res.ok ? 'Payload Finished!' : 'Error: ' + await res.text());
+      } catch(e) { showToast('Sent!'); }
+      setTimeout(() => setStatus('ONLINE \u2022 ARMED', false), 2000);
+    }
+
+    // ═══════════════════════════════════════════════
+    //  NLP ENGINE — Runs entirely in the browser
+    //  No internet needed. Translates English to DuckyScript.
+    // ═══════════════════════════════════════════════
+    function convertNlp() {
+      const input = document.getElementById('nlp-input').value.trim().toLowerCase();
+      if (!input) { alert('Enter a command in English first!'); return; }
+      const result = nlpToDucky(input);
+      document.getElementById('nlp-output').value = result;
+      showToast('Converted to DuckyScript!');
+    }
+
+    function nlpToDucky(text) {
+      const lines = ['REM Generated by OmniDucky NLP Engine', 'DEFAULT_DELAY 80'];
+      const t = text.toLowerCase();
+
+      // ── CHROME MULTI-USER PROFILE DETECTION ──
+      // Profile 1 (left) = ~42%, Profile 2 (center) = 50%, Profile 3 (right) = ~58%
+      let profilePctX = 50; // default center profile
+      if (t.includes('profile 1') || t.includes('first profile') || t.includes('user 1')) {
+        profilePctX = 42;
+      } else if (t.includes('profile 3') || t.includes('third profile') || t.includes('user 3')) {
+        profilePctX = 58;
+      } else if (t.includes('profile 2') || t.includes('second profile') || t.includes('user 2')) {
+        profilePctX = 50;
+      }
+
+      // Direct profile selection command: e.g. "click profile 1", "select profile 2"
+      if (/^(?:click|select|choose)\s+(?:profile|user)/i.test(t) && !t.includes('search') && !t.includes('open')) {
+        lines.push('REM Mouse-click Chrome user profile',
+                   'SCREEN_SIZE 1920 1080',
+                   'MOUSE_POS_PCT ' + profilePctX + ' 50', 'DELAY 200',
+                   'MOUSE_CLICK LEFT', 'DELAY 300',
+                   'ENTER');
+        return lines.join('\n');
+      }
+
+      // ── GOOGLE / WEB SEARCH ──
+      // e.g. "open google and search for Vishwak Naidu"
+      //      "open google and search for Vishwak Naidu on profile 1"
+      //      "search for weather today on google"
+      const searchMatch = t.match(/(?:search\s+(?:for\s+)?|google\s+)(.+?)(?:\s+on\s+(?:google|chrome|the\s+web))?$/i)
+                       || t.match(/(?:open\s+google\s+and\s+search\s+for\s+)(.+?)$/i);
+      if (searchMatch) {
+        let cleanQuery = searchMatch[1].trim();
+        cleanQuery = cleanQuery.replace(/\s+(?:on\s+)?(?:profile|user)\s+[123]/i, '');
+        const query = encodeURIComponent(cleanQuery).replace(/%20/g, '+');
+        lines.push('GUI r', 'DELAY 600', 'STRINGLN chrome', 'DELAY 2500',
+                   'REM Click user profile avatar with mouse (handles Chrome multi-profile)',
+                   'SCREEN_SIZE 1920 1080',
+                   'MOUSE_POS_PCT ' + profilePctX + ' 50', 'DELAY 200',
+                   'MOUSE_CLICK LEFT', 'DELAY 300',
+                   'ENTER', 'DELAY 2000',
+                   'CTRL l', 'DELAY 400',
+                   'STRING https://www.google.com/search?q=' + query,
+                   'ENTER', 'DELAY 1500');
+      }
+
+      // ── OPEN APPLICATIONS ──
+      const openMatch = t.match(/open\s+(notepad|note\s*pad)/);
+      if (openMatch) {
+        lines.push('GUI r', 'DELAY 600', 'STRINGLN notepad', 'DELAY 2500');
+      }
+
+      const calcMatch = t.match(/open\s+(calc|calculator)/);
+      if (calcMatch) {
+        lines.push('GUI r', 'DELAY 600', 'STRINGLN calc', 'DELAY 1000');
+      }
+
+      const explorerMatch = t.match(/open\s+(file\s*explorer|explorer|files)/);
+      if (explorerMatch) {
+        lines.push('GUI e', 'DELAY 1000');
+      }
+
+      const taskMgrMatch = t.match(/open\s+(task\s*manager|taskmgr)/);
+      if (taskMgrMatch) {
+        lines.push('CTRL-ALT ESCAPE', 'DELAY 1000');
+      }
+
+      const powershellMatch = t.match(/(open|launch|run)\s+(powershell|ps|shell)/);
+      if (powershellMatch) {
+        lines.push('GUI r', 'DELAY 600', 'STRINGLN powershell', 'DELAY 2000');
+        // If "run X" or "and run X" follows, type that command
+        const psCmd = t.match(/(?:powershell|shell|ps)\s+and\s+run\s+(.+?)(?:\s+and\b|$)/i)
+                   || t.match(/(?:open|launch)\s+powershell\s+and\s+(?:run|type|execute)\s+(.+?)(?:\s+and\b|$)/i);
+        if (psCmd) {
+          lines.push('DELAY 500', 'STRINGLN ' + psCmd[1].trim());
+        }
+      }
+
+      const cmdMatch = t.match(/(open|launch|run)\s+(cmd|command\s*prompt|terminal)/);
+      if (cmdMatch) {
+        lines.push('GUI r', 'DELAY 600', 'STRINGLN cmd', 'DELAY 1000');
+      }
+
+      const chromeMatch = t.match(/(open|launch)\s+(chrome|google\s*chrome|browser)/);
+      if (chromeMatch && !searchMatch) {
+        lines.push('GUI r', 'DELAY 600', 'STRINGLN chrome', 'DELAY 2500',
+                   'REM Click user profile avatar with mouse (handles Chrome multi-profile)',
+                   'SCREEN_SIZE 1920 1080',
+                   'MOUSE_POS_PCT ' + profilePctX + ' 50', 'DELAY 200',
+                   'MOUSE_CLICK LEFT', 'DELAY 300',
+                   'ENTER', 'DELAY 2000');
+      }
+
+      const edgeMatch = t.match(/(open|launch)\s+(edge|microsoft\s*edge)/);
+      if (edgeMatch) {
+        lines.push('GUI r', 'DELAY 600', 'STRINGLN msedge', 'DELAY 2000');
+      }
+
+      const runMatch = t.match(/open\s+(run|run\s*dialog|win\+r)/);
+      if (runMatch) {
+        lines.push('GUI r', 'DELAY 600');
+      }
+
+      // ── NAVIGATE TO URL ──
+      const urlMatch = t.match(/(?:go\s+to|navigate\s+to|visit|open)\s+(https?:\/\/[^\s]+|[\w\-]+\.[a-z]{2,}[^\s]*)/i);
+      if (urlMatch && !searchMatch) {
+        const url = urlMatch[1].includes('://') ? urlMatch[1] : 'https://' + urlMatch[1];
+        // If a browser was opened, focus the address bar first with CTRL+L
+        if (chromeMatch || edgeMatch) {
+          lines.push('CTRL l', 'DELAY 400');
+        }
+        lines.push('STRING ' + url, 'ENTER', 'DELAY 1500');
+      }
+
+      // ── TYPE TEXT ──
+      // Fix: use non-greedy match ending at "and|then" OR end-of-string ($)
+      // Previous bug: \s+$ required whitespace before end which never matched.
+      const typeMatch = t.match(/(?:type|write|enter|say)\s+["']?(.+?)["']?(?:\s+(?:and\b|then\b)|$)/i);
+      if (typeMatch) {
+        lines.push('DELAY 500', 'STRING ' + typeMatch[1].trim());
+      }
+
+      // ── PRESS ENTER / SUBMIT ──
+      if (/(?:press\s+enter|hit\s+enter|submit|confirm)/.test(t)) {
+        lines.push('ENTER');
+      }
+
+      // ── SAVE FILE ──
+      if (/save\s+(?:it|the\s+file|file|document)?/.test(t)) {
+        lines.push('DELAY 300', 'CTRL s', 'DELAY 500');
+      }
+
+      // ── COPY / PASTE ──
+      if (/copy\s+(?:all|everything|it)?/.test(t)) {
+        lines.push('CTRL a', 'DELAY 100', 'CTRL c');
+      }
+      if (/paste/.test(t)) {
+        lines.push('CTRL v');
+      }
+
+      // ── CLOSE WINDOW ──
+      if (/close\s+(?:window|tab|app|it)?/.test(t)) {
+        lines.push('ALT F4');
+      }
+
+      // ── LOCK SCREEN ──
+      if (/lock\s+(?:screen|computer|pc|the\s+screen)?/.test(t)) {
+        lines.push('GUI l');
+      }
+
+      // ── SCREENSHOT ──
+      if (/(?:take\s+a?\s*|grab\s+a?\s*)?screenshot/.test(t)) {
+        lines.push('GUI PRINTSCREEN', 'DELAY 500');
+      }
+
+      // ── MINIMIZE / MAXIMIZE ──
+      if (/minimize\s+(?:all|windows|everything)?/.test(t)) {
+        lines.push('GUI d');
+      }
+      if (/maximize/.test(t)) {
+        lines.push('GUI UP');
+      }
+
+      // ── SLEEP / DELAY ──
+      const delayMatch = t.match(/wait\s+(\d+)\s*(seconds?|ms|milliseconds?)?/);
+      if (delayMatch) {
+        const ms = delayMatch[2] && delayMatch[2].startsWith('ms') ? parseInt(delayMatch[1]) : parseInt(delayMatch[1]) * 1000;
+        lines.push('DELAY ' + ms);
+      }
+
+      // ── MOUSE JIGGLER ──
+      if (/jiggl|wiggl|mouse\s*jiggl/.test(t)) {
+        lines.push('MOUSE_MOVE 50 0', 'DELAY 300', 'MOUSE_MOVE -50 0', 'DELAY 300', 'REPEAT 10');
+      }
+
+      // ── CLICK ──
+      if (/(?:left\s*)?click/.test(t) && !/right\s*click/.test(t)) {
+        lines.push('MOUSE_CLICK LEFT');
+      }
+      if (/right\s*click/.test(t)) {
+        lines.push('MOUSE_CLICK RIGHT');
+      }
+
+      // ── ADMIN / RUN AS ADMIN ──
+      if (/(?:admin|as\s+admin|administrator|elevated)/.test(t)) {
+        lines.push('CTRL-SHIFT ENTER', 'DELAY 1000', 'ALT y');
+      }
+
+      // If nothing matched, return a helpful message
+      if (lines.length === 2) {
+        lines.push('REM Could not parse: ' + text);
+        lines.push('REM Try: "open notepad and type hello" or "lock the screen"');
+      }
+
+      return lines.join('\n');
+    }
   </script>
 </body>
 </html>
@@ -534,7 +866,13 @@ void executeDuckyScript(const String& script) {
             token == "ALT" || token == "SHIFT" || token == "COMMAND") {
           pressModifier(token);
         } else {
-          pressKey(token);
+          // Convert single-char tokens to lowercase so the HID library
+          // does NOT add an implicit SHIFT modifier (e.g. 'E' vs 'e').
+          // GUI+'E' (uppercase) = WIN+SHIFT+E (wrong).
+          // GUI+'e' (lowercase) = WIN+E (correct → File Explorer).
+          String ltoken = token;
+          if (ltoken.length() == 1) ltoken.toLowerCase();
+          pressKey(ltoken);
         }
       }
       delay(30);

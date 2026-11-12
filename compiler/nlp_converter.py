@@ -27,16 +27,21 @@ APP_ALIASES = {
     "google chrome": "chrome",
     "safri": "safari",
     "edge": "msedge",
+    "edg": "msedge",
     "microsoft edge": "msedge",
     "firefox": "firefox",
     "calc": "calc",
     "calculator": "calc",
+    "claculator": "calc",
+    "calcultor": "calc",
     "powrshell": "powershell",
     "posh": "powershell",
     "terminal": "terminal",
     "cmd": "cmd",
     "command prompt": "cmd",
     "explorer": "explorer",
+    "explorr": "explorer",
+    "explor": "explorer",
     "settings": "settings",
     "youtube": "https://www.youtube.com",
     "google": "https://www.google.com",
@@ -72,7 +77,7 @@ class NaturalLanguageToDucky:
                 continue
 
             # Split compound actions while preserving URLs and decimals
-            parts = re.split(r'\b(?:and\s+then|then|after\s+that|next)\b|(?<!\w\.\w)(?<=\s)\.|\.(?=\s+[A-Z]|\s*$)', clean_line, flags=re.IGNORECASE)
+            parts = re.split(r'\b(?:and\s+then|then|after\s+that|next|and\s+(?=wait|type|run|save|close|press|click|left|right|go|browse|lock|hit|execute|copy|paste|move|jiggle|take))\b|(?<!\w\.\w)(?<=\s)\.|\.(?=\s+[A-Z]|\s*$)', clean_line, flags=re.IGNORECASE)
             for part in parts:
                 if part:
                     p = part.strip()

@@ -27,6 +27,7 @@ from compiler.duckyscript_parser import DuckyScriptParser
 from compiler.arduino_generator import ArduinoGenerator
 from compiler.ble_generator import BleGenerator
 from compiler.dual_generator import DualModeGenerator
+from compiler.simulator import VirtualSimulator
 
 
 PAYLOADS_DIR = Path(__file__).parent / "payloads"
@@ -124,6 +125,44 @@ def cmd_compile(args):
     print(f"[OK] Open in Arduino IDE and upload to your ESP32-S3")
 
 
+def cmd_simulate(args):
+    """Run virtual simulation of a payload without hardware."""
+    payload_path = Path(args.payload)
+    if not payload_path.exists():
+        print(f"[ERROR] Payload file not found: {payload_path}")
+        sys.exit(1)
+
+    source = payload_path.read_text(encoding="utf-8")
+    parser = DuckyScriptParser()
+    try:
+        commands = parser.parse(source)
+    except SyntaxError as e:
+        print(f"[SYNTAX ERROR]\n{e}")
+        sys.exit(1)
+
+    screen_w, screen_h = 1080, 2400
+    if args.res:
+        parts = args.res.split("x")
+        if len(parts) == 2:
+            screen_w, screen_h = int(parts[0]), int(parts[1])
+
+    sim = VirtualSimulator(screen_w=screen_w, screen_h=screen_h)
+    result = sim.simulate(commands, default_delay=parser.default_delay)
+
+    print(f"\n=======================================================")
+    print(f"  VIRTUAL EXECUTION SIMULATION: {payload_path.name}")
+    print(f"  Target Resolution: {result['screen_size']['width']}x{result['screen_size']['height']}")
+    print(f"=======================================================")
+    for step in result["timeline"]:
+        ch = f"[{step['channel']:<8}]"
+        print(f"  {step['time_formatted']:<7} {ch} {step['description']}")
+    print(f"-------------------------------------------------------")
+    print(f"  Total Estimated Duration : {result['total_duration_sec']}s")
+    print(f"  Total Executed Actions   : {result['step_count']}")
+    print(f"  Final Cursor Position    : ({result['final_cursor']['x']}px, {result['final_cursor']['y']}px)")
+    print(f"=======================================================\n")
+
+
 def cmd_validate(args):
     """Validate DuckyScript syntax without generating code."""
     payload_path = Path(args.payload)
@@ -199,6 +238,12 @@ def main():
         help="Bluetooth advertised name (for ble/dual targets)",
     )
     p_compile.set_defaults(func=cmd_compile)
+
+    # simulate
+    p_sim = subparsers.add_parser("simulate", help="Virtually simulate payload timing & actions")
+    p_sim.add_argument("payload", help="Path to .duck payload file")
+    p_sim.add_argument("--res", default="1080x2400", help="Screen resolution (e.g. 1080x2400 or 1920x1080)")
+    p_sim.set_defaults(func=cmd_simulate)
 
     # validate
     p_validate = subparsers.add_parser("validate", help="Validate DuckyScript syntax")

@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OmniDucky — Complete Setup Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --yellow: #FFD700;
+  --yellow-dim: #C8A800;
+  --orange: #FF8C00;
+  --green: #00E87A;
+  --blue: #38BDF8;
+  --purple: #A78BFA;
+  --red: #F87171;
+  --bg: #070711;
+  --bg2: #0D0D1A;
+  --bg3: #131325;
+  --card: #0F0F20;
+  --card2: #161628;
+  --code-bg: #09090F;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --t1: #FFFFFF;
+  --t2: #CBD5E1;
+  --t3: #64748B;
+  --t4: #334155;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { font-size: 14px; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--t2);
+  line-height: 1.65;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ═══════════════════════════════════════
+   COVER PAGE
+═══════════════════════════════════════ */
+.cover {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  page-break-after: always;
+  padding: 80px 60px;
+}
+
+/* Animated grid background */
+.cover-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,215,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,215,0,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glowing orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+}
+.orb-1 { width:500px; height:500px; background: radial-gradient(circle, rgba(255,215,0,0.15), transparent); top:-100px; left:-100px; }
+.orb-2 { width:400px; height:400px; background: radial-gradient(circle, rgba(56,189,248,0.1), transparent); bottom:-80px; right:-80px; }
+.orb-3 { width:300px; height:300px; background: radial-gradient(circle, rgba(167,139,250,0.08), transparent); top:50%; left:50%; transform:translate(-50%,-50%); }
+
+.cover-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+}
+
+/* Big ASCII logo block */
+.logo-block {
+  display: inline-block;
+  padding: 32px 40px;
+  background: rgba(255,215,0,0.03);
+  border: 1px solid rgba(255,215,0,0.15);
+  border-radius: 20px;
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.logo-block::before {
+  content: 'ESP32-S3 HID FRAMEWORK';
+  position: absolute;
+  top: -10px; left: 50%; transform: translateX(-50%);
+  background: var(--bg);
+  padding: 0 12px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--yellow);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+.ascii-art {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  line-height: 1.3;
+  color: var(--yellow);
+  white-space: pre;
+  text-shadow: 0 0 30px rgba(255,215,0,0.4), 0 0 60px rgba(255,215,0,0.15);
+  letter-spacing: 0.3px;
+}
+
+.cover-eyebrow {
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.cover-title {
+  font-size: 72px;
+  font-weight: 900;
+  letter-spacing: -3px;
+  line-height: 1;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #FFF 20%, var(--yellow) 60%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cover-tagline {
+  font-size: 17px;
+  color: var(--t3);
+  font-weight: 300;
+  margin-bottom: 48px;
+  letter-spacing: 0.5px;
+}
+
+.cover-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 56px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.tag-y { background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.25); color: var(--yellow); }
+.tag-g { background: rgba(0,232,122,0.08); border: 1px solid rgba(0,232,122,0.25); color: var(--green); }
+.tag-b { background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.25); color: var(--blue); }
+.tag-p { background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.25); color: var(--purple); }
+.tag-r { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); color: var(--red); }
+
+/* Stats strip */
+.stats-strip {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+
+.stat-item {
+  flex: 1;
+  padding: 20px 24px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  font-size: 28px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  background: linear-gradient(135deg, var(--yellow), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--t3);
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════
+   PAGE WRAPPER
+═══════════════════════════════════════ */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 70px 60px;
+  page-break-after: always;
+  position: relative;
+}
+
+.page:last-of-type { page-break-after: auto; }
+
+/* Page header stripe */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  margin-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--yellow);
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.page-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--t4);
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════
+   SECTION HEADERS
+═══════════════════════════════════════ */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--yellow);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--yellow);
+  border-radius: 1px;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--t1);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.section-desc {
+  font-size: 14px;
+  color: var(--t3);
+  margin-bottom: 36px;
+  font-weight: 400;
+}
+
+/* ═══════════════════════════════════════
+   STEP TIMELINE
+═══════════════════════════════════════ */
+.timeline {
+  position: relative;
+  padding-left: 56px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 32px;
+  bottom: 32px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--yellow), rgba(255,215,0,0.1));
+}
+
+.step {
+  position: relative;
+  margin-bottom: 36px;
+}
+
+.step:last-child { margin-bottom: 0; }
+
+.step-dot {
+  position: absolute;
+  left: -56px;
+  top: 2px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--yellow), var(--orange));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: #000;
+  box-shadow: 0 0 20px rgba(255,215,0,0.3);
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--t1);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.step-body {
+  font-size: 13.5px;
+  color: var(--t2);
+  line-height: 1.7;
+}
+
+.step-body strong {
+  color: var(--t1);
+  font-weight: 600;
+}
+
+.step-body em {
+  color: var(--yellow);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════
+   CARDS
+═══════════════════════════════════════ */
+.cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.cards-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 20px 0; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 16px 16px 0 0;
+}
+
+.card-y::before { background: linear-gradient(90deg, var(--yellow), var(--orange)); }
+.card-g::before { background: linear-gradient(90deg, var(--green), #00C55A); }
+.card-b::before { background: linear-gradient(90deg, var(--blue), #60A5FA); }
+.card-p::before { background: linear-gradient(90deg, var(--purple), #818CF8); }
+.card-r::before { background: linear-gradient(90deg, var(--red), #FB923C); }
+
+.card-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--t1);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-body {
+  font-size: 12.5px;
+  color: var(--t3);
+  line-height: 1.65;
+}
+
+.card-body li { list-style: none; padding: 3px 0; }
+.card-body li::before { content: '→ '; color: var(--yellow); font-weight: 700; }
+
+/* ═══════════════════════════════════════
+   SETTINGS TABLE
+═══════════════════════════════════════ */
+.settings-wrap {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.settings-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.settings-table thead tr {
+  background: rgba(255,215,0,0.06);
+}
+
+.settings-table thead th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--yellow);
+  border-bottom: 1px solid rgba(255,215,0,0.15);
+}
+
+.settings-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: background 0.15s;
+}
+
+.settings-table tbody tr:last-child { border-bottom: none; }
+.settings-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+
+.settings-table tbody td {
+  padding: 14px 20px;
+  font-size: 12.5px;
+  vertical-align: middle;
+}
+
+.td-setting { color: var(--t3); font-family: 'Inter', sans-serif; }
+.td-value { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+.td-critical { color: var(--green); font-weight: 700; }
+.td-warning { color: var(--red); font-weight: 700; }
+.td-normal { color: var(--t2); }
+.td-note { color: var(--t4); font-size: 11.5px; }
+
+/* CRITICAL badge */
+.badge-crit {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(248,113,113,0.12);
+  border: 1px solid rgba(248,113,113,0.3);
+  color: var(--red);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-left: 6px;
+}
+
+/* ═══════════════════════════════════════
+   CODE BLOCKS
+═══════════════════════════════════════ */
+.code-wrap {
+  margin: 16px 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.code-dots { display: flex; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #FF5F57; }
+.dot-y { background: #FEBC2E; }
+.dot-g { background: #28C840; }
+
+.code-lang {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--t4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.code-body {
+  background: var(--code-bg);
+  padding: 20px 22px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #ABB2BF;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.c-kw { color: #C678DD; }
+.c-str { color: #98C379; }
+.c-num { color: #D19A66; }
+.c-cmt { color: #5C6370; font-style: italic; }
+.c-fn { color: #61AFEF; }
+.c-url { color: #56B6C2; }
+.c-ok { color: #98C379; font-weight: 700; }
+.c-err { color: #E06C75; }
+
+/* ═══════════════════════════════════════
+   ALERT BOXES
+═══════════════════════════════════════ */
+.alert {
+  display: flex;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  margin: 20px 0;
+  align-items: flex-start;
+}
+
+.alert-icon { font-size: 20px; flex-shrink: 0; line-height: 1; }
+
+.alert-content { flex: 1; }
+
+.alert-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.alert-body { font-size: 12.5px; line-height: 1.6; }
+
+.alert-y {
+  background: rgba(255,215,0,0.06);
+  border: 1px solid rgba(255,215,0,0.2);
+}
+.alert-y .alert-title { color: var(--yellow); }
+.alert-y .alert-body { color: rgba(255,215,0,0.7); }
+
+.alert-g {
+  background: rgba(0,232,122,0.05);
+  border: 1px solid rgba(0,232,122,0.2);
+}
+.alert-g .alert-title { color: var(--green); }
+.alert-g .alert-body { color: rgba(0,232,122,0.7); }
+
+.alert-b {
+  background: rgba(56,189,248,0.05);
+  border: 1px solid rgba(56,189,248,0.2);
+}
+.alert-b .alert-title { color: var(--blue); }
+.alert-b .alert-body { color: rgba(56,189,248,0.7); }
+
+.alert-r {
+  background: rgba(248,113,113,0.06);
+  border: 1px solid rgba(248,113,113,0.2);
+}
+.alert-r .alert-title { color: var(--red); }
+.alert-r .alert-body { color: rgba(248,113,113,0.7); }
+
+/* ═══════════════════════════════════════
+   ARCHITECTURE DIAGRAM
+═══════════════════════════════════════ */
+.arch-box {
+  background: var(--code-bg);
+  border: 1px solid rgba(255,215,0,0.1);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.arch-box::before {
+  content: 'SYSTEM ARCHITECTURE';
+  position: absolute;
+  top: 16px; right: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255,215,0,0.3);
+  font-weight: 700;
+}
+
+.arch-pre {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #ABB2BF;
+  white-space: pre;
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════
+   TROUBLESHOOT CARDS
+═══════════════════════════════════════ */
+.trouble-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.trouble-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: rgba(248,113,113,0.05);
+  border-bottom: 1px solid rgba(248,113,113,0.1);
+}
+
+.trouble-icon { font-size: 18px; flex-shrink: 0; }
+
+.trouble-problem {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--red);
+  line-height: 1.4;
+}
+
+.trouble-body {
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.trouble-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+
+.label-cause { color: var(--t4); }
+.label-fix { color: var(--green); }
+
+.trouble-text { font-size: 12.5px; color: var(--t2); line-height: 1.6; }
+.trouble-text strong { color: var(--t1); }
+.trouble-divider { grid-column: 1 / -1; border: none; border-top: 1px solid var(--border); margin: 2px 0; }
+
+/* ═══════════════════════════════════════
+   DUCKYSCRIPT REFERENCE TABLE
+═══════════════════════════════════════ */
+.duck-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 12.5px;
+}
+
+.duck-table thead th {
+  padding: 12px 16px;
+  text-align: left;
+  background: rgba(255,215,0,0.06);
+  border-bottom: 1px solid rgba(255,215,0,0.15);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.duck-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.duck-table tbody td {
+  padding: 11px 16px;
+  vertical-align: middle;
+}
+
+.dk-cmd { font-family: 'JetBrains Mono', monospace; color: var(--purple); font-weight: 700; font-size: 12px; }
+.dk-syn { font-family: 'JetBrains Mono', monospace; color: var(--t3); font-size: 11.5px; }
+.dk-desc { color: var(--t2); }
+
+/* ═══════════════════════════════════════
+   STATS BOXES
+═══════════════════════════════════════ */
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+
+.stat-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-box::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.stat-box-y::after { background: linear-gradient(90deg, var(--yellow), var(--orange)); }
+.stat-box-g::after { background: linear-gradient(90deg, var(--green), #00C55A); }
+.stat-box-b::after { background: linear-gradient(90deg, var(--blue), #60A5FA); }
+
+.sbox-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px;
+  font-weight: 700;
+  display: block;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.sbox-y .sbox-num { color: var(--yellow); }
+.sbox-g .sbox-num { color: var(--green); }
+.sbox-b .sbox-num { color: var(--blue); }
+
+.sbox-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--t4);
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════
+   FILE TREE
+═══════════════════════════════════════ */
+.file-tree {
+  background: var(--code-bg);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 24px 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--t3);
+}
+
+.ft-dir { color: var(--blue); }
+.ft-ino { color: var(--yellow); font-weight: 700; }
+.ft-py { color: var(--green); }
+.ft-md { color: var(--purple); }
+.ft-flash { background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.2); border-radius: 4px; padding: 1px 6px; color: var(--yellow); font-size: 10px; font-weight: 800; letter-spacing: 1px; margin-left: 4px; }
+
+/* ═══════════════════════════════════════
+   DIVIDERS & SPACERS
+═══════════════════════════════════════ */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border2), transparent);
+  margin: 36px 0;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+.footer {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  padding: 40px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0;
+}
+
+.footer-left .footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.footer-left .footer-sub {
+  font-size: 11px;
+  color: var(--t4);
+  letter-spacing: 1px;
+}
+
+.footer-right {
+  text-align: right;
+  font-size: 11px;
+  color: var(--t4);
+  line-height: 1.8;
+}
+
+/* ═══════════════════════════════════════
+   PRINT
+═══════════════════════════════════════ */
+@media print {
+  @page { size: A4; margin: 0; }
+  body { background: #fff; color: #1a1a1a; }
+  
+  .cover { background: #0A0A14; min-height: auto; padding: 60px; }
+  .cover-grid, .orb { display: none; }
+  
+  .page { padding: 50px 60px; }
+  
+  .card, .trouble-card, .stat-box { background: #F8F9FA; border-color: #E5E7EB; }
+  .code-body, .arch-pre, .file-tree { background: #F1F5F9; color: #1E293B; }
+  .code-wrap { border-color: #E2E8F0; }
+  .code-header { background: #E2E8F0; }
+  
+  .settings-table thead tr { background: #FEF9C3; }
+  .settings-table thead th { color: #92400E; border-color: #FDE68A; }
+  
+  .duck-table thead th { background: #FEF9C3; color: #92400E; }
+  
+  .alert-y { background: #FEF9C3; border-color: #FCD34D; }
+  .alert-y .alert-title { color: #B45309; }
+  .alert-y .alert-body { color: #92400E; }
+  
+  .alert-g { background: #DCFCE7; border-color: #86EFAC; }
+  .alert-g .alert-title { color: #15803D; }
+  .alert-g .alert-body { color: #166534; }
+  
+  .alert-r { background: #FEE2E2; border-color: #FCA5A5; }
+  .alert-r .alert-title { color: #B91C1C; }
+  .alert-r .alert-body { color: #991B1B; }
+  
+  .alert-b { background: #E0F2FE; border-color: #7DD3FC; }
+  .alert-b .alert-title { color: #0369A1; }
+  .alert-b .alert-body { color: #075985; }
+  
+  .cover-title { -webkit-text-fill-color: #FF8C00; }
+  .ascii-art { text-shadow: none; color: #333; }
+  
+  .footer { background: #F8F9FA; border-color: #E5E7EB; }
+  
+  .trouble-header { background: #FEE2E2; border-color: #FCA5A5; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     COVER
+══════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="cover-content">
+    <div class="logo-block">
+      <div class="ascii-art">
+  ██████╗ ███╗   ███╗███╗   ██╗██╗██████╗ ██╗   ██╗ ██████╗██╗  ██╗██╗   ██╗
+ ██╔═══██╗████╗ ████║████╗  ██║██║██╔══██╗██║   ██║██╔════╝██║ ██╔╝╚██╗ ██╔╝
+ ██║   ██║██╔████╔██║██╔██╗ ██║██║██║  ██║██║   ██║██║     █████╔╝  ╚████╔╝
+ ██║   ██║██║╚██╔╝██║██║╚██╗██║██║██║  ██║██║   ██║██║     ██╔═██╗   ╚██╔╝
+ ╚██████╔╝██║ ╚═╝ ██║██║ ╚████║██║██████╔╝╚██████╔╝╚██████╗██║  ██╗   ██║
+  ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝╚═════╝  ╚═════╝  ╚═════╝╚═╝  ╚═╝   ╚═╝</div>
+    </div>
+
+    <p class="cover-eyebrow">Complete Setup &amp; Operations Guide</p>
+    <h1 class="cover-title">OmniDucky</h1>
+    <p class="cover-tagline">ESP32-S3 · HID Payload Framework · Standalone Wi-Fi C2 Architecture<br>Flash Once — Control Forever from Any Phone, Anywhere</p>
+
+    <div class="cover-tags">
+      <span class="tag tag-y">⚡ USB HID @ 1,200 WPM</span>
+      <span class="tag tag-b">📡 Wi-Fi Captive Portal C2</span>
+      <span class="tag tag-g">✅ 1,270 Tests Passed</span>
+      <span class="tag tag-p">🤖 NLP → DuckyScript</span>
+      <span class="tag tag-r">🎯 USB + BLE + Mouse</span>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat-item">
+        <span class="stat-num">1,270</span>
+        <span class="stat-label">Tests Passed</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Pass Rate</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">547</span>
+        <span class="stat-label">Lines of Firmware</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">1×</span>
+        <span class="stat-label">Flash Required</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Payloads via Phone</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 1 — WHAT IS OMNIDUCKY
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-logo">🦆 OMNIDUCKY</span>
+    <span class="page-num">SECTION 01 / OVERVIEW</span>
+  </div>
+
+  <div class="section-label">Introduction</div>
+  <h2 class="section-title">What Is OmniDucky?</h2>
+  <p class="section-desc">A standalone HID attack framework that eliminates the need for a computer after the initial one-time flash.</p>
+
+  <div class="arch-box">
+    <div class="arch-pre"><span style="color:rgba(255,215,0,0.5)">YOUR PHONE</span>                              <span style="color:rgba(56,189,248,0.5)">ESP32-S3 BOARD</span>                     <span style="color:rgba(248,113,113,0.5)">TARGET MACHINE</span>
+
+┌──────────────────┐   Wi-Fi    ┌──────────────────────────────┐  USB-OTG  ┌─────────────────────┐
+│                  │◄──────────►│                              │──────────►│                     │
+│  Open Browser    │  OmniDucky │  ┌──────────┐  ┌──────────┐ │           │  Sees: USB Keyboard │
+│  192.168.4.1     │   -C2 AP   │  │ Web Server│  │DuckyScript│ │           │  + Mouse Hardware   │
+│                  │            │  │ Port 80  │  │Interpreter│ │           │                     │
+│  ┌────────────┐  │            │  └──────────┘  └──────────┘ │           │  Windows / macOS /  │
+│  │ Type       │  │            │                              │           │  Linux / Android    │
+│  │ DuckyScript│  │  HTTP POST │  ┌──────────┐  ┌──────────┐ │           │                     │
+│  │ or English │──┼────────────►  │ NVS Flash│  │ USB HID  │ │           │  No drivers needed  │
+│  │ (NLP→Duck) │  │            │  │ Autorun  │  │ BLE HID  │ │           │  No software needed │
+│  └────────────┘  │            │  └──────────┘  └──────────┘ │           │                     │
+└──────────────────┘            └──────────────────────────────┘           └─────────────────────┘
+                                        ↑
+                              Flash ONCE with Arduino IDE
+                              Never need a computer again</div>
+  </div>
+
+  <div class="cards-2">
+    <div class="card card-y">
+      <span class="card-icon">⚡</span>
+      <div class="card-title">Core Capabilities</div>
+      <ul class="card-body">
+        <li>USB HID Keyboard — 1,200 WPM injection</li>
+        <li>Bluetooth BLE 5.0 HID (Android / iOS)</li>
+        <li>Adaptive mouse with screen-% positioning</li>
+        <li>Wi-Fi Access Point + Captive Portal C2</li>
+        <li>NLP → DuckyScript translation (in browser JS)</li>
+        <li>Persistent autorun via NVS flash storage</li>
+      </ul>
+    </div>
+    <div class="card card-b">
+      <span class="card-icon">📡</span>
+      <div class="card-title">Operational Flow</div>
+      <ul class="card-body">
+        <li>Plug ESP32-S3 into any USB port or charger</li>
+        <li>Board broadcasts <strong style="color:var(--yellow)">OmniDucky-C2</strong> Wi-Fi</li>
+        <li>Connect phone → open <strong style="color:var(--blue)">192.168.4.1</strong></li>
+        <li>Type English or DuckyScript in the browser</li>
+        <li>Tap FIRE → payload injects on target PC</li>
+        <li>Tap SAVE → autorun fires on every plug-in</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-g">
+    <span class="alert-icon">✅</span>
+    <div class="alert-content">
+      <div class="alert-title">Flash Once — Control Forever</div>
+      <div class="alert-body">You only use Arduino IDE for the initial firmware flash. After that, all payload changes happen wirelessly from your smartphone at 192.168.4.1. The ESP32-S3 operates completely independently — plug it into any USB power source and control it from anywhere.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 2 — INSTALL ARDUINO IDE
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-logo">🦆 OMNIDUCKY</span>
+    <span class="page-num">SECTION 02 / ARDUINO IDE SETUP</span>
+  </div>
+
+  <div class="section-label">Step 1 of 5</div>
+  <h2 class="section-title">Download &amp; Install Arduino IDE</h2>
+  <p class="section-desc">You need Arduino IDE 2.x — not the legacy 1.x version. This is a one-time setup on your computer.</p>
+
+  <div class="timeline">
+    <div class="step">
+      <div class="step-dot">1</div>
+      <div class="step-title">Go to the Arduino Website</div>
+      <div class="step-body">
+        Open your browser and navigate to <em>arduino.cc/en/software</em>. You will see the download page for Arduino IDE 2.x. This is free software — no account or payment required.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">2</div>
+      <div class="step-title">Download for Your Operating System</div>
+      <div class="step-body">
+        <strong>Windows:</strong> Click "Windows Win 10 and newer, 64 bits" to download the .msi installer.<br>
+        <strong>macOS:</strong> Click "macOS 10.15 or newer" to download the .dmg file.<br>
+        <strong>Linux:</strong> Click "Linux" to download the AppImage.
+        <br><br>The download is approximately <em>200–300 MB</em>. Wait for it to complete fully.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">3</div>
+      <div class="step-title">Run the Installer</div>
+      <div class="step-body">
+        <strong>Windows:</strong> Double-click the downloaded <em>.msi</em> file. Click "Next" through the wizard, accept the license agreement, keep all components checked (especially USB drivers), and click "Install". If a User Account Control (UAC) popup appears, click Yes. The installer also installs necessary USB board drivers automatically.<br><br>
+        <strong>macOS:</strong> Open the .dmg file and drag the Arduino IDE icon into your Applications folder. First launch may require right-clicking → Open to bypass Gatekeeper.<br><br>
+        <strong>Linux:</strong> Make executable and run:
+      </div>
+    </div>
+
+    <div class="code-wrap" style="margin-left:0;margin-top:-20px;margin-bottom:20px;">
+      <div class="code-header">
+        <div class="code-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span class="code-lang">bash — Linux only</span>
+      </div>
+      <div class="code-body">chmod +x arduino-ide_2.x.x_Linux_64bit.AppImage
+./arduino-ide_2.x.x_Linux_64bit.AppImage</div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">4</div>
+      <div class="step-title">Launch Arduino IDE 2</div>
+      <div class="step-body">
+        Open the installed Arduino IDE. On first launch, it will update its index files — you will see a progress bar at the bottom. <strong>Wait for it to complete</strong> before proceeding. If it asks about network firewall access, click "Allow".
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">5</div>
+      <div class="step-title">Install USB Driver (Windows — if your board doesn't appear)</div>
+      <div class="step-body">
+        If your ESP32-S3 board uses a <em>CP2102 chip</em> (Silabs), download the CP210x driver from <em>silabs.com/developers/usb-to-uart-bridge-vcp-drivers</em>.<br>
+        If it uses a <em>CH340 chip</em>, download from <em>wch-ic.com/search?q=ch340</em>.<br>
+        After installing, unplug and re-plug the board. Open Device Manager — it should appear under <strong>"Ports (COM &amp; LPT)"</strong> as COMx.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 3 — CONFIGURE ARDUINO IDE FOR ESP32
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-logo">🦆 OMNIDUCKY</span>
+    <span class="page-num">SECTION 03 / ESP32-S3 CONFIGURATION</span>
+  </div>
+
+  <div class="section-label">Step 2 of 5</div>
+  <h2 class="section-title">Configure Arduino IDE for ESP32-S3</h2>
+  <p class="section-desc">Add the ESP32 board package and set the critical USB-OTG settings. Getting these right is everything.</p>
+
+  <div class="timeline">
+    <div class="step">
+      <div class="step-dot">1</div>
+      <div class="step-title">Add the ESP32 Board Manager URL</div>
+      <div class="step-body">
+        In Arduino IDE, go to <em>File → Preferences</em> (Windows/Linux) or <em>Arduino IDE → Settings</em> (Mac).<br>
+        Find the field labeled <strong>"Additional boards manager URLs"</strong>. Click the small icon to its right to open the URL list. Paste this URL and click OK:
+      </div>
+    </div>
+
+    <div class="code-wrap" style="margin-left:0;margin-top:-20px;margin-bottom:24px;">
+      <div class="code-header">
+        <div class="code-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span class="code-lang">Board Manager URL</span>
+      </div>
+      <div class="code-body"><span class="c-url">https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json</span></div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">2</div>
+      <div class="step-title">Install the ESP32 Board Package</div>
+      <div class="step-body">
+        Go to <em>Tools → Board → Boards Manager</em>. In the search field, type <strong>"esp32"</strong>. You will see a package by <strong>Espressif Systems</strong> — this is the correct one (not by Arduino). Click <em>INSTALL</em>. This downloads about 200 MB and may take 3–5 minutes. When done, the button changes to "INSTALLED".
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">3</div>
+      <div class="step-title">Select the ESP32-S3 Board</div>
+      <div class="step-body">
+        Go to <em>Tools → Board → ESP32 Arduino</em>. Scroll down and select <em><strong>ESP32S3 Dev Module</strong></em>. The title bar of Arduino IDE should now display "ESP32S3 Dev Module".
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">4</div>
+      <div class="step-title">Apply All Required Settings — CRITICAL</div>
+      <div class="step-body">
+        Under the <em>Tools</em> menu, set every option exactly as shown in the table below. <strong>Wrong USB mode is the #1 cause of HID failure.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-wrap">
+    <table class="settings-table">
+      <thead>
+        <tr>
+          <th>Setting</th>
+          <th>Required Value</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-setting">Board</td>
+          <td class="td-value td-critical">ESP32S3 Dev Module</td>
+          <td class="td-note">Must be S3 specifically</td>
+        </tr>
+        <tr>
+          <td class="td-setting">USB Mode <span class="badge-crit">⚠ CRITICAL</span></td>
+          <td class="td-value td-critical">USB-OTG (TinyUSB)</td>
+          <td class="td-note">HID won't work otherwise</td>
+        </tr>
+        <tr>
+          <td class="td-setting">USB CDC On Boot <span class="badge-crit">⚠ CRITICAL</span></td>
+          <td class="td-value td-warning">Disabled</td>
+          <td class="td-note">Must be Disabled for HID</td>
+        </tr>
+        <tr>
+          <td class="td-setting">CPU Frequency</td>
+          <td class="td-value td-normal">240MHz (WiFi/BT)</td>
+          <td class="td-note">Needed for Wi-Fi + HID together</td>
+        </tr>
+        <tr>
+          <td class="td-setting">Flash Size</td>
+          <td class="td-value td-normal">4MB (or 8MB)</td>
+          <td class="td-note">Match your board's actual flash</td>
+        </tr>
+        <tr>
+          <td class="td-setting">Partition Scheme</td>
+          <td class="td-value td-normal">Default 4MB with spiffs</td>
+          <td class="td-note">Leave as default</td>
+        </tr>
+        <tr>
+          <td class="td-setting">Upload Mode</td>
+          <td class="td-value td-normal">UART0 / Hardware CDC</td>
+          <td class="td-note">Default value is correct</td>
+        </tr>
+        <tr>
+          <td class="td-setting">Upload Speed</td>
+          <td class="td-value td-normal">921600</td>
+          <td class="td-note">Fastest reliable baud rate</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert alert-r">
+    <span class="alert-icon">🚨</span>
+    <div class="alert-content">
+      <div class="alert-title">The Two Settings That Break Everything</div>
+      <div class="alert-body">If USB HID doesn't work after flashing, it is almost certainly because USB Mode is not set to <strong>"USB-OTG (TinyUSB)"</strong> or USB CDC On Boot is not <strong>"Disabled"</strong>. These two settings override everything else. Double-check them every time before uploading.</div>
+    </div>
+  </div>
+
+  <div class="timeline" style="margin-top:28px;">
+    <div class="step">
+      <div class="step-dot">5</div>
+      <div class="step-title">Select the Serial Port</div>
+      <div class="step-body">
+        Connect your ESP32-S3 to your computer via USB. Wait 3 seconds, then go to <em>Tools → Port</em>. A new port should appear — on Windows it looks like <strong>COM3</strong> or <strong>COM5</strong>, on Mac it's <strong>/dev/cu.usbserial-XXXX</strong>, on Linux it's <strong>/dev/ttyUSB0</strong>. Select it. If nothing appears, your USB driver is not installed — see Section 02, Step 5.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 4 — FLASH THE FIRMWARE
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-logo">🦆 OMNIDUCKY</span>
+    <span class="page-num">SECTION 04 / FLASHING THE FIRMWARE</span>
+  </div>
+
+  <div class="section-label">Step 3 of 5</div>
+  <h2 class="section-title">Flash the C2 Firmware</h2>
+  <p class="section-desc">The exact file to flash is <code style="font-family:monospace;color:var(--yellow);background:rgba(255,215,0,0.1);padding:2px 8px;border-radius:5px;">firmware/omniducky_c2/omniducky_c2.ino</code> — 547 lines, includes the full web dashboard.</p>
+
+  <div class="file-tree">
+<span class="ft-dir">OmniDucky/</span>
+└── <span class="ft-dir">firmware/</span>
+    ├── <span class="ft-dir">omniducky_c2/</span>
+    │   └── <span class="ft-ino">omniducky_c2.ino</span>  <span class="ft-flash">← FLASH THIS</span>  (547 lines · 19.6 KB · Full C2 firmware)
+    └── <span class="ft-dir">esp32s3_ducky/</span>
+        └── <span class="ft-ino">esp32s3_ducky.ino</span>  (Simple USB-only mode — optional alternative)
+  </div>
+
+  <div class="timeline" style="margin-top:28px;">
+    <div class="step">
+      <div class="step-dot">1</div>
+      <div class="step-title">Clone or Download the Repository</div>
+      <div class="step-body">Get the OmniDucky source code from GitHub onto your computer:</div>
+    </div>
+
+    <div class="code-wrap" style="margin-left:0;margin-top:-20px;margin-bottom:24px;">
+      <div class="code-header">
+        <div class="code-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span class="code-lang">Terminal / Command Prompt</span>
+      </div>
+      <div class="code-body"><span class="c-cmt"># Option A — Clone with Git (recommended)</span>
+<span class="c-fn">git</span> clone https://github.com/viswakpullepu/OmniDucky.git
+<span class="c-fn">cd</span> OmniDucky
+
+<span class="c-cmt"># Option B — Download ZIP from GitHub</span>
+<span class="c-cmt"># Visit github.com/viswakpullepu/OmniDucky → Code → Download ZIP</span>
+<span class="c-cmt"># Extract the ZIP anywhere on your computer</span></div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">2</div>
+      <div class="step-title">Open the C2 Sketch in Arduino IDE</div>
+      <div class="step-body">
+        In Arduino IDE go to <em>File → Open</em>. Navigate to the folder where you cloned/extracted the repo. Open: <strong>firmware → omniducky_c2 → omniducky_c2.ino</strong>. The file will load with ~547 lines of code visible in the editor.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">3</div>
+      <div class="step-title">Verify It Compiles (Test Before Flashing)</div>
+      <div class="step-body">
+        Click the <strong>✓ checkmark (Verify)</strong> button in the top-left toolbar, or press <strong>Ctrl+R</strong> (Windows/Linux) or <strong>Cmd+R</strong> (Mac). Arduino IDE will compile the code — first compile takes 60–120 seconds. At the bottom you should see a green success message like below. If you see red errors, check Section 06 (Troubleshooting).
+      </div>
+    </div>
+
+    <div class="code-wrap" style="margin-left:0;margin-top:-20px;margin-bottom:24px;">
+      <div class="code-header">
+        <div class="code-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span class="code-lang">Expected Compile Output</span>
+      </div>
+      <div class="code-body"><span class="c-ok">Sketch uses 847,424 bytes (64%) of program storage space.</span>
+<span class="c-ok">Global variables use 42,312 bytes (12%) of dynamic memory.</span></div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">4</div>
+      <div class="step-title">Enter Boot Mode if Upload Hangs</div>
+      <div class="step-body">
+        Click the <strong>→ Upload button</strong> (or Ctrl+U). If you see "Connecting....." stuck for more than 10 seconds: hold the <em>BOOT button</em> on the board, tap the <em>RESET button</em> briefly, then release BOOT. The upload will begin. Most modern boards handle this automatically — try uploading first without pressing anything.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">5</div>
+      <div class="step-title">Wait for Upload to Complete</div>
+      <div class="step-body">
+        You will see a progress bar and percentage in the console. The board reboots automatically when done. Wait for the success message:
+      </div>
+    </div>
+
+    <div class="code-wrap" style="margin-left:0;margin-top:-20px;margin-bottom:24px;">
+      <div class="code-header">
+        <div class="code-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+        <span class="code-lang">Upload Success Output</span>
+      </div>
+      <div class="code-body"><span class="c-cmt">Connecting.......</span>
+<span class="c-cmt">Chip is ESP32-S3 (revision v0.2)</span>
+<span class="c-cmt">Features: WiFi, BLE</span>
+<span class="c-cmt">Compressed 847424 bytes to 521829...</span>
+<span class="c-num">Writing at 0x00010000... (25 %)</span>
+<span class="c-num">Writing at 0x00040000... (50 %)</span>
+<span class="c-num">Writing at 0x00070000... (75 %)</span>
+<span class="c-num">Writing at 0x000A0000... (100 %)</span>
+<span class="c-ok">Hash of data verified.</span>
+<span class="c-ok">Leaving...</span>
+<span class="c-ok">Hard resetting via RTS pin...</span></div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">6</div>
+      <div class="step-title">Confirm: Wi-Fi Network Appears</div>
+      <div class="step-body">
+        Within 3 seconds of the board rebooting, pick up your phone and open Wi-Fi settings. You should see a new network named <em><strong>OmniDucky-C2</strong></em> in the list. If you see it — your flash was successful. 🎉 You're done with Arduino IDE forever for this board.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 5 — USING THE C2 DASHBOARD
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-logo">🦆 OMNIDUCKY</span>
+    <span class="page-num">SECTION 05 / USING THE C2 DASHBOARD</span>
+  </div>
+
+  <div class="section-label">Step 4 of 5</div>
+  <h2 class="section-title">Using the C2 Dashboard</h2>
+  <p class="section-desc">From this point forward, you never need a computer. Control everything wirelessly from your phone.</p>
+
+  <div class="cards-3" style="margin-bottom:32px;">
+    <div class="card card-y" style="text-align:center;">
+      <div style="font-size:36px;margin-bottom:10px;">📱</div>
+      <div class="card-title">Wi-Fi SSID</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--yellow);font-weight:700;margin-top:8px;">OmniDucky-C2</div>
+    </div>
+    <div class="card card-g" style="text-align:center;">
+      <div style="font-size:36px;margin-bottom:10px;">🔑</div>
+      <div class="card-title">Password</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--green);font-weight:700;margin-top:8px;">ducky123</div>
+    </div>
+    <div class="card card-b" style="text-align:center;">
+      <div style="font-size:36px;margin-bottom:10px;">🌐</div>
+      <div class="card-title">Dashboard URL</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--blue);font-weight:700;margin-top:8px;">http://192.168.4.1</div>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="step">
+      <div class="step-dot">1</div>
+      <div class="step-title">Plug the ESP32-S3 into Any USB Port</div>
+      <div class="step-body">
+        You can plug it into a <strong>PC's USB port</strong> (it will also inject into that PC), a <strong>USB phone charger</strong>, or a <strong>power bank</strong>. The board boots immediately. The built-in LED flashes once to signal it's ready.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">2</div>
+      <div class="step-title">Connect Your Phone to OmniDucky-C2 Wi-Fi</div>
+      <div class="step-body">
+        On your phone, open <em>Settings → Wi-Fi</em>. Find <em><strong>OmniDucky-C2</strong></em> in the list and connect. Enter password <em><strong>ducky123</strong></em>. The phone may show a warning like "No internet" — this is normal. <strong>Keep connected anyway.</strong> On iOS, tap "Use Without Internet". On Android, tap "Stay Connected".
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">3</div>
+      <div class="step-title">Open the Dashboard</div>
+      <div class="step-body">
+        A captive portal notification may automatically pop up — tap it to open the dashboard. If it doesn't pop up, open your phone's browser (Chrome, Safari) and type <em><strong>http://192.168.4.1</strong></em> in the address bar. The full OmniDucky C2 dashboard loads directly from the ESP32's internal memory — no internet required.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">4</div>
+      <div class="step-title">Write Your Payload — Two Methods</div>
+      <div class="step-body">
+        <strong>Method A — Natural Language (easiest):</strong><br>
+        Tap the NLP tab. Type plain English, for example: <em>"Open Notepad and type Hello World"</em> or <em>"Open PowerShell as admin and run ipconfig"</em>. The browser's JavaScript automatically translates it to DuckyScript without needing internet. Tap Convert, review the generated script, then tap FIRE.<br><br>
+        <strong>Method B — DuckyScript (direct):</strong><br>
+        Tap the Script tab. Type or paste DuckyScript commands directly into the editor. See the DuckyScript Quick Reference section for all available commands.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">5</div>
+      <div class="step-title">Fire the Payload</div>
+      <div class="step-body">
+        Tap the red <em><strong>🔴 FIRE PAYLOAD NOW</strong></em> button. The ESP32 immediately injects the commands into whichever USB host it's plugged into. You will see the status panel update to "Injecting..." and then "Done". You can fire as many different payloads as you want without reflashing.
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">6</div>
+      <div class="step-title">Save as Autorun (Optional — Persistent Mode)</div>
+      <div class="step-body">
+        Tap <em><strong>💾 SAVE AS AUTORUN</strong></em> to write the current payload to NVS flash storage on the ESP32. From this point forward, every time you plug the board into any new machine, it will <strong>automatically execute that payload</strong> within 2 seconds — no phone, no connection, no dashboard needed. The autorun payload survives power cuts and reboots. To disable autorun, tap the "Clear Autorun" button in the dashboard status panel.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 6 — DUCKYSCRIPT + TROUBLESHOOTING
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-logo">🦆 OMNIDUCKY</span>
+    <span class="page-num">SECTION 06 / DUCKYSCRIPT REFERENCE</span>
+  </div>
+
+  <div class="section-label">Step 5 of 5</div>
+  <h2 class="section-title">DuckyScript Quick Reference</h2>
+  <p class="section-desc">All commands supported by the OmniDucky on-chip interpreter. All commands are UPPERCASE.</p>
+
+  <div class="settings-wrap">
+    <table class="duck-table">
+      <thead>
+        <tr>
+          <th>Command</th>
+          <th>Example</th>
+          <th>What it Does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="dk-cmd">STRING</td><td class="dk-syn">STRING Hello World</td><td class="dk-desc">Types text as keyboard keystrokes</td></tr>
+        <tr><td class="dk-cmd">STRINGLN</td><td class="dk-syn">STRINGLN Hello</td><td class="dk-desc">Types text then presses Enter</td></tr>
+        <tr><td class="dk-cmd">DELAY</td><td class="dk-syn">DELAY 500</td><td class="dk-desc">Waits N milliseconds</td></tr>
+        <tr><td class="dk-cmd">DEFAULT_DELAY</td><td class="dk-syn">DEFAULT_DELAY 100</td><td class="dk-desc">Sets pause between all commands</td></tr>
+        <tr><td class="dk-cmd">GUI / WIN</td><td class="dk-syn">GUI r</td><td class="dk-desc">Windows key + letter (Win+R opens Run)</td></tr>
+        <tr><td class="dk-cmd">CTRL</td><td class="dk-syn">CTRL c</td><td class="dk-desc">Ctrl + key combination</td></tr>
+        <tr><td class="dk-cmd">ALT</td><td class="dk-syn">ALT F4</td><td class="dk-desc">Alt + key combination</td></tr>
+        <tr><td class="dk-cmd">CTRL-ALT</td><td class="dk-syn">CTRL-ALT DELETE</td><td class="dk-desc">Multi-modifier combination</td></tr>
+        <tr><td class="dk-cmd">SHIFT</td><td class="dk-syn">SHIFT TAB</td><td class="dk-desc">Shift + key</td></tr>
+        <tr><td class="dk-cmd">ENTER</td><td class="dk-syn">ENTER</td><td class="dk-desc">Presses the Return/Enter key</td></tr>
+        <tr><td class="dk-cmd">TAB</td><td class="dk-syn">TAB</td><td class="dk-desc">Presses Tab</td></tr>
+        <tr><td class="dk-cmd">ESCAPE</td><td class="dk-syn">ESCAPE</td><td class="dk-desc">Presses Escape</td></tr>
+        <tr><td class="dk-cmd">REPEAT</td><td class="dk-syn">REPEAT 5</td><td class="dk-desc">Repeats last command N times</td></tr>
+        <tr><td class="dk-cmd">MOUSE_MOVE</td><td class="dk-syn">MOUSE_MOVE 100 -50</td><td class="dk-desc">Moves mouse relative (x, y) in pixels</td></tr>
+        <tr><td class="dk-cmd">MOUSE_CLICK</td><td class="dk-syn">MOUSE_CLICK LEFT</td><td class="dk-desc">Clicks LEFT / RIGHT / MIDDLE</td></tr>
+        <tr><td class="dk-cmd">SCREEN_SIZE</td><td class="dk-syn">SCREEN_SIZE 1920 1080</td><td class="dk-desc">Sets target resolution for % positioning</td></tr>
+        <tr><td class="dk-cmd">MOUSE_POS_PCT</td><td class="dk-syn">MOUSE_POS_PCT 50 50</td><td class="dk-desc">Moves mouse to X%, Y% of screen</td></tr>
+        <tr><td class="dk-cmd">REM</td><td class="dk-syn">REM this is a comment</td><td class="dk-desc">Comment line — ignored by interpreter</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="code-wrap" style="margin-top:24px;">
+    <div class="code-header">
+      <div class="code-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <span class="code-lang">Example Payload — Open Notepad and Save a File</span>
+    </div>
+    <div class="code-body"><span class="c-cmt">REM OmniDucky — Open Notepad, type message, and save</span>
+<span class="c-kw">DEFAULT_DELAY</span> <span class="c-num">100</span>
+<span class="c-kw">GUI</span> r
+<span class="c-kw">DELAY</span> <span class="c-num">600</span>
+<span class="c-kw">STRINGLN</span> <span class="c-str">notepad</span>
+<span class="c-kw">DELAY</span> <span class="c-num">1200</span>
+<span class="c-kw">STRING</span> <span class="c-str">OmniDucky was here! 🦆</span>
+<span class="c-kw">CTRL</span> s
+<span class="c-kw">DELAY</span> <span class="c-num">600</span>
+<span class="c-kw">STRINGLN</span> <span class="c-str">C:\Users\Public\omniducky.txt</span>
+<span class="c-kw">ENTER</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 7 — TROUBLESHOOTING
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-logo">🦆 OMNIDUCKY</span>
+    <span class="page-num">SECTION 07 / TROUBLESHOOTING</span>
+  </div>
+
+  <div class="section-label">Common Issues &amp; Fixes</div>
+  <h2 class="section-title">Troubleshooting Guide</h2>
+  <p class="section-desc">Every problem has been encountered and solved. Find your error below.</p>
+
+  <div class="trouble-card">
+    <div class="trouble-header">
+      <span class="trouble-icon">🔌</span>
+      <span class="trouble-problem">No COM port appears in Arduino IDE after plugging in the board</span>
+    </div>
+    <div class="trouble-body">
+      <span class="trouble-label label-cause">Cause</span>
+      <span class="trouble-text">USB driver not installed, or the cable is a charge-only cable with no data lines.</span>
+      <hr class="trouble-divider">
+      <span class="trouble-label label-fix">Fix</span>
+      <span class="trouble-text">1. Try a different USB cable — many cheap cables are power-only.<br>2. Install the CP210x driver (Silabs) or CH340 driver depending on your board's USB chip.<br>3. On Windows, check Device Manager for any yellow ⚠ icon under "Universal Serial Bus controllers".</span>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">
+      <span class="trouble-icon">⌨️</span>
+      <span class="trouble-problem">Board is flashed but target PC doesn't detect a keyboard</span>
+    </div>
+    <div class="trouble-body">
+      <span class="trouble-label label-cause">Cause</span>
+      <span class="trouble-text">USB Mode is set to "Hardware CDC" instead of "USB-OTG (TinyUSB)". This is the #1 error — it blocks all HID functionality.</span>
+      <hr class="trouble-divider">
+      <span class="trouble-label label-fix">Fix</span>
+      <span class="trouble-text">In Arduino IDE, go to <strong>Tools → USB Mode → USB-OTG (TinyUSB)</strong>. Also set <strong>Tools → USB CDC On Boot → Disabled</strong>. Then re-upload the sketch. Never skip these two settings.</span>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">
+      <span class="trouble-icon">⏱️</span>
+      <span class="trouble-problem">Upload hangs at "Connecting....." and never starts</span>
+    </div>
+    <div class="trouble-body">
+      <span class="trouble-label label-cause">Cause</span>
+      <span class="trouble-text">Board is not entering bootloader/download mode automatically.</span>
+      <hr class="trouble-divider">
+      <span class="trouble-label label-fix">Fix</span>
+      <span class="trouble-text">While the IDE shows "Connecting.....", hold the <strong>BOOT button</strong> on the board → briefly tap <strong>RESET</strong> → release BOOT. Upload will begin. Some boards need this on every flash; others don't need it at all.</span>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">
+      <span class="trouble-icon">📶</span>
+      <span class="trouble-problem">"OmniDucky-C2" Wi-Fi network doesn't appear after flashing</span>
+    </div>
+    <div class="trouble-body">
+      <span class="trouble-label label-cause">Cause</span>
+      <span class="trouble-text">Board booted into wrong mode, or upload was incomplete.</span>
+      <hr class="trouble-divider">
+      <span class="trouble-label label-fix">Fix</span>
+      <span class="trouble-text">Open Serial Monitor (Tools → Serial Monitor) at <strong>115200 baud</strong>. Press RESET on the board. You should see boot messages confirming Wi-Fi AP startup. If you see garbage text, your baud rate is wrong. Try re-flashing if no messages appear.</span>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">
+      <span class="trouble-icon">🛑</span>
+      <span class="trouble-problem">Compile error: "USB.h: No such file or directory"</span>
+    </div>
+    <div class="trouble-body">
+      <span class="trouble-label label-cause">Cause</span>
+      <span class="trouble-text">Wrong ESP32 board package version installed, or wrong board selected in Tools.</span>
+      <hr class="trouble-divider">
+      <span class="trouble-label label-fix">Fix</span>
+      <span class="trouble-text">In Boards Manager, verify the <strong>Espressif Systems esp32 package is version ≥ 2.0.5</strong>. Update it if needed. Confirm the board is set to <strong>"ESP32S3 Dev Module"</strong> — not standard ESP32 or ESP32-S2.</span>
+    </div>
+  </div>
+
+  <div class="trouble-card">
+    <div class="trouble-header">
+      <span class="trouble-icon">🎯</span>
+      <span class="trouble-problem">Dashboard loads but FIRE button does nothing on target PC</span>
+    </div>
+    <div class="trouble-body">
+      <span class="trouble-label label-cause">Cause</span>
+      <span class="trouble-text">ESP32 is plugged into a charger or hub with no data to target, or DuckyScript has a syntax error.</span>
+      <hr class="trouble-divider">
+      <span class="trouble-label label-fix">Fix</span>
+      <span class="trouble-text">Plug the ESP32 <strong>directly into the target PC's USB port</strong> (not a charger or USB hub). Check the status panel in the dashboard — it shows error messages from the interpreter. Ensure all DuckyScript commands are UPPERCASE.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 8 — ARCHITECTURE & TEST RESULTS
+══════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-logo">🦆 OMNIDUCKY</span>
+    <span class="page-num">SECTION 08 / ARCHITECTURE &amp; TEST RESULTS</span>
+  </div>
+
+  <div class="section-label">System Quality</div>
+  <h2 class="section-title">Architecture &amp; Test Results</h2>
+  <p class="section-desc">Complete project structure and verified quality metrics from 1,270 automated tests.</p>
+
+  <div class="stat-grid" style="margin-bottom:36px;">
+    <div class="stat-box stat-box-g sbox-g">
+      <span class="sbox-num">1,270</span>
+      <div class="sbox-label">Total Tests Passed</div>
+    </div>
+    <div class="stat-box stat-box-y sbox-y">
+      <span class="sbox-num">100%</span>
+      <div class="sbox-label">Pass Rate</div>
+    </div>
+    <div class="stat-box stat-box-b sbox-b">
+      <span class="sbox-num">28.5K</span>
+      <div class="sbox-label">Tests / Second</div>
+    </div>
+    <div class="stat-box stat-box-y sbox-y">
+      <span class="sbox-num">&lt;5ms</span>
+      <div class="sbox-label">NLP Conversion</div>
+    </div>
+    <div class="stat-box stat-box-g sbox-g">
+      <span class="sbox-num">&lt;3s</span>
+      <div class="sbox-label">Wi-Fi AP Boot</div>
+    </div>
+    <div class="stat-box stat-box-b sbox-b">
+      <span class="sbox-num">1,200</span>
+      <div class="sbox-label">WPM Typing</div>
+    </div>
+  </div>
+
+  <div class="file-tree">
+<span class="ft-dir">OmniDucky/</span>
+├── <span class="ft-dir">firmware/</span>
+│   ├── <span class="ft-dir">omniducky_c2/</span>
+│   │   └── <span class="ft-ino">omniducky_c2.ino</span>  <span class="ft-flash">← FLASH THIS</span>  Standalone Wi-Fi C2 firmware
+│   └── <span class="ft-dir">esp32s3_ducky/</span>
+│       └── <span class="ft-ino">esp32s3_ducky.ino</span>          Simple USB-only alternative
+│
+├── <span class="ft-dir">compiler/</span>
+│   ├── <span class="ft-py">nlp_converter.py</span>               Natural Language → DuckyScript
+│   ├── <span class="ft-py">duckyscript_parser.py</span>          DuckyScript tokenizer &amp; IR
+│   ├── <span class="ft-py">arduino_generator.py</span>           USB HID Arduino sketch generator
+│   ├── <span class="ft-py">ble_generator.py</span>               BLE HID sketch generator
+│   ├── <span class="ft-py">dual_generator.py</span>              USB + BLE concurrent generator
+│   └── <span class="ft-py">simulator.py</span>                   Virtual execution simulator
+│
+├── <span class="ft-dir">tests/</span>
+│   ├── <span class="ft-py">test_simulation_suite.py</span>       5 / 5 passed
+│   ├── <span class="ft-py">batch_simulation_150.py</span>        150 / 150 passed
+│   ├── <span class="ft-py">edge_case_stress_suite.py</span>      100 / 100 passed
+│   ├── <span class="ft-py">stress_test_1000.py</span>            1000 / 1000 passed (0.03s!)
+│   └── <span class="ft-py">test_nlp_engine_trained.py</span>     15 / 15 passed
+│
+├── <span class="ft-py">web_server.py</span>                      Local Web Studio (localhost:8080)
+└── <span class="ft-md">README.md</span>                          Full documentation
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="cards-2">
+    <div class="card card-g">
+      <span class="card-icon">🔗</span>
+      <div class="card-title">Repository Links</div>
+      <ul class="card-body">
+        <li><strong>GitHub:</strong> github.com/viswakpullepu/OmniDucky</li>
+        <li><strong>Stable Tag:</strong> v1.0-pre-c2</li>
+        <li><strong>Backup Branch:</strong> snapshot-v1-stable</li>
+        <li><strong>Arduino IDE:</strong> arduino.cc/en/software</li>
+        <li><strong>ESP32 Docs:</strong> docs.espressif.com</li>
+      </ul>
+    </div>
+    <div class="card card-y">
+      <span class="card-icon">📡</span>
+      <div class="card-title">C2 Access Credentials</div>
+      <div style="text-align:center;padding:16px 0;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t3);margin-bottom:4px;">SSID</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--yellow);font-weight:700;margin-bottom:16px;">OmniDucky-C2</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t3);margin-bottom:4px;">PASSWORD</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--green);font-weight:700;margin-bottom:16px;">ducky123</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--t3);margin-bottom:4px;">DASHBOARD</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:17px;color:var(--blue);font-weight:700;">192.168.4.1</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-g">
+    <span class="alert-icon">🎯</span>
+    <div class="alert-content">
+      <div class="alert-title">You Are Ready — That's the Complete Setup</div>
+      <div class="alert-body">Install Arduino IDE → Add ESP32 board package → Select ESP32S3 Dev Module → Set USB Mode to USB-OTG (TinyUSB) → Set USB CDC On Boot to Disabled → Open omniducky_c2.ino → Click Upload → Done. Connect phone to OmniDucky-C2 Wi-Fi → Open 192.168.4.1 → Fire payloads. No IDE ever again.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">
+    <div class="footer-brand">🦆 OMNIDUCKY</div>
+    <div class="footer-sub">ESP32-S3 HID Framework · C2 Architecture · v2.0</div>
+  </div>
+  <div class="footer-right">
+    github.com/viswakpullepu/OmniDucky<br>
+    Flash once · Control forever · Zero IDE after day 1
+  </div>
+</div>
+
+</body>
+</html>
