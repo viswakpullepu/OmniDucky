@@ -186,9 +186,9 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
 
     <!-- TAB BUTTONS -->
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('ducky')">⌨️ DuckyScript</button>
-      <button class="tab-btn" onclick="switchTab('nlp')">🤖 AI Translator</button>
-      <button class="tab-btn" onclick="switchTab('rawcode')">💻 Code Typer</button>
+      <button class="tab-btn active" onclick="switchTab('ducky', this)">⌨️ DuckyScript</button>
+      <button class="tab-btn" onclick="switchTab('nlp', this)">🤖 AI Translator</button>
+      <button class="tab-btn" onclick="switchTab('rawcode', this)">💻 Code Typer</button>
     </div>
 
     <!-- TAB: DUCKYSCRIPT -->
@@ -321,9 +321,9 @@ int main() {
 
   <script>
     const PRESETS = {
-      notepad: "DELAY 1000\nGUI r\nDELAY 500\nSTRING notepad\nENTER\nDELAY 800\nSTRING Hello from OmniDucky Wireless C2!\nENTER",
-      rickroll: "DELAY 1000\nGUI r\nDELAY 500\nSTRING https://www.youtube.com/watch?v=dQw4w9WgXcQ\nENTER",
-      sysinfo: "DELAY 1000\nGUI r\nDELAY 500\nSTRING powershell -NoP -W Hidden -Exec Bypass -C \"$env:COMPUTERNAME; whoami; ipconfig\" > %TEMP%\\audit.txt\nENTER",
+      notepad: "DELAY 1000\nGUI r\nDELAY 800\nSTRING notepad\nENTER\nDELAY 1000\nSTRING Hello from OmniDucky Wireless C2!\nENTER",
+      rickroll: "DELAY 1000\nGUI r\nDELAY 800\nSTRING https://www.youtube.com/watch?v=dQw4w9WgXcQ\nENTER",
+      sysinfo: "DELAY 1000\nGUI r\nDELAY 800\nSTRING powershell -NoP -W Hidden -Exec Bypass -C \"$env:COMPUTERNAME; whoami; ipconfig\" > %TEMP%\\audit.txt\nENTER",
       mobile_allow: "DELAY 1500\nGUI SPACE\nDELAY 800\nSTRING Chrome\nENTER\nDELAY 1500\nTAB\nDELAY 200\nENTER\nMOUSE_POS_PCT 50 62\nDELAY 100\nMOUSE_CLICK LEFT",
       jiggler: "REM Anti-Sleep Mouse Jiggler\nDELAY 1000\nMOUSE_MOVE 40 -40\nDELAY 500\nMOUSE_MOVE -40 40\nDELAY 500\nREPEAT 20",
       lock: "DELAY 500\nGUI l"
@@ -403,11 +403,17 @@ int main() {
     // ═══════════════════════════════════════════════
     //  TAB SWITCHING
     // ═══════════════════════════════════════════════
-    function switchTab(tab) {
+    function switchTab(tab, btn) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      document.getElementById('tab-' + tab).classList.add('active');
-      event.target.classList.add('active');
+      const targetPanel = document.getElementById('tab-' + tab);
+      if (targetPanel) targetPanel.classList.add('active');
+      if (btn) {
+        btn.classList.add('active');
+      } else {
+        const b = Array.from(document.querySelectorAll('.tab-btn')).find(el => el.getAttribute('onclick')?.includes(tab));
+        if (b) b.classList.add('active');
+      }
     }
 
     function setNlp(text) {
@@ -419,8 +425,6 @@ int main() {
       if (!out) { alert('Convert something first!'); return; }
       document.getElementById('script').value = out;
       switchTab('ducky');
-      document.querySelectorAll('.tab-btn')[0].classList.add('active');
-      document.querySelectorAll('.tab-btn')[1].classList.remove('active');
       showToast('Script moved to DuckyScript tab!');
     }
 
@@ -865,6 +869,38 @@ void pressKey(const String& key) {
   else if (key.length() == 1) usbKeyboard.press(key[0]);
 }
 
+bool isDuckyLine(const String& line) {
+  String upper = line;
+  upper.toUpperCase();
+  upper.trim();
+
+  if (upper.startsWith("REM") || upper.startsWith("DELAY ") || 
+      upper.startsWith("DEFAULT_DELAY ") || upper.startsWith("DEFAULTDELAY ") ||
+      upper.startsWith("STRING ") || upper.startsWith("STRINGLN ") ||
+      upper.startsWith("REPEAT ") || upper.startsWith("SCREEN_SIZE ") ||
+      upper.startsWith("MOUSE_")) {
+    return true;
+  }
+
+  int sp = upper.indexOf(' ');
+  String firstToken = (sp == -1) ? upper : upper.substring(0, sp);
+
+  if (firstToken == "GUI" || firstToken == "WIN" || firstToken == "WINDOWS" || firstToken == "COMMAND" ||
+      firstToken == "CTRL" || firstToken == "CONTROL" || firstToken == "ALT" || firstToken == "SHIFT" ||
+      firstToken == "ENTER" || firstToken == "RETURN" || firstToken == "ESC" || firstToken == "ESCAPE" ||
+      firstToken == "BACKSPACE" || firstToken == "TAB" || firstToken == "SPACE" || firstToken == "CAPSLOCK" ||
+      firstToken == "DELETE" || firstToken == "DEL" || firstToken == "PRINTSCREEN" ||
+      firstToken == "UP" || firstToken == "DOWN" || firstToken == "LEFT" || firstToken == "RIGHT" ||
+      firstToken == "UPARROW" || firstToken == "DOWNARROW" || firstToken == "LEFTARROW" || firstToken == "RIGHTARROW" ||
+      firstToken == "PAGEUP" || firstToken == "PAGEDOWN" || firstToken == "HOME" || firstToken == "END" ||
+      firstToken == "INSERT" || firstToken == "NUMLOCK" || firstToken == "SCROLLLOCK" ||
+      (firstToken.length() >= 2 && firstToken[0] == 'F' && isdigit(firstToken[1]))) {
+    return true;
+  }
+
+  return false;
+}
+
 void executeDuckyScript(const String& script) {
   isInjecting = true;
   digitalWrite(LED_BUILTIN, HIGH);
@@ -960,7 +996,7 @@ void executeDuckyScript(const String& script) {
       usbMouse.move(0, 0, s);
     }
     // KEY COMBINATIONS & SPECIAL KEYS (e.g. GUI r, CTRL ALT DELETE, ENTER)
-    else {
+    else if (isDuckyLine(line)) {
       String upper = line;
       upper.toUpperCase();
 
@@ -990,8 +1026,23 @@ void executeDuckyScript(const String& script) {
           pressKey(ltoken);
         }
       }
-      delay(30);
+      delay(80); // 80ms hold time ensures Windows 10/11 shell registers GUI/CTRL/ALT chords
       usbKeyboard.releaseAll();
+      delay(30);
+    }
+    // AUTO-STRING FALLBACK:
+    // If the user typed or pasted raw code, plain text, or single words (e.g. 'calc', 'notepad', 'hello'),
+    // type it out character-by-character so nothing is ever dropped!
+    else {
+      for (int i = 0; i < line.length(); i++) {
+        usbKeyboard.press(line[i]);
+        delay(6);
+        usbKeyboard.release(line[i]);
+        delay(6);
+      }
+      usbKeyboard.press(KEY_RETURN);
+      delay(20);
+      usbKeyboard.release(KEY_RETURN);
     }
   }
 
