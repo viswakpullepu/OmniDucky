@@ -188,6 +188,7 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
     <div class="tabs">
       <button class="tab-btn active" onclick="switchTab('ducky')">⌨️ DuckyScript</button>
       <button class="tab-btn" onclick="switchTab('nlp')">🤖 AI Translator</button>
+      <button class="tab-btn" onclick="switchTab('rawcode')">💻 Code Typer</button>
     </div>
 
     <!-- TAB: DUCKYSCRIPT -->
@@ -253,6 +254,57 @@ ENTER"></textarea>
           <button class="btn btn-use" onclick="useNlpScript()">⬆️ Use This Script</button>
           <button class="btn btn-fire" onclick="fireNlpDirect()" style="font-size:13px;">🚀 Convert &amp; Fire</button>
         </div>
+      </div>
+    </div>
+
+    <!-- TAB: RAW CODE TYPER (PORTAL BYPASS) -->
+    <div id="tab-rawcode" class="tab-panel">
+      <div class="card" style="border-radius: 0 14px 14px 14px;">
+        <div class="card-title" style="color: #38bdf8;">💻 Direct Code Typer (Coding Portal / Exam Bypass)</div>
+        <p style="font-size: 12px; color: var(--muted); line-height: 1.6;">
+          Paste <b>ANY raw code or text</b> directly (C++, Python, Java, SQL, etc.).<br>
+          OmniDucky will emulate a physical hardware keyboard and type it line-by-line right where your mouse cursor is focused!
+        </p>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
+          <div>
+            <label style="font-size:11px;color:var(--muted);font-weight:600;">⏱️ Start Delay (time to click cursor):</label>
+            <select id="code-delay" style="width:100%;background:#030712;border:1px solid var(--border);color:#fff;padding:8px;border-radius:8px;margin-top:4px;">
+              <option value="3">3 Seconds Countdown</option>
+              <option value="5" selected>5 Seconds Countdown</option>
+              <option value="10">10 Seconds Countdown</option>
+              <option value="0">Immediate (0s)</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:11px;color:var(--muted);font-weight:600;">⚡ Typing Speed:</label>
+            <select id="code-speed" style="width:100%;background:#030712;border:1px solid var(--border);color:#fff;padding:8px;border-radius:8px;margin-top:4px;">
+              <option value="fast" selected>🚀 Fast (1,200 WPM)</option>
+              <option value="human">👤 Human-Like (350 WPM)</option>
+              <option value="slow">🐢 Safe / Slow (150 WPM)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:10px; display:flex; gap:16px; font-size:12px; color:var(--text);">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+            <input type="checkbox" id="code-clear"> Pre-clear editor (Ctrl+A &rarr; Del)
+          </label>
+        </div>
+
+        <div class="nlp-label">Paste Raw Code Below:</div>
+        <textarea id="raw-code-input" style="height:220px;" placeholder="// Paste your C++, Python, Java, or SQL code here...
+#include <iostream>
+using namespace std;
+
+int main() {
+    cout << &quot;Bypassing paste restrictions!&quot; << endl;
+    return 0;
+}"></textarea>
+
+        <button id="btn-fire-code" class="btn btn-fire" onclick="fireRawCode()" style="margin-top:10px;">
+          🚀 START TYPING INTO PORTAL
+        </button>
       </div>
     </div>
 
@@ -386,6 +438,69 @@ ENTER"></textarea>
         showToast(res.ok ? 'Payload Finished!' : 'Error: ' + await res.text());
       } catch(e) { showToast('Sent!'); }
       setTimeout(() => setStatus('ONLINE \u2022 ARMED', false), 2000);
+    }
+
+    // ═══════════════════════════════════════════════
+    //  DIRECT CODE TYPER (Coding Portal / Exam Bypass)
+    // ═══════════════════════════════════════════════
+    function fireRawCode() {
+      const code = document.getElementById('raw-code-input').value;
+      if (!code.trim()) { alert('Paste your code first!'); return; }
+
+      const delaySec = parseInt(document.getElementById('code-delay').value) || 0;
+      const speed = document.getElementById('code-speed').value;
+      const clearFirst = document.getElementById('code-clear').checked;
+
+      let interDelay = 40;
+      if (speed === 'fast') interDelay = 20;
+      else if (speed === 'human') interDelay = 100;
+      else if (speed === 'slow') interDelay = 180;
+
+      let ducky = [];
+      ducky.push('REM OmniDucky Direct Code Typer');
+      if (delaySec > 0) {
+        ducky.push('DELAY ' + (delaySec * 1000));
+      }
+      ducky.push('DEFAULT_DELAY ' + interDelay);
+
+      if (clearFirst) {
+        ducky.push('CTRL a', 'DELAY 150', 'BACKSPACE', 'DELAY 250');
+      }
+
+      const lines = code.split('\n');
+      for (let i = 0; i < lines.length; i++) {
+        let l = lines[i];
+        if (l.endsWith('\r')) l = l.slice(0, -1);
+        if (l.trim().length === 0) {
+          ducky.push('ENTER');
+        } else {
+          ducky.push('STRINGLN ' + l);
+        }
+      }
+
+      const duckyPayload = ducky.join('\n');
+
+      const btn = document.getElementById('btn-fire-code');
+      if (delaySec > 0) {
+        let remaining = delaySec;
+        btn.disabled = true;
+        btn.textContent = '⏳ CLICK INTO PORTAL NOW! (' + remaining + 's)';
+        const timer = setInterval(() => {
+          remaining--;
+          if (remaining > 0) {
+            btn.textContent = '⏳ CLICK INTO PORTAL NOW! (' + remaining + 's)';
+          } else {
+            clearInterval(timer);
+            btn.textContent = '⚡ TYPING CODE NOW...';
+            setTimeout(() => {
+              btn.disabled = false;
+              btn.textContent = '🚀 START TYPING INTO PORTAL';
+            }, 3000);
+          }
+        }, 1000);
+      }
+
+      fireScript(duckyPayload);
     }
 
     // ═══════════════════════════════════════════════
