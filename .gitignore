@@ -17,3 +17,8 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+
+# DuckLM Large Checkpoints & Heavy Datasets (Keep .dq2 binary & vocab.h)
+ducklm/checkpoints/*.pt
+ducklm/data/tokenizer_corpus.txt
+ducklm/data/sft_pairs.jsonl

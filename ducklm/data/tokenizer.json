@@ -1,0 +1,5134 @@
+{
+  "vocab": {
+    "[PAD]": 0,
+    "[BOS]": 1,
+    "[EOS]": 2,
+    "[UNK]": 3,
+    "DELAY": 318,
+    "STRING": 324,
+    "STRINGLN": 326,
+    "ENTER": 1140,
+    "GUI": 342,
+    "CTRL": 417,
+    "ALT": 933,
+    "SHIFT": 1077,
+    "MOUSE_MOVE": 1142,
+    "MOUSE_CLICK": 519,
+    "MOUSE_SCROLL": 1146,
+    "MOUSE_POS_PCT": 516,
+    "SCREEN_SIZE": 512,
+    "REPEAT": 1148,
+    "BIOMORPH": 1153,
+    "DEFAULT_DELAY": 1139,
+    "DEFAULTDELAY": 20,
+    "REM": 21,
+    "GHOST": 1154,
+    "CASUAL_USER": 1159,
+    "FAST_TYPIST": 1166,
+    "SLOW_HUNT_PECK": 1175,
+    "EXAM_STUDENT": 1181,
+    "LEFT": 497,
+    "RIGHT": 1183,
+    "MIDDLE": 1186,
+    "BACKSPACE": 1191,
+    "TAB": 1192,
+    "ESCAPE": 957,
+    "DELETE": 1193,
+    "ducky_exec": 366,
+    "mouse_x_pct": 372,
+    "mouse_y_pct": 373,
+    "confidence": 374,
+    "tool": 364,
+    "powershell": 383,
+    "cmd.exe": 40,
+    "notepad": 402,
+    "chrome": 470,
+    "msedge": 978,
+    "calc": 837,
+    "Copy-Item": 584,
+    "Move-Item": 1199,
+    "Get-Process": 862,
+    "Get-NetIPAddress": 895,
+    "netsh": 431,
+    "ipconfig": 770,
+    "whoami": 858,
+    "systeminfo": 906,
+    "tasklist": 895,
+    "\\n": 318,
+    "\\t": 55,
+    "\\r": 56,
+    "\u0000": 57,
+    "\u0001": 58,
+    "\u0002": 59,
+    "\u0003": 60,
+    "\u0004": 61,
+    "\u0005": 62,
+    "\u0006": 63,
+    "\u0007": 64,
+    "\b": 65,
+    "\t": 66,
+    "\n": 67,
+    "\u000b": 68,
+    "\f": 69,
+    "\r": 70,
+    "\u000e": 71,
+    "\u000f": 72,
+    "\u0010": 73,
+    "\u0011": 74,
+    "\u0012": 75,
+    "\u0013": 76,
+    "\u0014": 77,
+    "\u0015": 78,
+    "\u0016": 79,
+    "\u0017": 80,
+    "\u0018": 81,
+    "\u0019": 82,
+    "\u001a": 83,
+    "\u001b": 84,
+    "\u001c": 85,
+    "\u001d": 86,
+    "\u001e": 87,
+    "\u001f": 88,
+    " ": 89,
+    "!": 90,
+    "\"": 91,
+    "#": 92,
+    "$": 93,
+    "%": 94,
+    "&": 95,
+    "'": 96,
+    "(": 97,
+    ")": 98,
+    "*": 99,
+    "+": 100,
+    ",": 101,
+    "-": 102,
+    ".": 103,
+    "/": 104,
+    "0": 105,
+    "1": 106,
+    "2": 107,
+    "3": 108,
+    "4": 109,
+    "5": 110,
+    "6": 111,
+    "7": 112,
+    "8": 113,
+    "9": 114,
+    ":": 115,
+    ";": 116,
+    "<": 117,
+    "=": 118,
+    ">": 119,
+    "?": 120,
+    "@": 121,
+    "A": 122,
+    "B": 123,
+    "C": 124,
+    "D": 125,
+    "E": 126,
+    "F": 127,
+    "G": 128,
+    "H": 129,
+    "I": 130,
+    "J": 131,
+    "K": 132,
+    "L": 133,
+    "M": 134,
+    "N": 135,
+    "O": 136,
+    "P": 137,
+    "Q": 138,
+    "R": 139,
+    "S": 140,
+    "T": 141,
+    "U": 142,
+    "V": 143,
+    "W": 144,
+    "X": 145,
+    "Y": 146,
+    "Z": 147,
+    "[": 148,
+    "\\": 149,
+    "]": 150,
+    "^": 151,
+    "_": 152,
+    "`": 153,
+    "a": 154,
+    "b": 155,
+    "c": 156,
+    "d": 157,
+    "e": 158,
+    "f": 159,
+    "g": 160,
+    "h": 161,
+    "i": 162,
+    "j": 163,
+    "k": 164,
+    "l": 165,
+    "m": 166,
+    "n": 167,
+    "o": 168,
+    "p": 169,
+    "q": 170,
+    "r": 171,
+    "s": 172,
+    "t": 173,
+    "u": 174,
+    "v": 175,
+    "w": 176,
+    "x": 177,
+    "y": 178,
+    "z": 179,
+    "{": 180,
+    "|": 181,
+    "}": 182,
+    "~": 183,
+    "": 184,
+    "": 185,
+    "": 186,
+    "": 187,
+    "": 188,
+    "": 189,
+    "": 190,
+    "": 191,
+    "": 192,
+    "": 193,
+    "": 194,
+    "": 195,
+    "": 196,
+    "": 197,
+    "": 198,
+    "": 199,
+    "": 200,
+    "": 201,
+    "": 202,
+    "": 203,
+    "": 204,
+    "": 205,
+    "": 206,
+    "": 207,
+    "": 208,
+    "": 209,
+    "": 210,
+    "": 211,
+    "": 212,
+    "": 213,
+    "": 214,
+    "": 215,
+    "": 216,
+    " ": 217,
+    "¡": 218,
+    "¢": 219,
+    "£": 220,
+    "¤": 221,
+    "¥": 222,
+    "¦": 223,
+    "§": 224,
+    "¨": 225,
+    "©": 226,
+    "ª": 227,
+    "«": 228,
+    "¬": 229,
+    "­": 230,
+    "®": 231,
+    "¯": 232,
+    "°": 233,
+    "±": 234,
+    "²": 235,
+    "³": 236,
+    "´": 237,
+    "µ": 238,
+    "¶": 239,
+    "·": 240,
+    "¸": 241,
+    "¹": 242,
+    "º": 243,
+    "»": 244,
+    "¼": 245,
+    "½": 246,
+    "¾": 247,
+    "¿": 248,
+    "À": 249,
+    "Á": 250,
+    "Â": 251,
+    "Ã": 252,
+    "Ä": 253,
+    "Å": 254,
+    "Æ": 255,
+    "Ç": 256,
+    "È": 257,
+    "É": 258,
+    "Ê": 259,
+    "Ë": 260,
+    "Ì": 261,
+    "Í": 262,
+    "Î": 263,
+    "Ï": 264,
+    "Ð": 265,
+    "Ñ": 266,
+    "Ò": 267,
+    "Ó": 268,
+    "Ô": 269,
+    "Õ": 270,
+    "Ö": 271,
+    "×": 272,
+    "Ø": 273,
+    "Ù": 274,
+    "Ú": 275,
+    "Û": 276,
+    "Ü": 277,
+    "Ý": 278,
+    "Þ": 279,
+    "ß": 280,
+    "à": 281,
+    "á": 282,
+    "â": 283,
+    "ã": 284,
+    "ä": 285,
+    "å": 286,
+    "æ": 287,
+    "ç": 288,
+    "è": 289,
+    "é": 290,
+    "ê": 291,
+    "ë": 292,
+    "ì": 293,
+    "í": 294,
+    "î": 295,
+    "ï": 296,
+    "ð": 297,
+    "ñ": 298,
+    "ò": 299,
+    "ó": 300,
+    "ô": 301,
+    "õ": 302,
+    "ö": 303,
+    "÷": 304,
+    "ø": 305,
+    "ù": 306,
+    "ú": 307,
+    "û": 308,
+    "ü": 309,
+    "ý": 310,
+    "þ": 311,
+    "ÿ": 312,
+    "00": 313,
+    "\":": 314,
+    "DE": 315,
+    "DEL": 316,
+    "DELA": 317,
+    "TR": 318,
+    "IN": 319,
+    "ll": 320,
+    "se": 321,
+    "STR": 322,
+    "STRIN": 323,
+    "ct": 324,
+    "STRINGL": 325,
+    "fi": 326,
+    "ou": 327,
+    "en": 328,
+    "mou": 329,
+    "mouse": 330,
+    "y_": 331,
+    "\",": 332,
+    "mouse_": 333,
+    "pct": 334,
+    "ri": 335,
+    "le": 336,
+    "sh": 337,
+    "nu": 338,
+    "null": 339,
+    "null,": 340,
+    "GU": 341,
+    "500": 342,
+    "on": 343,
+    "ow": 344,
+    "to": 345,
+    "ce": 346,
+    "ck": 347,
+    "600": 348,
+    "te": 349,
+    "sc": 350,
+    "000": 351,
+    "ro": 352,
+    "ex": 353,
+    "er": 354,
+    "exe": 355,
+    "exec": 356,
+    "con": 357,
+    "uck": 358,
+    "confi": 359,
+    "pt": 360,
+    "too": 361,
+    "den": 362,
+    "{\"": 363,
+    "duck": 364,
+    "ducky_": 365,
+    "\"sc": 366,
+    "\"scri": 367,
+    "\"script": 368,
+    "\"script\":": 369,
+    "mouse_x": 370,
+    "mouse_x_": 371,
+    "mouse_y_": 372,
+    "confiden": 373,
+    "0.": 374,
+    "in": 375,
+    "me": 376,
+    "ell": 377,
+    "0.9": 378,
+    "an": 379,
+    "pow": 380,
+    "power": 381,
+    "powersh": 382,
+    "ch": 383,
+    "\\\"": 384,
+    "1500": 385,
+    "at": 386,
+    "ar": 387,
+    "pa": 388,
+    "es": 389,
+    "US": 390,
+    "USE": 391,
+    "file": 392,
+    "2000": 393,
+    "et": 394,
+    "St": 395,
+    "na": 396,
+    "name": 397,
+    "\\\\": 398,
+    "no": 399,
+    "note": 400,
+    "notepa": 401,
+    "or": 402,
+    "ifi": 403,
+    "wifi": 404,
+    "net": 405,
+    "pro": 406,
+    "1000": 407,
+    "xt": 408,
+    "LE": 409,
+    "PR": 410,
+    "ey": 411,
+    "SC": 412,
+    "ng": 413,
+    "txt": 414,
+    "op": 415,
+    "CTR": 416,
+    "-P": 417,
+    ".txt": 418,
+    "MO": 419,
+    "show": 420,
+    "RE": 421,
+    "profile": 422,
+    "MOUSE": 423,
+    "MOUSE_": 424,
+    "300": 425,
+    "EN": 426,
+    "SCRE": 427,
+    "SCREEN": 428,
+    "10": 429,
+    "TE": 430,
+    "wl": 431,
+    "wlan": 432,
+    "Se": 433,
+    "Sele": 434,
+    "Select": 435,
+    "Select-": 436,
+    "Select-St": 437,
+    "Select-Stri": 438,
+    "Select-String": 439,
+    "%{": 440,
+    "%{{": 441,
+    "%{{$": 442,
+    "name=": 443,
+    "name=$": 444,
+    "_.": 445,
+    "}}": 446,
+    "$en": 447,
+    "$env": 448,
+    "$env:": 449,
+    "$env:TE": 450,
+    "$env:TEM": 451,
+    "$env:TEMP": 452,
+    "wifi.txt": 453,
+    "ps": 454,
+    "ww": 455,
+    "-F": 456,
+    "500\",": 457,
+    "Des": 458,
+    "ut": 459,
+    "ss": 460,
+    "re": 461,
+    "al": 462,
+    "st": 463,
+    "oo": 464,
+    "sear": 465,
+    "search": 466,
+    "tin": 467,
+    "ent": 468,
+    "chro": 469,
+    "opy": 470,
+    "key": 471,
+    "ue": 472,
+    "ath": 473,
+    "goo": 474,
+    "goog": 475,
+    "google": 476,
+    "USER": 477,
+    "1500\",": 478,
+    "%USER": 479,
+    "%USERPR": 480,
+    "%USERPRO": 481,
+    "%USERPROF": 482,
+    "%USERPROFI": 483,
+    "%USERPROFILE": 484,
+    "%USERPROFILE%": 485,
+    "-Pro": 486,
+    "-Proce": 487,
+    "-Process": 488,
+    "ht": 489,
+    "tem": 490,
+    "co": 491,
+    "com": 492,
+    "FT": 493,
+    "li": 494,
+    "art": 495,
+    "profiles": 496,
+    "ati": 497,
+    "ation": 498,
+    "50": 499,
+    "CK": 500,
+    "lo": 501,
+    "2500": 502,
+    "_S": 503,
+    "OS": 504,
+    "_P": 505,
+    "PRIN": 506,
+    "PRINT": 507,
+    "PRINTSCREEN": 508,
+    "SCREEN_S": 509,
+    "SCREEN_SI": 510,
+    "SCREEN_SIZ": 511,
+    "MOUSE_P": 512,
+    "MOUSE_POS": 513,
+    "MOUSE_POS_P": 514,
+    "MOUSE_POS_PC": 515,
+    "MOUSE_C": 516,
+    "MOUSE_CL": 517,
+    "MOUSE_CLI": 518,
+    "19": 519,
+    "192": 520,
+    "1920": 521,
+    "108": 522,
+    "1080": 523,
+    "100": 524,
+    "-I": 525,
+    "-Item": 526,
+    "profiles)": 527,
+    "\":(": 528,
+    "\":(.": 529,
+    "\":(.+": 530,
+    "\":(.+)": 531,
+    "\":(.+)$": 532,
+    "%{{$name=$": 533,
+    "%{{$name=$_.": 534,
+    "%{{$name=$_.M": 535,
+    "%{{$name=$_.Mat": 536,
+    "%{{$name=$_.Match": 537,
+    "%{{$name=$_.Matches": 538,
+    "%{{$name=$_.Matches.": 539,
+    "%{{$name=$_.Matches.G": 540,
+    "%{{$name=$_.Matches.Gr": 541,
+    "%{{$name=$_.Matches.Grou": 542,
+    "%{{$name=$_.Matches.Groups": 543,
+    "%{{$name=$_.Matches.Groups[": 544,
+    "%{{$name=$_.Matches.Groups[1": 545,
+    "%{{$name=$_.Matches.Groups[1]": 546,
+    "%{{$name=$_.Matches.Groups[1].": 547,
+    "%{{$name=$_.Matches.Groups[1].V": 548,
+    "%{{$name=$_.Matches.Groups[1].Val": 549,
+    "%{{$name=$_.Matches.Groups[1].Value": 550,
+    "%{{$name=$_.Matches.Groups[1].Value.": 551,
+    "%{{$name=$_.Matches.Groups[1].Value.T": 552,
+    "%{{$name=$_.Matches.Groups[1].Value.Tri": 553,
+    "%{{$name=$_.Matches.Groups[1].Value.Trim": 554,
+    "%{{$name=$_.Matches.Groups[1].Value.Trim(": 555,
+    "%{{$name=$_.Matches.Groups[1].Value.Trim()": 556,
+    "%{{$name=$_.Matches.Groups[1].Value.Trim();": 557,
+    "name=$name": 558,
+    "key=": 559,
+    "key=c": 560,
+    "key=cle": 561,
+    "key=clear": 562,
+    "key=clear}}": 563,
+    "Key": 564,
+    "Con": 565,
+    "Cont": 566,
+    "Content": 567,
+    "%{{$_.": 568,
+    "%{{$_.L": 569,
+    "%{{$_.Lin": 570,
+    "%{{$_.Line": 571,
+    "%{{$_.Line}}": 572,
+    "Out": 573,
+    "Out-F": 574,
+    "Out-Fi": 575,
+    "Out-File": 576,
+    "$env:TEMP\\": 577,
+    "$env:TEMP\\wifi.txt": 578,
+    "Start": 579,
+    "Start-Process": 580,
+    "$env:TEMP\\\\": 581,
+    "$env:TEMP\\\\wifi.txt": 582,
+    "Copy": 583,
+    "400": 584,
+    "htt": 585,
+    "https": 586,
+    "https:": 587,
+    "https:/": 588,
+    "https://": 589,
+    "https://ww": 590,
+    "https://www": 591,
+    "https://www.": 592,
+    "https://www.google": 593,
+    "https://www.google.": 594,
+    "https://www.google.com": 595,
+    "https://www.google.com/": 596,
+    "https://www.google.com/search": 597,
+    "https://www.google.com/search?": 598,
+    "https://www.google.com/search?q": 599,
+    "https://www.google.com/search?q=": 600,
+    "and": 601,
+    "-Path": 602,
+    "-Des": 603,
+    "-Destin": 604,
+    "-Destination": 605,
+    "-For": 606,
+    "-Force": 607,
+    "90": 608,
+    "up": 609,
+    "scre": 610,
+    "screen": 611,
+    "th": 612,
+    "open": 613,
+    "*.": 614,
+    "is": 615,
+    "Ba": 616,
+    "Back": 617,
+    "Backup": 618,
+    "un": 619,
+    "win": 620,
+    "top": 621,
+    "ran": 622,
+    "rans": 623,
+    "ransf": 624,
+    "ransfer": 625,
+    "mp": 626,
+    "run": 627,
+    "wind": 628,
+    "window": 629,
+    "windows": 630,
+    "ort": 631,
+    "how": 632,
+    "1000\",": 633,
+    "ot": 634,
+    "test": 635,
+    "8}": 636,
+    "0.8": 637,
+    "loa": 638,
+    "load": 639,
+    "9}": 640,
+    "cu": 641,
+    "ve": 642,
+    "ty": 643,
+    "+to": 644,
+    "files": 645,
+    "Desk": 646,
+    "Desktop": 647,
+    "ute": 648,
+    "res": 649,
+    "\"%USERPROFILE%": 650,
+    "\"%USERPROFILE%\\": 651,
+    "\\\"%USERPROFILE%": 652,
+    "\\\"%USERPROFILE%\\\\": 653,
+    "l\",": 654,
+    "the": 655,
+    "\":(.+)$\"": 656,
+    "\"Key": 657,
+    "Content\"": 658,
+    "\\\":(.+)$": 659,
+    "\\\":(.+)$\\\"": 660,
+    "\\\"Key": 661,
+    "Content\\\"": 662,
+    "all": 663,
+    "wor": 664,
+    "ho": 665,
+    "pe": 666,
+    "screensh": 667,
+    "screenshot": 668,
+    ":\\": 669,
+    ":\\\\": 670,
+    "execute": 671,
+    "port": 672,
+    "https://www.google.com/search?q=how": 673,
+    "https://www.google.com/search?q=how+to": 674,
+    "https://www.google.com/search?q=how+to+": 675,
+    "Get": 676,
+    "\\*.": 677,
+    "\\\\*.": 678,
+    "lock": 679,
+    "list": 680,
+    "ld": 681,
+    "0.96": 682,
+    "0.96}": 683,
+    "0.92": 684,
+    "0.92}": 685,
+    "0.97": 686,
+    "0.97}": 687,
+    "ser": 688,
+    "0.9}": 689,
+    "0.95": 690,
+    "0.95}": 691,
+    "ta": 692,
+    "0.98}": 693,
+    "0.94": 694,
+    "0.94}": 695,
+    "0.89}": 696,
+    "0.91": 697,
+    "0.91}": 698,
+    "0.93": 699,
+    "0.93}": 700,
+    "cli": 701,
+    "click": 702,
+    "Transfer": 703,
+    "fro": 704,
+    "from": 705,
+    "50,": 706,
+    "ed": 707,
+    "10,": 708,
+    "Ex": 709,
+    "Export": 710,
+    "transfer": 711,
+    "90,": 712,
+    "sa": 713,
+    "save": 714,
+    "Om": 715,
+    "Omn": 716,
+    "Omni": 717,
+    "OmniD": 718,
+    "OmniDuck": 719,
+    "OmniDucky": 720,
+    "pay": 721,
+    "payload": 722,
+    "executed": 723,
+    "Th": 724,
+    "This": 725,
+    "Aut": 726,
+    "Autho": 727,
+    "Authori": 728,
+    "Authoriz": 729,
+    "Authorized": 730,
+    "secu": 731,
+    "securi": 732,
+    "security": 733,
+    "ter": 734,
+    "Tes": 735,
+    "Testin": 736,
+    "Testing": 737,
+    "12": 738,
+    "123": 739,
+    "Hell": 740,
+    "Hello": 741,
+    "Wor": 742,
+    "World": 743,
+    "Pi": 744,
+    "Pict": 745,
+    "Pictu": 746,
+    "Pictures": 747,
+    "pass": 748,
+    "passwor": 749,
+    "password": 750,
+    "passwords": 751,
+    "+windows": 752,
+    "Dow": 753,
+    "Down": 754,
+    "Download": 755,
+    "Downloads": 756,
+    "ay": 757,
+    "Do": 758,
+    "Docu": 759,
+    "Docum": 760,
+    "Document": 761,
+    "Documents": 762,
+    "Pu": 763,
+    "Pub": 764,
+    "Publi": 765,
+    "Public": 766,
+    "mi": 767,
+    "ip": 768,
+    "ipconfi": 769,
+    "Get-": 770,
+    "type": 771,
+    "fo": 772,
+    "ove": 773,
+    "Backup\"": 774,
+    "Backup\\\"": 775,
+    "dd": 776,
+    "wri": 777,
+    "write": 778,
+    "move": 779,
+    "copy": 780,
+    "cm": 781,
+    "cmd": 782,
+    "\"%USERPROFILE%\\Desktop": 783,
+    "\\\"%USERPROFILE%\\\\Desktop": 784,
+    "rese": 785,
+    "reset": 786,
+    "ress": 787,
+    "Te": 788,
+    "Temp": 789,
+    "0.88}": 790,
+    "we": 791,
+    "weath": 792,
+    "weather": 793,
+    "day": 794,
+    "short": 795,
+    "shortc": 796,
+    "shortcut": 797,
+    "keys": 798,
+    "ov": 799,
+    "over": 800,
+    "bl": 801,
+    "blue": 802,
+    "bluetoo": 803,
+    "bluetooth": 804,
+    "\"C": 805,
+    "\"C:\\": 806,
+    "\\\"C": 807,
+    "\\\"C:\\\\": 808,
+    "sen": 809,
+    "send": 810,
+    "vi": 811,
+    "via": 812,
+    "em": 813,
+    "ema": 814,
+    "emai": 815,
+    "email": 816,
+    "jpe": 817,
+    "jpeg": 818,
+    "0.99}": 819,
+    "mp3": 820,
+    "saved": 821,
+    "runn": 822,
+    "runnin": 823,
+    "running": 824,
+    "proce": 825,
+    "proces": 826,
+    "processe": 827,
+    "processes": 828,
+    "User": 829,
+    "Users": 830,
+    "tas": 831,
+    "task": 832,
+    "png": 833,
+    "mp4": 834,
+    "work": 835,
+    "cal": 836,
+    "do": 837,
+    "doc": 838,
+    "docx": 839,
+    "lef": 840,
+    "left": 841,
+    "cen": 842,
+    "center": 843,
+    "jp": 844,
+    "jpg": 845,
+    "cont": 846,
+    "contro": 847,
+    "control": 848,
+    "ca": 849,
+    "capt": 850,
+    "captu": 851,
+    "capture": 852,
+    "bot": 853,
+    "botto": 854,
+    "bottom": 855,
+    "who": 856,
+    "whoa": 857,
+    "pd": 858,
+    "pdf": 859,
+    "pain": 860,
+    "paint": 861,
+    "rig": 862,
+    "right": 863,
+    "https://www.google.com/search?q=how+to+reset": 864,
+    "https://www.google.com/search?q=how+to+reset+windows": 865,
+    "PA": 866,
+    "la": 867,
+    "ge": 868,
+    "https://www.google.com/search?q=how+to+screenshot": 869,
+    "https://www.google.com/search?q=how+to+screenshot+": 870,
+    "https://www.google.com/search?q=how+to+screenshot+on": 871,
+    "https://www.google.com/search?q=how+to+screenshot+on+windows": 872,
+    "\"%USERPROFILE%\\Desktop\\": 873,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\": 874,
+    "https://www.google.com/search?q=weather": 875,
+    "https://www.google.com/search?q=weather+to": 876,
+    "https://www.google.com/search?q=weather+today": 877,
+    "https://www.google.com/search?q=windows": 878,
+    "https://www.google.com/search?q=windows+": 879,
+    "https://www.google.com/search?q=windows+shortcut": 880,
+    "https://www.google.com/search?q=windows+shortcut+": 881,
+    "https://www.google.com/search?q=windows+shortcut+keys": 882,
+    "https://www.google.com/search?q=file": 883,
+    "https://www.google.com/search?q=file+": 884,
+    "https://www.google.com/search?q=file+transfer": 885,
+    "https://www.google.com/search?q=file+transfer+": 886,
+    "https://www.google.com/search?q=file+transfer+over": 887,
+    "https://www.google.com/search?q=file+transfer+over+": 888,
+    "https://www.google.com/search?q=file+transfer+over+bluetooth": 889,
+    "Get-N": 890,
+    "Get-Net": 891,
+    "Get-NetI": 892,
+    "Get-NetIPA": 893,
+    "Get-NetIPAdd": 894,
+    "https://www.google.com/search?q=how+to+send": 895,
+    "https://www.google.com/search?q=how+to+send+": 896,
+    "https://www.google.com/search?q=how+to+send+files": 897,
+    "https://www.google.com/search?q=how+to+send+files+": 898,
+    "https://www.google.com/search?q=how+to+send+files+via": 899,
+    "https://www.google.com/search?q=how+to+send+files+via+": 900,
+    "https://www.google.com/search?q=how+to+send+files+via+email": 901,
+    "sy": 902,
+    "sys": 903,
+    "system": 904,
+    "systemin": 905,
+    "AL": 906,
+    "/all": 907,
+    "Get-W": 908,
+    "Get-Wifi": 909,
+    "Get-WifiP": 910,
+    "Get-WifiPro": 911,
+    "Get-WifiProfile": 912,
+    "tap": 913,
+    "term": 914,
+    "termin": 915,
+    "terminal": 916,
+    "di": 917,
+    "dir": 918,
+    "\"%USERPROFILE%\\Desktop\\Backup\"": 919,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\Backup\\\"": 920,
+    "+list": 921,
+    "+list+": 922,
+    "+list+running": 923,
+    "+list+running+": 924,
+    "+list+running+processes": 925,
+    "then": 926,
+    "it": 927,
+    "user": 928,
+    "fold": 929,
+    "folder": 930,
+    "pl": 931,
+    "of": 932,
+    "ESC": 933,
+    "PE": 934,
+    "\"D": 935,
+    "\"D:\\": 936,
+    "\"D:\\Backup\"": 937,
+    "\\\"D": 938,
+    "\\\"D:\\\\": 939,
+    "\\\"D:\\\\Backup\\\"": 940,
+    "\"E": 941,
+    "\"E:\\": 942,
+    "\"E:\\Transfer": 943,
+    "\"E:\\Transfer\"": 944,
+    "\\\"E": 945,
+    "\\\"E:\\\\": 946,
+    "\\\"E:\\\\Transfer": 947,
+    "\\\"E:\\\\Transfer\\\"": 948,
+    "text": 949,
+    "*.txt": 950,
+    "netst": 951,
+    "netstat": 952,
+    "-an": 953,
+    "midd": 954,
+    "middle": 955,
+    "ESCA": 956,
+    "ms": 957,
+    "mspaint": 958,
+    "\"C:\\Temp": 959,
+    "\"C:\\Temp\\": 960,
+    "\"C:\\Temp\\Export": 961,
+    "\"C:\\Temp\\Export\"": 962,
+    "\\\"C:\\\\Temp": 963,
+    "\\\"C:\\\\Temp\\\\": 964,
+    "\\\"C:\\\\Temp\\\\Export": 965,
+    "\\\"C:\\\\Temp\\\\Export\\\"": 966,
+    "export": 967,
+    "cre": 968,
+    "creden": 969,
+    "credent": 970,
+    "credenti": 971,
+    "credential": 972,
+    "credentials": 973,
+    "get": 974,
+    "for": 975,
+    "mse": 976,
+    "msed": 977,
+    "\"%USERPROFILE%\\Pictures": 978,
+    "\\\"%USERPROFILE%\\\\Pictures": 979,
+    "start": 980,
+    "br": 981,
+    "brow": 982,
+    "browser": 983,
+    "\"%USERPROFILE%\\Downloads": 984,
+    "\\\"%USERPROFILE%\\\\Downloads": 985,
+    "2000\",": 986,
+    "loo": 987,
+    "look": 988,
+    "\"%USERPROFILE%\\Documents": 989,
+    "\\\"%USERPROFILE%\\\\Documents": 990,
+    "network": 991,
+    "networks": 992,
+    "\"C:\\Users": 993,
+    "\"C:\\Users\\": 994,
+    "\"C:\\Users\\Public": 995,
+    "\\\"C:\\\\Users": 996,
+    "\\\"C:\\\\Users\\\\": 997,
+    "\\\"C:\\\\Users\\\\Public": 998,
+    "laun": 999,
+    "launch": 1000,
+    "du": 1001,
+    "dump": 1002,
+    "workst": 1003,
+    "workstation": 1004,
+    "this": 1005,
+    "pc": 1006,
+    "\"%USERPROFILE%\\Pictures\\*.": 1007,
+    "\\\"%USERPROFILE%\\\\Pictures\\\\*.": 1008,
+    "\"%USERPROFILE%\\Downloads\\*.": 1009,
+    "\\\"%USERPROFILE%\\\\Downloads\\\\*.": 1010,
+    "press": 1011,
+    "pri": 1012,
+    "prin": 1013,
+    "print": 1014,
+    "tak": 1015,
+    "take": 1016,
+    "\"%USERPROFILE%\\Desktop\\*.": 1017,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\*.": 1018,
+    "gr": 1019,
+    "gra": 1020,
+    "grab": 1021,
+    "\"%USERPROFILE%\\Documents\\*.": 1022,
+    "\\\"%USERPROFILE%\\\\Documents\\\\*.": 1023,
+    "\"C:\\Users\\Public\\*.": 1024,
+    "\\\"C:\\\\Users\\\\Public\\\\*.": 1025,
+    "comp": 1026,
+    "compute": 1027,
+    "computer": 1028,
+    "dis": 1029,
+    "displ": 1030,
+    "display": 1031,
+    "today": 1032,
+    "jpeg\"": 1033,
+    "jpeg\\\"": 1034,
+    "KE": 1035,
+    "KEY": 1036,
+    "KEY_": 1037,
+    "mp3\"": 1038,
+    "mp3\\\"": 1039,
+    "png\"": 1040,
+    "png\\\"": 1041,
+    "mp4\"": 1042,
+    "mp4\\\"": 1043,
+    "*.txt\"": 1044,
+    "*.txt\\\"": 1045,
+    "docx\"": 1046,
+    "docx\\\"": 1047,
+    "jpg\"": 1048,
+    "jpg\\\"": 1049,
+    "ula": 1050,
+    "ulato": 1051,
+    "ulator": 1052,
+    "pdf\"": 1053,
+    "pdf\\\"": 1054,
+    "2500\",": 1055,
+    "pan": 1056,
+    "pane": 1057,
+    "panel": 1058,
+    "man": 1059,
+    "mana": 1060,
+    "manag": 1061,
+    "manager": 1062,
+    "comm": 1063,
+    "command": 1064,
+    "prom": 1065,
+    "prompt": 1066,
+    "expl": 1067,
+    "explor": 1068,
+    "explorer": 1069,
+    "\\*.txt\"": 1070,
+    "\\\\*.txt\\\"": 1071,
+    "edge": 1072,
+    "FA": 1073,
+    "T_": 1074,
+    "SH": 1075,
+    "SHI": 1076,
+    "GH": 1077,
+    "NT": 1078,
+    "TU": 1079,
+    "..": 1080,
+    "\"%USERPROFILE%\\Downloads\\*.mp3\"": 1081,
+    "\\\"%USERPROFILE%\\\\Downloads\\\\*.mp3\\\"": 1082,
+    "\"%USERPROFILE%\\Pictures\\*.mp4\"": 1083,
+    "\\\"%USERPROFILE%\\\\Pictures\\\\*.mp4\\\"": 1084,
+    "\"%USERPROFILE%\\Desktop\\*.jpeg\"": 1085,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\*.jpeg\\\"": 1086,
+    "\"%USERPROFILE%\\Pictures\\*.jpeg\"": 1087,
+    "\\\"%USERPROFILE%\\\\Pictures\\\\*.jpeg\\\"": 1088,
+    "\"%USERPROFILE%\\Desktop\\*.png\"": 1089,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\*.png\\\"": 1090,
+    "\"%USERPROFILE%\\Pictures\\*.docx\"": 1091,
+    "\\\"%USERPROFILE%\\\\Pictures\\\\*.docx\\\"": 1092,
+    "\"C:\\Users\\Public\\*.mp3\"": 1093,
+    "\\\"C:\\\\Users\\\\Public\\\\*.mp3\\\"": 1094,
+    "\"C:\\Users\\Public\\*.png\"": 1095,
+    "\\\"C:\\\\Users\\\\Public\\\\*.png\\\"": 1096,
+    "\"C:\\Users\\Public\\*.jpeg\"": 1097,
+    "\\\"C:\\\\Users\\\\Public\\\\*.jpeg\\\"": 1098,
+    "\"%USERPROFILE%\\Desktop\\*.txt\"": 1099,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\*.txt\\\"": 1100,
+    "\"%USERPROFILE%\\Documents\\*.jpeg\"": 1101,
+    "\\\"%USERPROFILE%\\\\Documents\\\\*.jpeg\\\"": 1102,
+    "\"%USERPROFILE%\\Documents\\*.pdf\"": 1103,
+    "\\\"%USERPROFILE%\\\\Documents\\\\*.pdf\\\"": 1104,
+    "\"C:\\Users\\Public\\*.mp4\"": 1105,
+    "\\\"C:\\\\Users\\\\Public\\\\*.mp4\\\"": 1106,
+    "\"%USERPROFILE%\\Documents\\*.png\"": 1107,
+    "\\\"%USERPROFILE%\\\\Documents\\\\*.png\\\"": 1108,
+    "\"%USERPROFILE%\\Desktop\\*.mp3\"": 1109,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\*.mp3\\\"": 1110,
+    "\"%USERPROFILE%\\Pictures\\*.txt\"": 1111,
+    "\\\"%USERPROFILE%\\\\Pictures\\\\*.txt\\\"": 1112,
+    "\"%USERPROFILE%\\Downloads\\*.png\"": 1113,
+    "\\\"%USERPROFILE%\\\\Downloads\\\\*.png\\\"": 1114,
+    "\"%USERPROFILE%\\Downloads\\*.docx\"": 1115,
+    "\\\"%USERPROFILE%\\\\Downloads\\\\*.docx\\\"": 1116,
+    "\"%USERPROFILE%\\Pictures\\*.jpg\"": 1117,
+    "\\\"%USERPROFILE%\\\\Pictures\\\\*.jpg\\\"": 1118,
+    "\"%USERPROFILE%\\Downloads\\*.jpeg\"": 1119,
+    "\\\"%USERPROFILE%\\\\Downloads\\\\*.jpeg\\\"": 1120,
+    "\"%USERPROFILE%\\Documents\\*.mp3\"": 1121,
+    "\\\"%USERPROFILE%\\\\Documents\\\\*.mp3\\\"": 1122,
+    "\"%USERPROFILE%\\Desktop\\*.jpg\"": 1123,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\*.jpg\\\"": 1124,
+    "\"%USERPROFILE%\\Documents\\*.mp4\"": 1125,
+    "\\\"%USERPROFILE%\\\\Documents\\\\*.mp4\\\"": 1126,
+    "\"%USERPROFILE%\\Documents\\*.docx\"": 1127,
+    "\\\"%USERPROFILE%\\\\Documents\\\\*.docx\\\"": 1128,
+    "\"%USERPROFILE%\\Desktop\\*.docx\"": 1129,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\*.docx\\\"": 1130,
+    "\"%USERPROFILE%\\Downloads\\*.mp4\"": 1131,
+    "\\\"%USERPROFILE%\\\\Downloads\\\\*.mp4\\\"": 1132,
+    "\"%USERPROFILE%\\Downloads\\*.jpg\"": 1133,
+    "\\\"%USERPROFILE%\\\\Downloads\\\\*.jpg\\\"": 1134,
+    "DEFA": 1135,
+    "DEFAU": 1136,
+    "DEFAUL": 1137,
+    "DEFAULT_": 1138,
+    "ENTE": 1139,
+    "MOUSE_MO": 1140,
+    "MOUSE_MOV": 1141,
+    "MOUSE_SC": 1142,
+    "MOUSE_SCR": 1143,
+    "MOUSE_SCRO": 1144,
+    "MOUSE_SCROL": 1145,
+    "REPE": 1146,
+    "REPEA": 1147,
+    "BI": 1148,
+    "BIO": 1149,
+    "BIOMO": 1150,
+    "BIOMOR": 1151,
+    "BIOMORP": 1152,
+    "GHOS": 1153,
+    "CA": 1154,
+    "CAS": 1155,
+    "CASU": 1156,
+    "CASUAL": 1157,
+    "CASUAL_": 1158,
+    "FAS": 1159,
+    "FAST_": 1160,
+    "FAST_T": 1161,
+    "FAST_TY": 1162,
+    "FAST_TYP": 1163,
+    "FAST_TYPI": 1164,
+    "FAST_TYPIS": 1165,
+    "SL": 1166,
+    "SLO": 1167,
+    "SLOW": 1168,
+    "SLOW_": 1169,
+    "SLOW_H": 1170,
+    "SLOW_HU": 1171,
+    "SLOW_HUNT": 1172,
+    "SLOW_HUNT_P": 1173,
+    "SLOW_HUNT_PE": 1174,
+    "EX": 1175,
+    "EXA": 1176,
+    "EXAM": 1177,
+    "EXAM_S": 1178,
+    "EXAM_STU": 1179,
+    "EXAM_STUDE": 1180,
+    "RI": 1181,
+    "RIGH": 1182,
+    "MI": 1183,
+    "MID": 1184,
+    "MIDD": 1185,
+    "BA": 1186,
+    "BACK": 1187,
+    "BACKS": 1188,
+    "BACKSPA": 1189,
+    "BACKSPAC": 1190,
+    "TA": 1191,
+    "DELE": 1192,
+    "KEY_RE": 1193,
+    "KEY_RETU": 1194,
+    "KEY_RETUR": 1195,
+    "KEY_RETURN": 1196,
+    "KEY_ESC": 1197,
+    "Move": 1198,
+    "\":\"": 1199,
+    "\",\"script\":": 1200,
+    "\",\"script\":\"": 1201,
+    "\",\"script\":\"..": 1202,
+    "\",\"script\":\"...": 1203,
+    "\",\"script\":\"...\",": 1204,
+    "\",\"script\":\"...\",\"": 1205,
+    "\":50,": 1206,
+    "\":50,\"": 1207,
+    "\":50": 1208,
+    "\":50}": 1209,
+    "\"%USERPROFILE%\\Downloads\\*.txt\"": 1210,
+    "\\\"%USERPROFILE%\\\\Downloads\\\\*.txt\\\"": 1211,
+    "\"%USERPROFILE%\\Pictures\\*.mp3\"": 1212,
+    "\\\"%USERPROFILE%\\\\Pictures\\\\*.mp3\\\"": 1213,
+    "\"%USERPROFILE%\\Documents\\*.txt\"": 1214,
+    "\\\"%USERPROFILE%\\\\Documents\\\\*.txt\\\"": 1215,
+    "\"C:\\Users\\Public\\*.txt\"": 1216,
+    "\\\"C:\\\\Users\\\\Public\\\\*.txt\\\"": 1217,
+    "\"C:\\Users\\Public\\*.jpg\"": 1218,
+    "\\\"C:\\\\Users\\\\Public\\\\*.jpg\\\"": 1219,
+    "\"%USERPROFILE%\\Documents\\*.jpg\"": 1220,
+    "\\\"%USERPROFILE%\\\\Documents\\\\*.jpg\\\"": 1221,
+    "\"C:\\Users\\Public\\*.pdf\"": 1222,
+    "\\\"C:\\\\Users\\\\Public\\\\*.pdf\\\"": 1223,
+    "\"%USERPROFILE%\\Desktop\\*.pdf\"": 1224,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\*.pdf\\\"": 1225,
+    "\"%USERPROFILE%\\Downloads\\*.pdf\"": 1226,
+    "\\\"%USERPROFILE%\\\\Downloads\\\\*.pdf\\\"": 1227,
+    "\"%USERPROFILE%\\Pictures\\*.png\"": 1228,
+    "\\\"%USERPROFILE%\\\\Pictures\\\\*.png\\\"": 1229,
+    "\"%USERPROFILE%\\Pictures\\*.pdf\"": 1230,
+    "\\\"%USERPROFILE%\\\\Pictures\\\\*.pdf\\\"": 1231,
+    "\"%USERPROFILE%\\Desktop\\*.mp4\"": 1232,
+    "\\\"%USERPROFILE%\\\\Desktop\\\\*.mp4\\\"": 1233,
+    "\"C:\\Users\\Public\\*.docx\"": 1234,
+    "\\\"C:\\\\Users\\\\Public\\\\*.docx\\\"": 1235
+  },
+  "merges": [
+    [
+      "0",
+      "0"
+    ],
+    [
+      "\"",
+      ":"
+    ],
+    [
+      "D",
+      "E"
+    ],
+    [
+      "DE",
+      "L"
+    ],
+    [
+      "DEL",
+      "A"
+    ],
+    [
+      "DELA",
+      "Y"
+    ],
+    [
+      "\\",
+      "n"
+    ],
+    [
+      "T",
+      "R"
+    ],
+    [
+      "I",
+      "N"
+    ],
+    [
+      "l",
+      "l"
+    ],
+    [
+      "s",
+      "e"
+    ],
+    [
+      "S",
+      "TR"
+    ],
+    [
+      "STR",
+      "IN"
+    ],
+    [
+      "STRIN",
+      "G"
+    ],
+    [
+      "c",
+      "t"
+    ],
+    [
+      "STRING",
+      "L"
+    ],
+    [
+      "STRINGL",
+      "N"
+    ],
+    [
+      "f",
+      "i"
+    ],
+    [
+      "o",
+      "u"
+    ],
+    [
+      "e",
+      "n"
+    ],
+    [
+      "m",
+      "ou"
+    ],
+    [
+      "mou",
+      "se"
+    ],
+    [
+      "y",
+      "_"
+    ],
+    [
+      "\"",
+      ","
+    ],
+    [
+      "mouse",
+      "_"
+    ],
+    [
+      "p",
+      "ct"
+    ],
+    [
+      "r",
+      "i"
+    ],
+    [
+      "l",
+      "e"
+    ],
+    [
+      "s",
+      "h"
+    ],
+    [
+      "n",
+      "u"
+    ],
+    [
+      "nu",
+      "ll"
+    ],
+    [
+      "null",
+      ","
+    ],
+    [
+      "G",
+      "U"
+    ],
+    [
+      "GU",
+      "I"
+    ],
+    [
+      "5",
+      "00"
+    ],
+    [
+      "o",
+      "n"
+    ],
+    [
+      "o",
+      "w"
+    ],
+    [
+      "t",
+      "o"
+    ],
+    [
+      "c",
+      "e"
+    ],
+    [
+      "c",
+      "k"
+    ],
+    [
+      "6",
+      "00"
+    ],
+    [
+      "t",
+      "e"
+    ],
+    [
+      "s",
+      "c"
+    ],
+    [
+      "00",
+      "0"
+    ],
+    [
+      "r",
+      "o"
+    ],
+    [
+      "e",
+      "x"
+    ],
+    [
+      "e",
+      "r"
+    ],
+    [
+      "ex",
+      "e"
+    ],
+    [
+      "exe",
+      "c"
+    ],
+    [
+      "c",
+      "on"
+    ],
+    [
+      "u",
+      "ck"
+    ],
+    [
+      "con",
+      "fi"
+    ],
+    [
+      "p",
+      "t"
+    ],
+    [
+      "to",
+      "o"
+    ],
+    [
+      "d",
+      "en"
+    ],
+    [
+      "{",
+      "\""
+    ],
+    [
+      "too",
+      "l"
+    ],
+    [
+      "d",
+      "uck"
+    ],
+    [
+      "duck",
+      "y_"
+    ],
+    [
+      "ducky_",
+      "exec"
+    ],
+    [
+      "\"",
+      "sc"
+    ],
+    [
+      "\"sc",
+      "ri"
+    ],
+    [
+      "\"scri",
+      "pt"
+    ],
+    [
+      "\"script",
+      "\":"
+    ],
+    [
+      "mouse_",
+      "x"
+    ],
+    [
+      "mouse_x",
+      "_"
+    ],
+    [
+      "mouse_x_",
+      "pct"
+    ],
+    [
+      "mouse_",
+      "y_"
+    ],
+    [
+      "mouse_y_",
+      "pct"
+    ],
+    [
+      "confi",
+      "den"
+    ],
+    [
+      "confiden",
+      "ce"
+    ],
+    [
+      "0",
+      "."
+    ],
+    [
+      "i",
+      "n"
+    ],
+    [
+      "m",
+      "e"
+    ],
+    [
+      "e",
+      "ll"
+    ],
+    [
+      "0.",
+      "9"
+    ],
+    [
+      "a",
+      "n"
+    ],
+    [
+      "p",
+      "ow"
+    ],
+    [
+      "pow",
+      "er"
+    ],
+    [
+      "power",
+      "sh"
+    ],
+    [
+      "powersh",
+      "ell"
+    ],
+    [
+      "c",
+      "h"
+    ],
+    [
+      "\\",
+      "\""
+    ],
+    [
+      "1",
+      "500"
+    ],
+    [
+      "a",
+      "t"
+    ],
+    [
+      "a",
+      "r"
+    ],
+    [
+      "p",
+      "a"
+    ],
+    [
+      "e",
+      "s"
+    ],
+    [
+      "U",
+      "S"
+    ],
+    [
+      "US",
+      "E"
+    ],
+    [
+      "fi",
+      "le"
+    ],
+    [
+      "2",
+      "000"
+    ],
+    [
+      "e",
+      "t"
+    ],
+    [
+      "S",
+      "t"
+    ],
+    [
+      "n",
+      "a"
+    ],
+    [
+      "na",
+      "me"
+    ],
+    [
+      "\\",
+      "\\"
+    ],
+    [
+      "n",
+      "o"
+    ],
+    [
+      "no",
+      "te"
+    ],
+    [
+      "note",
+      "pa"
+    ],
+    [
+      "notepa",
+      "d"
+    ],
+    [
+      "o",
+      "r"
+    ],
+    [
+      "i",
+      "fi"
+    ],
+    [
+      "w",
+      "ifi"
+    ],
+    [
+      "n",
+      "et"
+    ],
+    [
+      "p",
+      "ro"
+    ],
+    [
+      "1",
+      "000"
+    ],
+    [
+      "x",
+      "t"
+    ],
+    [
+      "L",
+      "E"
+    ],
+    [
+      "P",
+      "R"
+    ],
+    [
+      "e",
+      "y"
+    ],
+    [
+      "S",
+      "C"
+    ],
+    [
+      "n",
+      "g"
+    ],
+    [
+      "t",
+      "xt"
+    ],
+    [
+      "o",
+      "p"
+    ],
+    [
+      "C",
+      "TR"
+    ],
+    [
+      "CTR",
+      "L"
+    ],
+    [
+      "-",
+      "P"
+    ],
+    [
+      ".",
+      "txt"
+    ],
+    [
+      "M",
+      "O"
+    ],
+    [
+      "sh",
+      "ow"
+    ],
+    [
+      "R",
+      "E"
+    ],
+    [
+      "pro",
+      "file"
+    ],
+    [
+      "MO",
+      "USE"
+    ],
+    [
+      "MOUSE",
+      "_"
+    ],
+    [
+      "3",
+      "00"
+    ],
+    [
+      "E",
+      "N"
+    ],
+    [
+      "SC",
+      "RE"
+    ],
+    [
+      "SCRE",
+      "EN"
+    ],
+    [
+      "1",
+      "0"
+    ],
+    [
+      "T",
+      "E"
+    ],
+    [
+      "net",
+      "sh"
+    ],
+    [
+      "w",
+      "l"
+    ],
+    [
+      "wl",
+      "an"
+    ],
+    [
+      "S",
+      "e"
+    ],
+    [
+      "Se",
+      "le"
+    ],
+    [
+      "Sele",
+      "ct"
+    ],
+    [
+      "Select",
+      "-"
+    ],
+    [
+      "Select-",
+      "St"
+    ],
+    [
+      "Select-St",
+      "ri"
+    ],
+    [
+      "Select-Stri",
+      "ng"
+    ],
+    [
+      "%",
+      "{"
+    ],
+    [
+      "%{",
+      "{"
+    ],
+    [
+      "%{{",
+      "$"
+    ],
+    [
+      "name",
+      "="
+    ],
+    [
+      "name=",
+      "$"
+    ],
+    [
+      "_",
+      "."
+    ],
+    [
+      "}",
+      "}"
+    ],
+    [
+      "$",
+      "en"
+    ],
+    [
+      "$en",
+      "v"
+    ],
+    [
+      "$env",
+      ":"
+    ],
+    [
+      "$env:",
+      "TE"
+    ],
+    [
+      "$env:TE",
+      "M"
+    ],
+    [
+      "$env:TEM",
+      "P"
+    ],
+    [
+      "wifi",
+      ".txt"
+    ],
+    [
+      "p",
+      "s"
+    ],
+    [
+      "w",
+      "w"
+    ],
+    [
+      "-",
+      "F"
+    ],
+    [
+      "500",
+      "\","
+    ],
+    [
+      "D",
+      "es"
+    ],
+    [
+      "u",
+      "t"
+    ],
+    [
+      "s",
+      "s"
+    ],
+    [
+      "r",
+      "e"
+    ],
+    [
+      "a",
+      "l"
+    ],
+    [
+      "s",
+      "t"
+    ],
+    [
+      "o",
+      "o"
+    ],
+    [
+      "se",
+      "ar"
+    ],
+    [
+      "sear",
+      "ch"
+    ],
+    [
+      "t",
+      "in"
+    ],
+    [
+      "en",
+      "t"
+    ],
+    [
+      "ch",
+      "ro"
+    ],
+    [
+      "chro",
+      "me"
+    ],
+    [
+      "op",
+      "y"
+    ],
+    [
+      "k",
+      "ey"
+    ],
+    [
+      "u",
+      "e"
+    ],
+    [
+      "at",
+      "h"
+    ],
+    [
+      "g",
+      "oo"
+    ],
+    [
+      "goo",
+      "g"
+    ],
+    [
+      "goog",
+      "le"
+    ],
+    [
+      "USE",
+      "R"
+    ],
+    [
+      "1500",
+      "\","
+    ],
+    [
+      "%",
+      "USER"
+    ],
+    [
+      "%USER",
+      "PR"
+    ],
+    [
+      "%USERPR",
+      "O"
+    ],
+    [
+      "%USERPRO",
+      "F"
+    ],
+    [
+      "%USERPROF",
+      "I"
+    ],
+    [
+      "%USERPROFI",
+      "LE"
+    ],
+    [
+      "%USERPROFILE",
+      "%"
+    ],
+    [
+      "-P",
+      "ro"
+    ],
+    [
+      "-Pro",
+      "ce"
+    ],
+    [
+      "-Proce",
+      "ss"
+    ],
+    [
+      "h",
+      "t"
+    ],
+    [
+      "te",
+      "m"
+    ],
+    [
+      "c",
+      "o"
+    ],
+    [
+      "co",
+      "m"
+    ],
+    [
+      "F",
+      "T"
+    ],
+    [
+      "l",
+      "i"
+    ],
+    [
+      "ar",
+      "t"
+    ],
+    [
+      "profile",
+      "s"
+    ],
+    [
+      "LE",
+      "FT"
+    ],
+    [
+      "at",
+      "i"
+    ],
+    [
+      "ati",
+      "on"
+    ],
+    [
+      "5",
+      "0"
+    ],
+    [
+      "C",
+      "K"
+    ],
+    [
+      "l",
+      "o"
+    ],
+    [
+      "2",
+      "500"
+    ],
+    [
+      "_",
+      "S"
+    ],
+    [
+      "O",
+      "S"
+    ],
+    [
+      "_",
+      "P"
+    ],
+    [
+      "PR",
+      "IN"
+    ],
+    [
+      "PRIN",
+      "T"
+    ],
+    [
+      "PRINT",
+      "SCREEN"
+    ],
+    [
+      "SCREEN",
+      "_S"
+    ],
+    [
+      "SCREEN_S",
+      "I"
+    ],
+    [
+      "SCREEN_SI",
+      "Z"
+    ],
+    [
+      "SCREEN_SIZ",
+      "E"
+    ],
+    [
+      "MOUSE_",
+      "P"
+    ],
+    [
+      "MOUSE_P",
+      "OS"
+    ],
+    [
+      "MOUSE_POS",
+      "_P"
+    ],
+    [
+      "MOUSE_POS_P",
+      "C"
+    ],
+    [
+      "MOUSE_POS_PC",
+      "T"
+    ],
+    [
+      "MOUSE_",
+      "C"
+    ],
+    [
+      "MOUSE_C",
+      "L"
+    ],
+    [
+      "MOUSE_CL",
+      "I"
+    ],
+    [
+      "MOUSE_CLI",
+      "CK"
+    ],
+    [
+      "1",
+      "9"
+    ],
+    [
+      "19",
+      "2"
+    ],
+    [
+      "192",
+      "0"
+    ],
+    [
+      "10",
+      "8"
+    ],
+    [
+      "108",
+      "0"
+    ],
+    [
+      "1",
+      "00"
+    ],
+    [
+      "-",
+      "I"
+    ],
+    [
+      "-I",
+      "tem"
+    ],
+    [
+      "profiles",
+      ")"
+    ],
+    [
+      "\":",
+      "("
+    ],
+    [
+      "\":(",
+      "."
+    ],
+    [
+      "\":(.",
+      "+"
+    ],
+    [
+      "\":(.+",
+      ")"
+    ],
+    [
+      "\":(.+)",
+      "$"
+    ],
+    [
+      "%{{$",
+      "name=$"
+    ],
+    [
+      "%{{$name=$",
+      "_."
+    ],
+    [
+      "%{{$name=$_.",
+      "M"
+    ],
+    [
+      "%{{$name=$_.M",
+      "at"
+    ],
+    [
+      "%{{$name=$_.Mat",
+      "ch"
+    ],
+    [
+      "%{{$name=$_.Match",
+      "es"
+    ],
+    [
+      "%{{$name=$_.Matches",
+      "."
+    ],
+    [
+      "%{{$name=$_.Matches.",
+      "G"
+    ],
+    [
+      "%{{$name=$_.Matches.G",
+      "r"
+    ],
+    [
+      "%{{$name=$_.Matches.Gr",
+      "ou"
+    ],
+    [
+      "%{{$name=$_.Matches.Grou",
+      "ps"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups",
+      "["
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[",
+      "1"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1",
+      "]"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1]",
+      "."
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].",
+      "V"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].V",
+      "al"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].Val",
+      "ue"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].Value",
+      "."
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].Value.",
+      "T"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].Value.T",
+      "ri"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].Value.Tri",
+      "m"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].Value.Trim",
+      "("
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].Value.Trim(",
+      ")"
+    ],
+    [
+      "%{{$name=$_.Matches.Groups[1].Value.Trim()",
+      ";"
+    ],
+    [
+      "name=$",
+      "name"
+    ],
+    [
+      "key",
+      "="
+    ],
+    [
+      "key=",
+      "c"
+    ],
+    [
+      "key=c",
+      "le"
+    ],
+    [
+      "key=cle",
+      "ar"
+    ],
+    [
+      "key=clear",
+      "}}"
+    ],
+    [
+      "K",
+      "ey"
+    ],
+    [
+      "C",
+      "on"
+    ],
+    [
+      "Con",
+      "t"
+    ],
+    [
+      "Cont",
+      "ent"
+    ],
+    [
+      "%{{$",
+      "_."
+    ],
+    [
+      "%{{$_.",
+      "L"
+    ],
+    [
+      "%{{$_.L",
+      "in"
+    ],
+    [
+      "%{{$_.Lin",
+      "e"
+    ],
+    [
+      "%{{$_.Line",
+      "}}"
+    ],
+    [
+      "O",
+      "ut"
+    ],
+    [
+      "Out",
+      "-F"
+    ],
+    [
+      "Out-F",
+      "i"
+    ],
+    [
+      "Out-Fi",
+      "le"
+    ],
+    [
+      "$env:TEMP",
+      "\\"
+    ],
+    [
+      "$env:TEMP\\",
+      "wifi.txt"
+    ],
+    [
+      "St",
+      "art"
+    ],
+    [
+      "Start",
+      "-Process"
+    ],
+    [
+      "$env:TEMP",
+      "\\\\"
+    ],
+    [
+      "$env:TEMP\\\\",
+      "wifi.txt"
+    ],
+    [
+      "C",
+      "opy"
+    ],
+    [
+      "Copy",
+      "-Item"
+    ],
+    [
+      "4",
+      "00"
+    ],
+    [
+      "ht",
+      "t"
+    ],
+    [
+      "htt",
+      "ps"
+    ],
+    [
+      "https",
+      ":"
+    ],
+    [
+      "https:",
+      "/"
+    ],
+    [
+      "https:/",
+      "/"
+    ],
+    [
+      "https://",
+      "ww"
+    ],
+    [
+      "https://ww",
+      "w"
+    ],
+    [
+      "https://www",
+      "."
+    ],
+    [
+      "https://www.",
+      "google"
+    ],
+    [
+      "https://www.google",
+      "."
+    ],
+    [
+      "https://www.google.",
+      "com"
+    ],
+    [
+      "https://www.google.com",
+      "/"
+    ],
+    [
+      "https://www.google.com/",
+      "search"
+    ],
+    [
+      "https://www.google.com/search",
+      "?"
+    ],
+    [
+      "https://www.google.com/search?",
+      "q"
+    ],
+    [
+      "https://www.google.com/search?q",
+      "="
+    ],
+    [
+      "an",
+      "d"
+    ],
+    [
+      "-P",
+      "ath"
+    ],
+    [
+      "-",
+      "Des"
+    ],
+    [
+      "-Des",
+      "tin"
+    ],
+    [
+      "-Destin",
+      "ation"
+    ],
+    [
+      "-F",
+      "or"
+    ],
+    [
+      "-For",
+      "ce"
+    ],
+    [
+      "9",
+      "0"
+    ],
+    [
+      "u",
+      "p"
+    ],
+    [
+      "sc",
+      "re"
+    ],
+    [
+      "scre",
+      "en"
+    ],
+    [
+      "t",
+      "h"
+    ],
+    [
+      "op",
+      "en"
+    ],
+    [
+      "*",
+      "."
+    ],
+    [
+      "i",
+      "s"
+    ],
+    [
+      "B",
+      "a"
+    ],
+    [
+      "Ba",
+      "ck"
+    ],
+    [
+      "Back",
+      "up"
+    ],
+    [
+      "u",
+      "n"
+    ],
+    [
+      "w",
+      "in"
+    ],
+    [
+      "to",
+      "p"
+    ],
+    [
+      "r",
+      "an"
+    ],
+    [
+      "ran",
+      "s"
+    ],
+    [
+      "rans",
+      "f"
+    ],
+    [
+      "ransf",
+      "er"
+    ],
+    [
+      "m",
+      "p"
+    ],
+    [
+      "r",
+      "un"
+    ],
+    [
+      "win",
+      "d"
+    ],
+    [
+      "wind",
+      "ow"
+    ],
+    [
+      "window",
+      "s"
+    ],
+    [
+      "or",
+      "t"
+    ],
+    [
+      "h",
+      "ow"
+    ],
+    [
+      "1000",
+      "\","
+    ],
+    [
+      "o",
+      "t"
+    ],
+    [
+      "te",
+      "st"
+    ],
+    [
+      "8",
+      "}"
+    ],
+    [
+      "0.",
+      "8"
+    ],
+    [
+      "lo",
+      "a"
+    ],
+    [
+      "loa",
+      "d"
+    ],
+    [
+      "9",
+      "}"
+    ],
+    [
+      "c",
+      "u"
+    ],
+    [
+      "v",
+      "e"
+    ],
+    [
+      "t",
+      "y"
+    ],
+    [
+      "+",
+      "to"
+    ],
+    [
+      "file",
+      "s"
+    ],
+    [
+      "Des",
+      "k"
+    ],
+    [
+      "Desk",
+      "top"
+    ],
+    [
+      "u",
+      "te"
+    ],
+    [
+      "r",
+      "es"
+    ],
+    [
+      "\"",
+      "%USERPROFILE%"
+    ],
+    [
+      "\"%USERPROFILE%",
+      "\\"
+    ],
+    [
+      "\\\"",
+      "%USERPROFILE%"
+    ],
+    [
+      "\\\"%USERPROFILE%",
+      "\\\\"
+    ],
+    [
+      "l",
+      "\","
+    ],
+    [
+      "th",
+      "e"
+    ],
+    [
+      "\":(.+)$",
+      "\""
+    ],
+    [
+      "\"",
+      "Key"
+    ],
+    [
+      "Content",
+      "\""
+    ],
+    [
+      "\\",
+      "\":(.+)$"
+    ],
+    [
+      "\\\":(.+)$",
+      "\\\""
+    ],
+    [
+      "\\\"",
+      "Key"
+    ],
+    [
+      "Content",
+      "\\\""
+    ],
+    [
+      "a",
+      "ll"
+    ],
+    [
+      "w",
+      "or"
+    ],
+    [
+      "h",
+      "o"
+    ],
+    [
+      "p",
+      "e"
+    ],
+    [
+      "screen",
+      "sh"
+    ],
+    [
+      "screensh",
+      "ot"
+    ],
+    [
+      ":",
+      "\\"
+    ],
+    [
+      ":",
+      "\\\\"
+    ],
+    [
+      "exec",
+      "ute"
+    ],
+    [
+      "p",
+      "ort"
+    ],
+    [
+      "https://www.google.com/search?q=",
+      "how"
+    ],
+    [
+      "https://www.google.com/search?q=how",
+      "+to"
+    ],
+    [
+      "https://www.google.com/search?q=how+to",
+      "+"
+    ],
+    [
+      "G",
+      "et"
+    ],
+    [
+      "\\",
+      "*."
+    ],
+    [
+      "\\\\",
+      "*."
+    ],
+    [
+      "lo",
+      "ck"
+    ],
+    [
+      "li",
+      "st"
+    ],
+    [
+      "l",
+      "d"
+    ],
+    [
+      "0.9",
+      "6"
+    ],
+    [
+      "0.96",
+      "}"
+    ],
+    [
+      "0.9",
+      "2"
+    ],
+    [
+      "0.92",
+      "}"
+    ],
+    [
+      "0.9",
+      "7"
+    ],
+    [
+      "0.97",
+      "}"
+    ],
+    [
+      "se",
+      "r"
+    ],
+    [
+      "0.9",
+      "}"
+    ],
+    [
+      "0.9",
+      "5"
+    ],
+    [
+      "0.95",
+      "}"
+    ],
+    [
+      "t",
+      "a"
+    ],
+    [
+      "0.9",
+      "8}"
+    ],
+    [
+      "0.9",
+      "4"
+    ],
+    [
+      "0.94",
+      "}"
+    ],
+    [
+      "0.8",
+      "9}"
+    ],
+    [
+      "0.9",
+      "1"
+    ],
+    [
+      "0.91",
+      "}"
+    ],
+    [
+      "0.9",
+      "3"
+    ],
+    [
+      "0.93",
+      "}"
+    ],
+    [
+      "c",
+      "li"
+    ],
+    [
+      "cli",
+      "ck"
+    ],
+    [
+      "T",
+      "ransfer"
+    ],
+    [
+      "f",
+      "ro"
+    ],
+    [
+      "fro",
+      "m"
+    ],
+    [
+      "50",
+      ","
+    ],
+    [
+      "e",
+      "d"
+    ],
+    [
+      "10",
+      ","
+    ],
+    [
+      "E",
+      "x"
+    ],
+    [
+      "Ex",
+      "port"
+    ],
+    [
+      "t",
+      "ransfer"
+    ],
+    [
+      "90",
+      ","
+    ],
+    [
+      "s",
+      "a"
+    ],
+    [
+      "sa",
+      "ve"
+    ],
+    [
+      "O",
+      "m"
+    ],
+    [
+      "Om",
+      "n"
+    ],
+    [
+      "Omn",
+      "i"
+    ],
+    [
+      "Omni",
+      "D"
+    ],
+    [
+      "OmniD",
+      "uck"
+    ],
+    [
+      "OmniDuck",
+      "y"
+    ],
+    [
+      "pa",
+      "y"
+    ],
+    [
+      "pay",
+      "load"
+    ],
+    [
+      "execute",
+      "d"
+    ],
+    [
+      "T",
+      "h"
+    ],
+    [
+      "Th",
+      "is"
+    ],
+    [
+      "A",
+      "ut"
+    ],
+    [
+      "Aut",
+      "ho"
+    ],
+    [
+      "Autho",
+      "ri"
+    ],
+    [
+      "Authori",
+      "z"
+    ],
+    [
+      "Authoriz",
+      "ed"
+    ],
+    [
+      "se",
+      "cu"
+    ],
+    [
+      "secu",
+      "ri"
+    ],
+    [
+      "securi",
+      "ty"
+    ],
+    [
+      "te",
+      "r"
+    ],
+    [
+      "T",
+      "es"
+    ],
+    [
+      "Tes",
+      "tin"
+    ],
+    [
+      "Testin",
+      "g"
+    ],
+    [
+      "1",
+      "2"
+    ],
+    [
+      "12",
+      "3"
+    ],
+    [
+      "H",
+      "ell"
+    ],
+    [
+      "Hell",
+      "o"
+    ],
+    [
+      "W",
+      "or"
+    ],
+    [
+      "Wor",
+      "ld"
+    ],
+    [
+      "P",
+      "i"
+    ],
+    [
+      "Pi",
+      "ct"
+    ],
+    [
+      "Pict",
+      "u"
+    ],
+    [
+      "Pictu",
+      "res"
+    ],
+    [
+      "pa",
+      "ss"
+    ],
+    [
+      "pass",
+      "wor"
+    ],
+    [
+      "passwor",
+      "d"
+    ],
+    [
+      "password",
+      "s"
+    ],
+    [
+      "+",
+      "windows"
+    ],
+    [
+      "D",
+      "ow"
+    ],
+    [
+      "Dow",
+      "n"
+    ],
+    [
+      "Down",
+      "load"
+    ],
+    [
+      "Download",
+      "s"
+    ],
+    [
+      "a",
+      "y"
+    ],
+    [
+      "D",
+      "o"
+    ],
+    [
+      "Do",
+      "cu"
+    ],
+    [
+      "Docu",
+      "m"
+    ],
+    [
+      "Docum",
+      "ent"
+    ],
+    [
+      "Document",
+      "s"
+    ],
+    [
+      "P",
+      "u"
+    ],
+    [
+      "Pu",
+      "b"
+    ],
+    [
+      "Pub",
+      "li"
+    ],
+    [
+      "Publi",
+      "c"
+    ],
+    [
+      "m",
+      "i"
+    ],
+    [
+      "i",
+      "p"
+    ],
+    [
+      "ip",
+      "confi"
+    ],
+    [
+      "ipconfi",
+      "g"
+    ],
+    [
+      "Get",
+      "-"
+    ],
+    [
+      "ty",
+      "pe"
+    ],
+    [
+      "f",
+      "o"
+    ],
+    [
+      "o",
+      "ve"
+    ],
+    [
+      "Backup",
+      "\""
+    ],
+    [
+      "Backup",
+      "\\\""
+    ],
+    [
+      "d",
+      "d"
+    ],
+    [
+      "w",
+      "ri"
+    ],
+    [
+      "wri",
+      "te"
+    ],
+    [
+      "m",
+      "ove"
+    ],
+    [
+      "c",
+      "opy"
+    ],
+    [
+      "c",
+      "m"
+    ],
+    [
+      "cm",
+      "d"
+    ],
+    [
+      "\"%USERPROFILE%\\",
+      "Desktop"
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\",
+      "Desktop"
+    ],
+    [
+      "re",
+      "se"
+    ],
+    [
+      "rese",
+      "t"
+    ],
+    [
+      "res",
+      "s"
+    ],
+    [
+      "T",
+      "e"
+    ],
+    [
+      "Te",
+      "mp"
+    ],
+    [
+      "0.8",
+      "8}"
+    ],
+    [
+      "w",
+      "e"
+    ],
+    [
+      "we",
+      "ath"
+    ],
+    [
+      "weath",
+      "er"
+    ],
+    [
+      "d",
+      "ay"
+    ],
+    [
+      "sh",
+      "ort"
+    ],
+    [
+      "short",
+      "c"
+    ],
+    [
+      "shortc",
+      "ut"
+    ],
+    [
+      "key",
+      "s"
+    ],
+    [
+      "o",
+      "v"
+    ],
+    [
+      "ov",
+      "er"
+    ],
+    [
+      "b",
+      "l"
+    ],
+    [
+      "bl",
+      "ue"
+    ],
+    [
+      "blue",
+      "too"
+    ],
+    [
+      "bluetoo",
+      "th"
+    ],
+    [
+      "\"",
+      "C"
+    ],
+    [
+      "\"C",
+      ":\\"
+    ],
+    [
+      "\\\"",
+      "C"
+    ],
+    [
+      "\\\"C",
+      ":\\\\"
+    ],
+    [
+      "se",
+      "n"
+    ],
+    [
+      "sen",
+      "d"
+    ],
+    [
+      "v",
+      "i"
+    ],
+    [
+      "vi",
+      "a"
+    ],
+    [
+      "e",
+      "m"
+    ],
+    [
+      "em",
+      "a"
+    ],
+    [
+      "ema",
+      "i"
+    ],
+    [
+      "emai",
+      "l"
+    ],
+    [
+      "j",
+      "pe"
+    ],
+    [
+      "jpe",
+      "g"
+    ],
+    [
+      "0.9",
+      "9}"
+    ],
+    [
+      "mp",
+      "3"
+    ],
+    [
+      "save",
+      "d"
+    ],
+    [
+      "run",
+      "n"
+    ],
+    [
+      "runn",
+      "in"
+    ],
+    [
+      "runnin",
+      "g"
+    ],
+    [
+      "pro",
+      "ce"
+    ],
+    [
+      "proce",
+      "s"
+    ],
+    [
+      "proces",
+      "se"
+    ],
+    [
+      "processe",
+      "s"
+    ],
+    [
+      "U",
+      "ser"
+    ],
+    [
+      "User",
+      "s"
+    ],
+    [
+      "ta",
+      "s"
+    ],
+    [
+      "tas",
+      "k"
+    ],
+    [
+      "p",
+      "ng"
+    ],
+    [
+      "mp",
+      "4"
+    ],
+    [
+      "wor",
+      "k"
+    ],
+    [
+      "c",
+      "al"
+    ],
+    [
+      "cal",
+      "c"
+    ],
+    [
+      "d",
+      "o"
+    ],
+    [
+      "do",
+      "c"
+    ],
+    [
+      "doc",
+      "x"
+    ],
+    [
+      "le",
+      "f"
+    ],
+    [
+      "lef",
+      "t"
+    ],
+    [
+      "c",
+      "en"
+    ],
+    [
+      "cen",
+      "ter"
+    ],
+    [
+      "j",
+      "p"
+    ],
+    [
+      "jp",
+      "g"
+    ],
+    [
+      "con",
+      "t"
+    ],
+    [
+      "cont",
+      "ro"
+    ],
+    [
+      "contro",
+      "l"
+    ],
+    [
+      "c",
+      "a"
+    ],
+    [
+      "ca",
+      "pt"
+    ],
+    [
+      "capt",
+      "u"
+    ],
+    [
+      "captu",
+      "re"
+    ],
+    [
+      "b",
+      "ot"
+    ],
+    [
+      "bot",
+      "to"
+    ],
+    [
+      "botto",
+      "m"
+    ],
+    [
+      "w",
+      "ho"
+    ],
+    [
+      "who",
+      "a"
+    ],
+    [
+      "whoa",
+      "mi"
+    ],
+    [
+      "p",
+      "d"
+    ],
+    [
+      "pd",
+      "f"
+    ],
+    [
+      "pa",
+      "in"
+    ],
+    [
+      "pain",
+      "t"
+    ],
+    [
+      "Get",
+      "-Process"
+    ],
+    [
+      "ri",
+      "g"
+    ],
+    [
+      "rig",
+      "ht"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+",
+      "reset"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+reset",
+      "+windows"
+    ],
+    [
+      "P",
+      "A"
+    ],
+    [
+      "l",
+      "a"
+    ],
+    [
+      "g",
+      "e"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+",
+      "screenshot"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+screenshot",
+      "+"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+screenshot+",
+      "on"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+screenshot+on",
+      "+windows"
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop",
+      "\\"
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop",
+      "\\\\"
+    ],
+    [
+      "https://www.google.com/search?q=",
+      "weather"
+    ],
+    [
+      "https://www.google.com/search?q=weather",
+      "+to"
+    ],
+    [
+      "https://www.google.com/search?q=weather+to",
+      "day"
+    ],
+    [
+      "https://www.google.com/search?q=",
+      "windows"
+    ],
+    [
+      "https://www.google.com/search?q=windows",
+      "+"
+    ],
+    [
+      "https://www.google.com/search?q=windows+",
+      "shortcut"
+    ],
+    [
+      "https://www.google.com/search?q=windows+shortcut",
+      "+"
+    ],
+    [
+      "https://www.google.com/search?q=windows+shortcut+",
+      "keys"
+    ],
+    [
+      "https://www.google.com/search?q=",
+      "file"
+    ],
+    [
+      "https://www.google.com/search?q=file",
+      "+"
+    ],
+    [
+      "https://www.google.com/search?q=file+",
+      "transfer"
+    ],
+    [
+      "https://www.google.com/search?q=file+transfer",
+      "+"
+    ],
+    [
+      "https://www.google.com/search?q=file+transfer+",
+      "over"
+    ],
+    [
+      "https://www.google.com/search?q=file+transfer+over",
+      "+"
+    ],
+    [
+      "https://www.google.com/search?q=file+transfer+over+",
+      "bluetooth"
+    ],
+    [
+      "Get-",
+      "N"
+    ],
+    [
+      "Get-N",
+      "et"
+    ],
+    [
+      "Get-Net",
+      "I"
+    ],
+    [
+      "Get-NetI",
+      "PA"
+    ],
+    [
+      "Get-NetIPA",
+      "dd"
+    ],
+    [
+      "Get-NetIPAdd",
+      "ress"
+    ],
+    [
+      "task",
+      "list"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+",
+      "send"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+send",
+      "+"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+send+",
+      "files"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+send+files",
+      "+"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+send+files+",
+      "via"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+send+files+via",
+      "+"
+    ],
+    [
+      "https://www.google.com/search?q=how+to+send+files+via+",
+      "email"
+    ],
+    [
+      "s",
+      "y"
+    ],
+    [
+      "sy",
+      "s"
+    ],
+    [
+      "sys",
+      "tem"
+    ],
+    [
+      "system",
+      "in"
+    ],
+    [
+      "systemin",
+      "fo"
+    ],
+    [
+      "A",
+      "L"
+    ],
+    [
+      "/",
+      "all"
+    ],
+    [
+      "Get-",
+      "W"
+    ],
+    [
+      "Get-W",
+      "ifi"
+    ],
+    [
+      "Get-Wifi",
+      "P"
+    ],
+    [
+      "Get-WifiP",
+      "ro"
+    ],
+    [
+      "Get-WifiPro",
+      "file"
+    ],
+    [
+      "ta",
+      "p"
+    ],
+    [
+      "ter",
+      "m"
+    ],
+    [
+      "term",
+      "in"
+    ],
+    [
+      "termin",
+      "al"
+    ],
+    [
+      "d",
+      "i"
+    ],
+    [
+      "di",
+      "r"
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop\\",
+      "Backup\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop\\\\",
+      "Backup\\\""
+    ],
+    [
+      "+",
+      "list"
+    ],
+    [
+      "+list",
+      "+"
+    ],
+    [
+      "+list+",
+      "running"
+    ],
+    [
+      "+list+running",
+      "+"
+    ],
+    [
+      "+list+running+",
+      "processes"
+    ],
+    [
+      "th",
+      "en"
+    ],
+    [
+      "i",
+      "t"
+    ],
+    [
+      "u",
+      "ser"
+    ],
+    [
+      "fo",
+      "ld"
+    ],
+    [
+      "fold",
+      "er"
+    ],
+    [
+      "p",
+      "l"
+    ],
+    [
+      "o",
+      "f"
+    ],
+    [
+      "AL",
+      "T"
+    ],
+    [
+      "E",
+      "SC"
+    ],
+    [
+      "P",
+      "E"
+    ],
+    [
+      "\"",
+      "D"
+    ],
+    [
+      "\"D",
+      ":\\"
+    ],
+    [
+      "\"D:\\",
+      "Backup\""
+    ],
+    [
+      "\\\"",
+      "D"
+    ],
+    [
+      "\\\"D",
+      ":\\\\"
+    ],
+    [
+      "\\\"D:\\\\",
+      "Backup\\\""
+    ],
+    [
+      "\"",
+      "E"
+    ],
+    [
+      "\"E",
+      ":\\"
+    ],
+    [
+      "\"E:\\",
+      "Transfer"
+    ],
+    [
+      "\"E:\\Transfer",
+      "\""
+    ],
+    [
+      "\\\"",
+      "E"
+    ],
+    [
+      "\\\"E",
+      ":\\\\"
+    ],
+    [
+      "\\\"E:\\\\",
+      "Transfer"
+    ],
+    [
+      "\\\"E:\\\\Transfer",
+      "\\\""
+    ],
+    [
+      "te",
+      "xt"
+    ],
+    [
+      "*",
+      ".txt"
+    ],
+    [
+      "net",
+      "st"
+    ],
+    [
+      "netst",
+      "at"
+    ],
+    [
+      "-",
+      "an"
+    ],
+    [
+      "mi",
+      "dd"
+    ],
+    [
+      "midd",
+      "le"
+    ],
+    [
+      "ESC",
+      "A"
+    ],
+    [
+      "ESCA",
+      "PE"
+    ],
+    [
+      "m",
+      "s"
+    ],
+    [
+      "ms",
+      "paint"
+    ],
+    [
+      "\"C:\\",
+      "Temp"
+    ],
+    [
+      "\"C:\\Temp",
+      "\\"
+    ],
+    [
+      "\"C:\\Temp\\",
+      "Export"
+    ],
+    [
+      "\"C:\\Temp\\Export",
+      "\""
+    ],
+    [
+      "\\\"C:\\\\",
+      "Temp"
+    ],
+    [
+      "\\\"C:\\\\Temp",
+      "\\\\"
+    ],
+    [
+      "\\\"C:\\\\Temp\\\\",
+      "Export"
+    ],
+    [
+      "\\\"C:\\\\Temp\\\\Export",
+      "\\\""
+    ],
+    [
+      "ex",
+      "port"
+    ],
+    [
+      "c",
+      "re"
+    ],
+    [
+      "cre",
+      "den"
+    ],
+    [
+      "creden",
+      "t"
+    ],
+    [
+      "credent",
+      "i"
+    ],
+    [
+      "credenti",
+      "al"
+    ],
+    [
+      "credential",
+      "s"
+    ],
+    [
+      "g",
+      "et"
+    ],
+    [
+      "f",
+      "or"
+    ],
+    [
+      "m",
+      "se"
+    ],
+    [
+      "mse",
+      "d"
+    ],
+    [
+      "msed",
+      "ge"
+    ],
+    [
+      "\"%USERPROFILE%\\",
+      "Pictures"
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\",
+      "Pictures"
+    ],
+    [
+      "st",
+      "art"
+    ],
+    [
+      "b",
+      "r"
+    ],
+    [
+      "br",
+      "ow"
+    ],
+    [
+      "brow",
+      "ser"
+    ],
+    [
+      "\"%USERPROFILE%\\",
+      "Downloads"
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\",
+      "Downloads"
+    ],
+    [
+      "2000",
+      "\","
+    ],
+    [
+      "l",
+      "oo"
+    ],
+    [
+      "loo",
+      "k"
+    ],
+    [
+      "\"%USERPROFILE%\\",
+      "Documents"
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\",
+      "Documents"
+    ],
+    [
+      "net",
+      "work"
+    ],
+    [
+      "network",
+      "s"
+    ],
+    [
+      "\"C:\\",
+      "Users"
+    ],
+    [
+      "\"C:\\Users",
+      "\\"
+    ],
+    [
+      "\"C:\\Users\\",
+      "Public"
+    ],
+    [
+      "\\\"C:\\\\",
+      "Users"
+    ],
+    [
+      "\\\"C:\\\\Users",
+      "\\\\"
+    ],
+    [
+      "\\\"C:\\\\Users\\\\",
+      "Public"
+    ],
+    [
+      "la",
+      "un"
+    ],
+    [
+      "laun",
+      "ch"
+    ],
+    [
+      "d",
+      "u"
+    ],
+    [
+      "du",
+      "mp"
+    ],
+    [
+      "work",
+      "st"
+    ],
+    [
+      "workst",
+      "ation"
+    ],
+    [
+      "th",
+      "is"
+    ],
+    [
+      "p",
+      "c"
+    ],
+    [
+      "\"%USERPROFILE%\\Pictures",
+      "\\*."
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Pictures",
+      "\\\\*."
+    ],
+    [
+      "\"%USERPROFILE%\\Downloads",
+      "\\*."
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Downloads",
+      "\\\\*."
+    ],
+    [
+      "p",
+      "ress"
+    ],
+    [
+      "p",
+      "ri"
+    ],
+    [
+      "pri",
+      "n"
+    ],
+    [
+      "prin",
+      "t"
+    ],
+    [
+      "ta",
+      "k"
+    ],
+    [
+      "tak",
+      "e"
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop",
+      "\\*."
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop",
+      "\\\\*."
+    ],
+    [
+      "g",
+      "r"
+    ],
+    [
+      "gr",
+      "a"
+    ],
+    [
+      "gra",
+      "b"
+    ],
+    [
+      "\"%USERPROFILE%\\Documents",
+      "\\*."
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Documents",
+      "\\\\*."
+    ],
+    [
+      "\"C:\\Users\\Public",
+      "\\*."
+    ],
+    [
+      "\\\"C:\\\\Users\\\\Public",
+      "\\\\*."
+    ],
+    [
+      "com",
+      "p"
+    ],
+    [
+      "comp",
+      "ute"
+    ],
+    [
+      "compute",
+      "r"
+    ],
+    [
+      "d",
+      "is"
+    ],
+    [
+      "dis",
+      "pl"
+    ],
+    [
+      "displ",
+      "ay"
+    ],
+    [
+      "to",
+      "day"
+    ],
+    [
+      "jpeg",
+      "\""
+    ],
+    [
+      "jpeg",
+      "\\\""
+    ],
+    [
+      "K",
+      "E"
+    ],
+    [
+      "KE",
+      "Y"
+    ],
+    [
+      "KEY",
+      "_"
+    ],
+    [
+      "mp3",
+      "\""
+    ],
+    [
+      "mp3",
+      "\\\""
+    ],
+    [
+      "png",
+      "\""
+    ],
+    [
+      "png",
+      "\\\""
+    ],
+    [
+      "mp4",
+      "\""
+    ],
+    [
+      "mp4",
+      "\\\""
+    ],
+    [
+      "*.txt",
+      "\""
+    ],
+    [
+      "*.txt",
+      "\\\""
+    ],
+    [
+      "docx",
+      "\""
+    ],
+    [
+      "docx",
+      "\\\""
+    ],
+    [
+      "jpg",
+      "\""
+    ],
+    [
+      "jpg",
+      "\\\""
+    ],
+    [
+      "u",
+      "la"
+    ],
+    [
+      "ula",
+      "to"
+    ],
+    [
+      "ulato",
+      "r"
+    ],
+    [
+      "pdf",
+      "\""
+    ],
+    [
+      "pdf",
+      "\\\""
+    ],
+    [
+      "2",
+      "500\","
+    ],
+    [
+      "p",
+      "an"
+    ],
+    [
+      "pan",
+      "e"
+    ],
+    [
+      "pane",
+      "l"
+    ],
+    [
+      "m",
+      "an"
+    ],
+    [
+      "man",
+      "a"
+    ],
+    [
+      "mana",
+      "g"
+    ],
+    [
+      "manag",
+      "er"
+    ],
+    [
+      "com",
+      "m"
+    ],
+    [
+      "comm",
+      "and"
+    ],
+    [
+      "pro",
+      "m"
+    ],
+    [
+      "prom",
+      "pt"
+    ],
+    [
+      "ex",
+      "pl"
+    ],
+    [
+      "expl",
+      "or"
+    ],
+    [
+      "explor",
+      "er"
+    ],
+    [
+      "\\",
+      "*.txt\""
+    ],
+    [
+      "\\\\",
+      "*.txt\\\""
+    ],
+    [
+      "ed",
+      "ge"
+    ],
+    [
+      "F",
+      "A"
+    ],
+    [
+      "T",
+      "_"
+    ],
+    [
+      "S",
+      "H"
+    ],
+    [
+      "SH",
+      "I"
+    ],
+    [
+      "SHI",
+      "FT"
+    ],
+    [
+      "G",
+      "H"
+    ],
+    [
+      "N",
+      "T"
+    ],
+    [
+      "T",
+      "U"
+    ],
+    [
+      ".",
+      "."
+    ],
+    [
+      "\"%USERPROFILE%\\Downloads\\*.",
+      "mp3\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Downloads\\\\*.",
+      "mp3\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Pictures\\*.",
+      "mp4\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Pictures\\\\*.",
+      "mp4\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop\\*.",
+      "jpeg\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop\\\\*.",
+      "jpeg\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Pictures\\*.",
+      "jpeg\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Pictures\\\\*.",
+      "jpeg\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop\\*.",
+      "png\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop\\\\*.",
+      "png\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Pictures\\*.",
+      "docx\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Pictures\\\\*.",
+      "docx\\\""
+    ],
+    [
+      "\"C:\\Users\\Public\\*.",
+      "mp3\""
+    ],
+    [
+      "\\\"C:\\\\Users\\\\Public\\\\*.",
+      "mp3\\\""
+    ],
+    [
+      "\"C:\\Users\\Public\\*.",
+      "png\""
+    ],
+    [
+      "\\\"C:\\\\Users\\\\Public\\\\*.",
+      "png\\\""
+    ],
+    [
+      "\"C:\\Users\\Public\\*.",
+      "jpeg\""
+    ],
+    [
+      "\\\"C:\\\\Users\\\\Public\\\\*.",
+      "jpeg\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop\\",
+      "*.txt\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop\\\\",
+      "*.txt\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Documents\\*.",
+      "jpeg\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Documents\\\\*.",
+      "jpeg\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Documents\\*.",
+      "pdf\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Documents\\\\*.",
+      "pdf\\\""
+    ],
+    [
+      "\"C:\\Users\\Public\\*.",
+      "mp4\""
+    ],
+    [
+      "\\\"C:\\\\Users\\\\Public\\\\*.",
+      "mp4\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Documents\\*.",
+      "png\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Documents\\\\*.",
+      "png\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop\\*.",
+      "mp3\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop\\\\*.",
+      "mp3\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Pictures",
+      "\\*.txt\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Pictures",
+      "\\\\*.txt\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Downloads\\*.",
+      "png\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Downloads\\\\*.",
+      "png\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Downloads\\*.",
+      "docx\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Downloads\\\\*.",
+      "docx\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Pictures\\*.",
+      "jpg\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Pictures\\\\*.",
+      "jpg\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Downloads\\*.",
+      "jpeg\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Downloads\\\\*.",
+      "jpeg\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Documents\\*.",
+      "mp3\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Documents\\\\*.",
+      "mp3\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop\\*.",
+      "jpg\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop\\\\*.",
+      "jpg\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Documents\\*.",
+      "mp4\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Documents\\\\*.",
+      "mp4\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Documents\\*.",
+      "docx\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Documents\\\\*.",
+      "docx\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop\\*.",
+      "docx\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop\\\\*.",
+      "docx\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Downloads\\*.",
+      "mp4\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Downloads\\\\*.",
+      "mp4\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Downloads\\*.",
+      "jpg\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Downloads\\\\*.",
+      "jpg\\\""
+    ],
+    [
+      "DE",
+      "FA"
+    ],
+    [
+      "DEFA",
+      "U"
+    ],
+    [
+      "DEFAU",
+      "L"
+    ],
+    [
+      "DEFAUL",
+      "T_"
+    ],
+    [
+      "DEFAULT_",
+      "DELAY"
+    ],
+    [
+      "EN",
+      "TE"
+    ],
+    [
+      "ENTE",
+      "R"
+    ],
+    [
+      "MOUSE_",
+      "MO"
+    ],
+    [
+      "MOUSE_MO",
+      "V"
+    ],
+    [
+      "MOUSE_MOV",
+      "E"
+    ],
+    [
+      "MOUSE_",
+      "SC"
+    ],
+    [
+      "MOUSE_SC",
+      "R"
+    ],
+    [
+      "MOUSE_SCR",
+      "O"
+    ],
+    [
+      "MOUSE_SCRO",
+      "L"
+    ],
+    [
+      "MOUSE_SCROL",
+      "L"
+    ],
+    [
+      "RE",
+      "PE"
+    ],
+    [
+      "REPE",
+      "A"
+    ],
+    [
+      "REPEA",
+      "T"
+    ],
+    [
+      "B",
+      "I"
+    ],
+    [
+      "BI",
+      "O"
+    ],
+    [
+      "BIO",
+      "MO"
+    ],
+    [
+      "BIOMO",
+      "R"
+    ],
+    [
+      "BIOMOR",
+      "P"
+    ],
+    [
+      "BIOMORP",
+      "H"
+    ],
+    [
+      "GH",
+      "OS"
+    ],
+    [
+      "GHOS",
+      "T"
+    ],
+    [
+      "C",
+      "A"
+    ],
+    [
+      "CA",
+      "S"
+    ],
+    [
+      "CAS",
+      "U"
+    ],
+    [
+      "CASU",
+      "AL"
+    ],
+    [
+      "CASUAL",
+      "_"
+    ],
+    [
+      "CASUAL_",
+      "USER"
+    ],
+    [
+      "FA",
+      "S"
+    ],
+    [
+      "FAS",
+      "T_"
+    ],
+    [
+      "FAST_",
+      "T"
+    ],
+    [
+      "FAST_T",
+      "Y"
+    ],
+    [
+      "FAST_TY",
+      "P"
+    ],
+    [
+      "FAST_TYP",
+      "I"
+    ],
+    [
+      "FAST_TYPI",
+      "S"
+    ],
+    [
+      "FAST_TYPIS",
+      "T"
+    ],
+    [
+      "S",
+      "L"
+    ],
+    [
+      "SL",
+      "O"
+    ],
+    [
+      "SLO",
+      "W"
+    ],
+    [
+      "SLOW",
+      "_"
+    ],
+    [
+      "SLOW_",
+      "H"
+    ],
+    [
+      "SLOW_H",
+      "U"
+    ],
+    [
+      "SLOW_HU",
+      "NT"
+    ],
+    [
+      "SLOW_HUNT",
+      "_P"
+    ],
+    [
+      "SLOW_HUNT_P",
+      "E"
+    ],
+    [
+      "SLOW_HUNT_PE",
+      "CK"
+    ],
+    [
+      "E",
+      "X"
+    ],
+    [
+      "EX",
+      "A"
+    ],
+    [
+      "EXA",
+      "M"
+    ],
+    [
+      "EXAM",
+      "_S"
+    ],
+    [
+      "EXAM_S",
+      "TU"
+    ],
+    [
+      "EXAM_STU",
+      "DE"
+    ],
+    [
+      "EXAM_STUDE",
+      "NT"
+    ],
+    [
+      "R",
+      "I"
+    ],
+    [
+      "RI",
+      "GH"
+    ],
+    [
+      "RIGH",
+      "T"
+    ],
+    [
+      "M",
+      "I"
+    ],
+    [
+      "MI",
+      "D"
+    ],
+    [
+      "MID",
+      "D"
+    ],
+    [
+      "MIDD",
+      "LE"
+    ],
+    [
+      "B",
+      "A"
+    ],
+    [
+      "BA",
+      "CK"
+    ],
+    [
+      "BACK",
+      "S"
+    ],
+    [
+      "BACKS",
+      "PA"
+    ],
+    [
+      "BACKSPA",
+      "C"
+    ],
+    [
+      "BACKSPAC",
+      "E"
+    ],
+    [
+      "T",
+      "A"
+    ],
+    [
+      "TA",
+      "B"
+    ],
+    [
+      "DEL",
+      "E"
+    ],
+    [
+      "DELE",
+      "TE"
+    ],
+    [
+      "KEY_",
+      "RE"
+    ],
+    [
+      "KEY_RE",
+      "TU"
+    ],
+    [
+      "KEY_RETU",
+      "R"
+    ],
+    [
+      "KEY_RETUR",
+      "N"
+    ],
+    [
+      "KEY_",
+      "ESC"
+    ],
+    [
+      "M",
+      "ove"
+    ],
+    [
+      "Move",
+      "-Item"
+    ],
+    [
+      "\":",
+      "\""
+    ],
+    [
+      "\",",
+      "\"script\":"
+    ],
+    [
+      "\",\"script\":",
+      "\""
+    ],
+    [
+      "\",\"script\":\"",
+      ".."
+    ],
+    [
+      "\",\"script\":\"..",
+      "."
+    ],
+    [
+      "\",\"script\":\"...",
+      "\","
+    ],
+    [
+      "\",\"script\":\"...\",",
+      "\""
+    ],
+    [
+      "\":",
+      "50,"
+    ],
+    [
+      "\":50,",
+      "\""
+    ],
+    [
+      "\":",
+      "50"
+    ],
+    [
+      "\":50",
+      "}"
+    ],
+    [
+      "\"%USERPROFILE%\\Downloads",
+      "\\*.txt\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Downloads",
+      "\\\\*.txt\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Pictures\\*.",
+      "mp3\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Pictures\\\\*.",
+      "mp3\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Documents",
+      "\\*.txt\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Documents",
+      "\\\\*.txt\\\""
+    ],
+    [
+      "\"C:\\Users\\Public",
+      "\\*.txt\""
+    ],
+    [
+      "\\\"C:\\\\Users\\\\Public",
+      "\\\\*.txt\\\""
+    ],
+    [
+      "\"C:\\Users\\Public\\*.",
+      "jpg\""
+    ],
+    [
+      "\\\"C:\\\\Users\\\\Public\\\\*.",
+      "jpg\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Documents\\*.",
+      "jpg\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Documents\\\\*.",
+      "jpg\\\""
+    ],
+    [
+      "\"C:\\Users\\Public\\*.",
+      "pdf\""
+    ],
+    [
+      "\\\"C:\\\\Users\\\\Public\\\\*.",
+      "pdf\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop\\*.",
+      "pdf\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop\\\\*.",
+      "pdf\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Downloads\\*.",
+      "pdf\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Downloads\\\\*.",
+      "pdf\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Pictures\\*.",
+      "png\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Pictures\\\\*.",
+      "png\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Pictures\\*.",
+      "pdf\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Pictures\\\\*.",
+      "pdf\\\""
+    ],
+    [
+      "\"%USERPROFILE%\\Desktop\\*.",
+      "mp4\""
+    ],
+    [
+      "\\\"%USERPROFILE%\\\\Desktop\\\\*.",
+      "mp4\\\""
+    ],
+    [
+      "\"C:\\Users\\Public\\*.",
+      "docx\""
+    ],
+    [
+      "\\\"C:\\\\Users\\\\Public\\\\*.",
+      "docx\\\""
+    ]
+  ],
+  "version": 1,
+  "vocab_size": 1236,
+  "special_ids": {
+    "pad": 0,
+    "bos": 1,
+    "eos": 2,
+    "unk": 3
+  }
+}

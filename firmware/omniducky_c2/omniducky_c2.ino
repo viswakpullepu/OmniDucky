@@ -1041,6 +1041,13 @@ void executeDuckyScript(const String& script) {
 
     if (defaultDelay > 0) delay(defaultDelay);
 
+    // Track previous executable line for REPEAT (skip meta-commands)
+    if (!line.startsWith("REPEAT ") && !line.startsWith("DEFAULT_DELAY ") &&
+        !line.startsWith("DEFAULTDELAY ") && !line.startsWith("BIOMORPH ") &&
+        !line.startsWith("DELAY ") && !line.startsWith("REM")) {
+      prevLine = line;
+    }
+
     // DELAY <ms>
     if (line.startsWith("DELAY ")) {
       int ms = line.substring(6).toInt();
@@ -1049,6 +1056,47 @@ void executeDuckyScript(const String& script) {
     // DEFAULT_DELAY <ms>
     else if (line.startsWith("DEFAULT_DELAY ") || line.startsWith("DEFAULTDELAY ")) {
       defaultDelay = line.substring(line.indexOf(' ') + 1).toInt();
+    }
+    // REPEAT <N> — re-executes the previous command line N additional times
+    else if (line.startsWith("REPEAT ")) {
+      int repeatCount = line.substring(7).toInt();
+      if (repeatCount > 0 && prevLine.length() > 0) {
+        for (int r = 0; r < repeatCount; r++) {
+          if (defaultDelay > 0) delay(defaultDelay);
+          // Inline-execute prevLine (all command types supported)
+          if (prevLine.startsWith("STRING ")) {
+            bioMorphTypeString(prevLine.substring(7), false);
+          } else if (prevLine.startsWith("STRINGLN ")) {
+            bioMorphTypeString(prevLine.substring(9), true);
+          } else if (prevLine.startsWith("MOUSE_MOVE ")) {
+            String a = prevLine.substring(11);
+            int sp = a.indexOf(' ');
+            if (sp > 0) usbMouse.move(a.substring(0, sp).toInt(), a.substring(sp+1).toInt());
+          } else if (prevLine.startsWith("MOUSE_CLICK")) {
+            uint8_t btn = MOUSE_LEFT;
+            if (prevLine.indexOf("RIGHT") > 0) btn = MOUSE_RIGHT;
+            else if (prevLine.indexOf("MIDDLE") > 0) btn = MOUSE_MIDDLE;
+            usbMouse.click(btn); delay(40);
+          } else if (prevLine.startsWith("MOUSE_SCROLL ")) {
+            usbMouse.move(0, 0, prevLine.substring(13).toInt());
+          } else if (prevLine.startsWith("DELAY ")) {
+            delay(prevLine.substring(6).toInt());
+          } else if (isDuckyLine(prevLine)) {
+            String upper = prevLine; upper.toUpperCase();
+            int p2 = 0;
+            while (p2 < upper.length()) {
+              int ns = upper.indexOf(' ', p2); if (ns == -1) ns = upper.length();
+              String tok = upper.substring(p2, ns); tok.trim(); p2 = ns + 1;
+              if (tok.length() == 0) continue;
+              if (tok == "GUI" || tok == "WIN" || tok == "CTRL" || tok == "ALT" || tok == "SHIFT") pressModifier(tok);
+              else { if (tok.length() == 1) tok.toLowerCase(); pressKey(tok); }
+            }
+            delay(80); usbKeyboard.releaseAll(); delay(30);
+          } else {
+            bioMorphTypeString(prevLine, true);
+          }
+        }
+      }
     }
     // BIOMORPH <GHOST|CASUAL_USER|FAST_TYPIST|SLOW_HUNT_PECK|EXAM_STUDENT>
     // Sets the active BioMorph profile for all subsequent STRING/STRINGLN/raw-text
