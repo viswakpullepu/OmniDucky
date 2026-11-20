@@ -655,37 +655,16 @@ int main() {
       t = t.replace(/\bfor\s+for\b/g, 'for');
       t = t.replace(/\bnote\s*pad\b/g, 'notepad');
       t = t.replace(/\btask\s*mgr\b/g, 'task manager');
-      t = t.replace(/\bip\s+address(es)?\b/g, 'ip address');
-      t = t.replace(/\bthe\s+ip\b/g, 'ip address');
-      t = t.replace(/\bcontact\s+form\b/g, 'contact form');
-      t = t.replace(/\bscroll\s+down\s+to\b/g, 'scroll to');
-      t = t.replace(/\bscroll\s+to\s+the\b/g, 'scroll to');
-      t = t.replace(/\bfill\s+(?:in\s+)?(?:the\s+)?/g, 'fill ');
-      t = t.replace(/\bfill\s+(?:up\s+)?(?:the\s+)?/g, 'fill ');
-      t = t.replace(/\bput\s+(?:the\s+)?/g, 'fill ');
-      t = t.replace(/\benter\s+(?:the\s+)?(?:value\s+)?(?:of\s+)?/g, 'fill ');
-      t = t.replace(/\btype\s+(?:in\s+)?(?:the\s+)?/g, 'fill ');
-      t = t.replace(/\bwith\s+(?:a\s+)?random\s+/g, 'with random ');
-      t = t.replace(/\bclick\s+(?:the\s+)?submit\s+button\b/g, 'submit form');
-      t = t.replace(/\bclick\s+(?:the\s+)?send\s+button\b/g, 'submit form');
-      t = t.replace(/\bpress\s+(?:the\s+)?submit\b/g, 'submit form');
-      t = t.replace(/\bpress\s+(?:the\s+)?send\b/g, 'submit form');
-      t = t.replace(/\band\s+copy\s+(?:the\s+)?ip\b/g, 'and copy ip address');
-      t = t.replace(/\bip\s+adress\b/g, 'ip address'); // typo fix
+      t = t.replace(/\bip\s+adress\b/g, 'ip address');
+      t = t.replace(/\bthe\s+ip\s+address\b/g, 'the ip');
+      t = t.replace(/\bscroll\s+(?:down\s+)?to\s+(?:the\s+)?/g, 'scroll to ');
+      t = t.replace(/\bclick\s+(?:on\s+)?(?:the\s+)?(?:submit|send)\s*(?:button)?\b/g, 'submit form');
+      t = t.replace(/\bpress\s+(?:the\s+)?(?:submit|send)\b/g, 'submit form');
 
       // ── 2. MULTI-STEP CLAUSE SPLITTER ──
-      // Splits on logical connectors: "and then", "then", "and <verb>", ";", ","
-      const rawParts = t.split(/(?:,\s*(?:and\s+then|then|and)\s+|\s+(?:and\s+then|then)\s+|;\s*|,\s+(?=(?:open|launch|run|navigate|go|scroll|fill|click|search|type|write|save|copy|paste|close|submit|press|hit|wait|minimize|maximize|take)\b))/i);
-      const clauses = [];
-      for (let p of rawParts) {
-        p = p.trim();
-        if (!p) continue;
-        // Secondary verb split: "and <action verb>" at clause boundaries
-        const subParts = p.split(/\s+and\s+(?=(?:search|type|write|click|select|press|hit|open|launch|run|save|copy|paste|close|lock|wait|minimize|maximize|scroll|fill|submit|navigate|go|visit)\b)/i);
-        for (let sp of subParts) {
-          if (sp.trim()) clauses.push(sp.trim());
-        }
-      }
+      // Splits on logical connectors, prepositions ("in the description fill..."), and action verbs
+      const splitPattern = /(?:,\s*(?:and\s+then|then|and)\s+|\s+(?:and\s+then|then)\s+|;\s*|,\s*|\s+and\s+(?=(?:in\s+[\w\s]+\s+fill|open|launch|run|navigate|go|visit|scroll|fill|type|write|click|select|press|hit|save|copy|paste|close|lock|wait|minimize|maximize|submit|search|find)\b))/i;
+      const clauses = t.split(splitPattern).map(s => s.trim()).filter(Boolean);
 
       // ── 3. STATE MACHINE ──
       let activeApp = null;    // current focused application
@@ -761,29 +740,26 @@ int main() {
         // ── RUN IPCONFIG (special: auto-capture output to clipboard) ──
         // "run ipconfig" or "run ipconfig and copy the ip address"
         if (/(?:run|execute)\s+ipconfig/i.test(c) || /ipconfig/i.test(c)) {
+          const wantDetails = /details|systeminfo|machine/i.test(rawText);
+          const psCommand = wantDetails 
+            ? '(ipconfig; systeminfo | Select-String "OS Name","Total Physical Memory","Host Name") | Out-String | Set-Clipboard'
+            : 'ipconfig | Out-String | Set-Clipboard';
+          
           if (activeApp === 'powershell' || activeApp === 'cmd') {
-            if (/copy\s+(?:the\s+)?ip|capture|save\s+(?:the\s+)?ip/i.test(c) || 
-                (i + 1 < clauses.length && /(?:copy|paste|fill)\s+(?:the\s+)?ip|ip\s+address/i.test(clauses[i+1]))) {
-              // Pipe ipconfig output to clipboard via PowerShell
-              lines.push(
-                'REM Run ipconfig and pipe output directly to clipboard',
-                'STRING ipconfig | Out-String | Set-Clipboard',
-                'ENTER',
-                'DELAY 1500',
-                'REM Clipboard now contains full ipconfig output'
-              );
-              clipboardState = 'ip_address';
-            } else {
-              lines.push('STRING ipconfig', 'ENTER', 'DELAY 1200');
-            }
+            lines.push(
+              'REM Run ipconfig and pipe output directly to clipboard',
+              'STRING ' + psCommand,
+              'ENTER',
+              'DELAY 2000',
+              'REM Clipboard now contains full network and machine output'
+            );
           } else {
-            // Open powershell first if no active terminal
             lines.push('GUI r', 'DELAY 600', 'STRINGLN powershell', 'DELAY 2000',
-                        'STRING ipconfig | Out-String | Set-Clipboard', 'ENTER', 'DELAY 1500',
-                        'REM Clipboard now contains full ipconfig output');
+                       'STRING ' + psCommand, 'ENTER', 'DELAY 2000',
+                       'REM Clipboard now contains full network and machine output');
             activeApp = 'powershell';
-            clipboardState = 'ip_address';
           }
+          clipboardState = 'ip_address';
           continue;
         }
 
@@ -839,34 +815,37 @@ int main() {
         }
 
         // ── FILL FORM FIELD BY LABEL ──
-        // e.g. "fill the email box with a random email"
-        // e.g. "fill the description with the ip address"
-        // e.g. "fill name with John"
-        const fillMatch = c.match(/fill\s+(?:the\s+)?(.+?)\s+(?:box|field|input|area|section|with)\s+(?:with\s+)?(.+)/i) ||
-                          c.match(/fill\s+(?:the\s+)?(.+?)\s+with\s+(.+)/i);
-        if (fillMatch) {
-          const fieldLabel = fillMatch[1].trim();
-          const valueExpr  = fillMatch[2].trim();
+        let fieldLabel = null;
+        let valueExpr = null;
 
-          // Click into field via TAB navigation (TAB-based since mouse coords are unknown)
-          if (formTabIndex === 0) {
-            lines.push('REM TAB-navigate to first form field');
-            lines.push('TAB', 'DELAY 300');
-          } else {
-            lines.push('TAB', 'DELAY 300');
-          }
-          formTabIndex++;
+        const fillMatch1 = c.match(/(?:fill\s+(?:in\s+)?(?:the\s+)?)(.+?)\s+(?:box|field|input|area)?\s*with\s+(.+)/i);
+        const fillMatch2 = c.match(/in\s+(?:the\s+)?(.+?)\s+(?:box|field|input|area)?\s*fill\s+(?:the\s+|with\s+)?(.+)/i);
+        const fillMatch3 = c.match(/fill\s+(?:the\s+)?(.+?)\s+(?:box|field|input|area)?\s+(?:with\s+)?(.+)/i);
 
-          // Clear any existing value in field
+        if (fillMatch1) {
+          fieldLabel = fillMatch1[1].trim();
+          valueExpr = fillMatch1[2].trim();
+        } else if (fillMatch2) {
+          fieldLabel = fillMatch2[1].trim();
+          valueExpr = fillMatch2[2].trim();
+        } else if (fillMatch3 && !/file|screen|window/i.test(fillMatch3[1])) {
+          fieldLabel = fillMatch3[1].trim();
+          valueExpr = fillMatch3[2].trim();
+        }
+
+        if (fieldLabel && valueExpr) {
+          lines.push('REM TAB to: ' + fieldLabel);
+          lines.push('TAB', 'DELAY 300');
           lines.push('CTRL a', 'DELAY 100', 'DELETE', 'DELAY 100');
+          formTabIndex++;
 
           // Resolve the value
           if (/random\s+(?:email|mail|e-mail)/i.test(valueExpr)) {
             lines.push('REM Fill ' + fieldLabel + ' with random email');
             lines.push('STRING ' + randomEmail());
-          } else if (/(?:the\s+)?ip\s*address|ipconfig|ip\s+info|machine\s+(?:info|detail)/i.test(valueExpr)) {
+          } else if (/(?:the\s+)?ip|machine|details|info/i.test(valueExpr)) {
             if (clipboardState === 'ip_address') {
-              lines.push('REM Paste clipboard (ipconfig output) into ' + fieldLabel);
+              lines.push('REM Paste clipboard (network/machine info) into ' + fieldLabel);
               lines.push('CTRL v');
             } else {
               lines.push('REM [WARN] No IP in clipboard yet — inserting placeholder');
